@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POLYGENIK — Art / Science / Technology Collective</title>
+<meta name="description" content="POLYGENIK is a collective of projects at the intersection of biology, technology, art, and community. We build things that shouldn't exist yet.">
+<meta property="og:title" content="POLYGENIK — We Build Things That Shouldn't Exist Yet">
+<meta property="og:description" content="A collective of projects at the intersection of biology, technology, art, and community.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://polygenik.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════
+   POLYGENIK — Brand Identity System
+   Colors, Typography, Reset
+   ═══════════════════════════════════════════════════════ */
+:root {
+  --bg-primary: #0a0a0c;
+  --bg-secondary: #111116;
+  --bg-card: #16161c;
+  --bg-card-hover: #1c1c24;
+  --text-primary: #e8e6e3;
+  --text-secondary: #8a8a96;
+  --text-muted: #55555f;
+  --border: #2a2a34;
+  --border-hover: #3a3a48;
+
+  /* Project Accent Colors */
+  --crows-nest: #39ff14;
+  --crows-nest-secondary: #c9a84c;
+  --bioform: #00FFD4;
+  --mr-e: #6B21A8;
+  --mr-e-secondary: #d4a017;
+  --visceral: #8B0000;
+  --visceral-secondary: #f5f0eb;
+  --bff: #1a5c2a;
+  --bff-secondary: #d4a017;
+  --fathomm: #0a1628;
+  --fathomm-accent: #00d4ff;
+  --california-shine: #D4A017;
+  --california-shine-secondary: #b87333;
+  --toothpencil: #98FB98;
+  --toothpencil-secondary: #FFD700;
+  --spira: #0066CC;
+  --spira-secondary: #2d8f4e;
+  --cellsius: #00b4d8;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #2a2a34 #0a0a0c;
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(0, 255, 212, 0.2);
+  color: #fff;
+}
+
+/* ═══════════════════════════════════════════════════════
+   Canvas / Particle Background
+   ═══════════════════════════════════════════════════════ */
+#particle-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* ═══════════════════════════════════════════════════════
+   Navigation
+   ═══════════════════════════════════════════════════════ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.25rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.4s, backdrop-filter 0.4s;
+}
+
+nav.scrolled {
+  background: rgba(10, 10, 12, 0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.35em;
+  color: var(--text-primary);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.nav-logo span {
+  color: var(--bioform);
+  font-weight: 400;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--bioform);
+  transition: width 0.3s;
+}
+
+.nav-links a:hover { color: var(--text-primary); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+
+.nav-hamburger span {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: var(--text-primary);
+  transition: all 0.3s;
+}
+
+/* ═══════════════════════════════════════════════════════
+   Section Shared
+   ═══════════════════════════════════════════════════════ */
+section {
+  position: relative;
+  z-index: 1;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.section-label::before {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: var(--text-muted);
+}
+
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════════════════ */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  padding: 2rem;
+}
+
+.hero-wordmark {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(3.5rem, 10vw, 8rem);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #e8e6e3 0%, #b8b6b3 40%, var(--bioform) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 8s ease-in-out infinite alternate;
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% 50%; filter: brightness(1); }
+  50% { filter: brightness(1.1); }
+  100% { background-position: 100% 50%; filter: brightness(1); }
+}
+
+.hero-tagline {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(0.75rem, 1.5vw, 1rem);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 3rem;
+  max-width: 600px;
+}
+
+.hero-tagline em {
+  font-style: normal;
+  color: var(--bioform);
+}
+
+.hero-scroll-indicator {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  opacity: 0.4;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.hero-scroll-indicator span {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--bioform), transparent);
+  animation: scrollDown 2s ease-in-out infinite;
+}
+
+@keyframes scrollDown {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   THE COLLECTIVE (Manifesto)
+   ═══════════════════════════════════════════════════════ */
+#collective {
+  padding: 8rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.manifesto {
+  max-width: 720px;
+}
+
+.manifesto-text {
+  font-size: 1.35rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+
+.manifesto-text strong {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.manifesto-quote {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--bioform);
+  margin-top: 3rem;
+}
+
+.manifesto-domains {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 3rem;
+}
+
+.domain-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--text-secondary);
+  transition: all 0.3s;
+}
+
+.domain-tag:hover {
+  border-color: var(--bioform);
+  color: var(--bioform);
+}
+
+/* ═══════════════════════════════════════════════════════
+   THE PROJECTS
+   ═══════════════════════════════════════════════════════ */
+#projects {
+  padding: 8rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+}
+
+.filter-btn {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.45rem 0.9rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: 2px;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  border-color: var(--bioform);
+  color: var(--bioform);
+  background: rgba(0, 255, 212, 0.05);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.25rem;
+}
+
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.project-card:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+}
+
+.project-card:hover::before { opacity: 1; }
+
+.card-header {
+  padding: 1.75rem 1.75rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.card-status {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: 2px;
+  background: rgba(0, 255, 212, 0.08);
+  color: var(--bioform);
+  border: 1px solid rgba(0, 255, 212, 0.15);
+}
+
+.card-status.dev {
+  background: rgba(212, 160, 23, 0.08);
+  color: #d4a017;
+  border-color: rgba(212, 160, 23, 0.15);
+}
+
+.card-status.concept {
+  background: rgba(138, 138, 150, 0.08);
+  color: var(--text-secondary);
+  border-color: rgba(138, 138, 150, 0.15);
+}
+
+.card-body {
+  padding: 1.25rem 1.75rem 1.75rem;
+}
+
+.card-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.card-desc {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.card-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 2px;
+}
+
+/* Expanded card */
+.project-card.expanded {
+  grid-column: 1 / -1;
+}
+
+.card-expanded-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), padding 0.5s;
+  padding: 0 1.75rem;
+}
+
+.project-card.expanded .card-expanded-content {
+  max-height: 400px;
+  padding: 0 1.75rem 1.75rem;
+}
+
+.expanded-details {
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.detail-section h4 {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.detail-section p, .detail-section a {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.detail-section a {
+  color: var(--bioform);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.detail-section a:hover { border-color: var(--bioform); }
+
+.card-close-hint {
+  display: none;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
+.project-card.expanded .card-close-hint { display: block; }
+
+/* ═══════════════════════════════════════════════════════
+   THE PEOPLE
+   ═══════════════════════════════════════════════════════ */
+#people {
+  padding: 8rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.person-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2rem;
+  transition: all 0.3s;
+}
+
+.person-card:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+}
+
+.person-card.founder {
+  border-color: rgba(0, 255, 212, 0.2);
+}
+
+.person-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+}
+
+.person-card.founder .person-avatar {
+  border-color: var(--bioform);
+  color: var(--bioform);
+}
+
+.person-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.person-role {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.person-projects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.person-project-tag {
+  font-size: 0.6rem;
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 0.05em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════════════════
+   THE THREAD
+   ═══════════════════════════════════════════════════════ */
+#thread {
+  padding: 8rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.thread-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin: 4rem 0;
+  flex-wrap: wrap;
+}
+
+.thread-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.5rem 2rem;
+  position: relative;
+  transition: all 0.3s;
+  cursor: default;
+}
+
+.thread-node:hover .thread-circle {
+  transform: scale(1.15);
+  box-shadow: 0 0 30px var(--node-color);
+}
+
+.thread-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 2px solid var(--node-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  transition: all 0.4s;
+  background: rgba(0,0,0,0.5);
+}
+
+.thread-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.thread-sublabel {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 110px;
+}
+
+.thread-connector {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(to right, var(--from-color), var(--to-color));
+  opacity: 0.3;
+  flex-shrink: 0;
+}
+
+.thread-desc {
+  max-width: 600px;
+  text-align: center;
+  margin: 0 auto;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════════════════════
+   JOIN
+   ═══════════════════════════════════════════════════════ */
+#join {
+  padding: 8rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.join-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.join-text p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.join-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.join-form input,
+.join-form textarea {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  padding: 0.9rem 1.1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.3s;
+  resize: vertical;
+}
+
+.join-form input::placeholder,
+.join-form textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.join-form input:focus,
+.join-form textarea:focus {
+  border-color: var(--bioform);
+}
+
+.join-form textarea { min-height: 120px; }
+
+.join-submit {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 1rem 2rem;
+  background: transparent;
+  border: 1px solid var(--bioform);
+  color: var(--bioform);
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: 3px;
+  align-self: flex-start;
+}
+
+.join-submit:hover {
+  background: var(--bioform);
+  color: var(--bg-primary);
+}
+
+/* ═══════════════════════════════════════════════════════
+   FOOTER / CONTACT
+   ═══════════════════════════════════════════════════════ */
+footer {
+  padding: 4rem 0;
+  border-top: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.footer-brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.footer-copy {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-links a {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover { color: var(--bioform); }
+
+/* ═══════════════════════════════════════════════════════
+   Mobile Menu
+   ═══════════════════════════════════════════════════════ */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(10, 10, 12, 0.97);
+  z-index: 999;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  backdrop-filter: blur(20px);
+}
+
+.mobile-menu.open { display: flex; }
+
+.mobile-menu a {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  transition: color 0.3s;
+}
+
+.mobile-menu a:hover { color: var(--bioform); }
+
+.mobile-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+
+  .projects-grid { grid-template-columns: 1fr; }
+  .join-content { grid-template-columns: 1fr; gap: 2rem; }
+  .expanded-details { grid-template-columns: 1fr; }
+
+  .thread-visual { flex-direction: column; }
+  .thread-connector {
+    width: 2px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--from-color), var(--to-color));
+  }
+
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+  .people-grid { grid-template-columns: 1fr; }
+
+  .container { padding: 0 1.25rem; }
+}
+
+@media (max-width: 480px) {
+  .hero-wordmark { letter-spacing: 0.1em; }
+  .filter-bar { gap: 0.35rem; }
+  .filter-btn { font-size: 0.55rem; padding: 0.35rem 0.65rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ PARTICLE CANVAS ═══════════════ -->
+<canvas id="particle-canvas"></canvas>
+
+<!-- ═══════════════ NAVIGATION ═══════════════ -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">POLY<span>GENIK</span></a>
+  <ul class="nav-links">
+    <li><a href="#collective">Collective</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#people">People</a></li>
+    <li><a href="#thread">Thread</a></li>
+    <li><a href="#join">Join</a></li>
+  </ul>
+  <button class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMobileMenu()">&times;</button>
+  <a href="#collective" onclick="toggleMobileMenu()">Collective</a>
+  <a href="#projects" onclick="toggleMobileMenu()">Projects</a>
+  <a href="#people" onclick="toggleMobileMenu()">People</a>
+  <a href="#thread" onclick="toggleMobileMenu()">Thread</a>
+  <a href="#join" onclick="toggleMobileMenu()">Join</a>
+</div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="hero">
+  <div class="hero-wordmark">POLYGENIK</div>
+  <div class="hero-tagline">
+    Multiple inputs &middot; <em>Emergent outputs</em> &middot; Biology is the platform
+  </div>
+  <div class="hero-scroll-indicator">
+    <span>Explore</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ═══════════════ THE COLLECTIVE ═══════════════ -->
+<section id="collective">
+  <div class="container">
+    <div class="manifesto fade-in">
+      <div class="section-label">The Collective</div>
+      <div class="section-title">We build things that<br>shouldn't exist yet.</div>
+      <p class="manifesto-text">
+        <strong>POLYGENIK</strong> is a collective of projects at the intersection of biology, technology, art, and community. We're not a company, not a studio, not a lab &mdash; we're the connective tissue between all of them.
+      </p>
+      <p class="manifesto-text">
+        Every project in the collective is born from the same conviction: that the most interesting things happen when you stop asking for permission and start building across boundaries. From <strong>biopunk fashion</strong> grown from mycelium to <strong>secret rooftop bars</strong> serving ultrasonic-aged cocktails, from <strong>living computational art</strong> to <strong>biological civil liberties advocacy</strong> &mdash; the thread that connects them all is a refusal to stay in one lane.
+      </p>
+      <div class="manifesto-quote">
+        Polygenic: influenced by multiple genes.<br>
+        Polygenik: influenced by multiple everything.
+      </div>
+      <div class="manifesto-domains">
+        <span class="domain-tag">Biology</span>
+        <span class="domain-tag">Technology</span>
+        <span class="domain-tag">Art</span>
+        <span class="domain-tag">Music</span>
+        <span class="domain-tag">Fashion</span>
+        <span class="domain-tag">Food &amp; Beverage</span>
+        <span class="domain-tag">Health</span>
+        <span class="domain-tag">Advocacy</span>
+        <span class="domain-tag">Community</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ THE PROJECTS ═══════════════ -->
+<section id="projects">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">The Projects</div>
+      <div class="section-title">Ten worlds. One collective.</div>
+    </div>
+
+    <div class="filter-bar fade-in">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="art">Art</button>
+      <button class="filter-btn" data-filter="science">Science</button>
+      <button class="filter-btn" data-filter="food-bev">Food &amp; Bev</button>
+      <button class="filter-btn" data-filter="music">Music</button>
+      <button class="filter-btn" data-filter="fashion">Fashion</button>
+      <button class="filter-btn" data-filter="health">Health</button>
+      <button class="filter-btn" data-filter="advocacy">Advocacy</button>
+      <button class="filter-btn" data-filter="product">Product</button>
+    </div>
+
+    <div class="projects-grid" id="projectsGrid">
+      <!-- Cards injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ THE PEOPLE ═══════════════ -->
+<section id="people">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">The People</div>
+      <div class="section-title">Co-conspirators welcome.</div>
+      <p style="color: var(--text-secondary); max-width: 560px; margin-bottom: 2rem; font-size: 0.95rem; line-height: 1.7;">
+        Polygenik is built by people who can't pick a lane. Biologists who make music. Engineers who throw parties. Artists who read papers. If that sounds like you, keep scrolling.
+      </p>
+    </div>
+    <div class="people-grid fade-in" id="peopleGrid">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ THE THREAD ═══════════════ -->
+<section id="thread">
+  <div class="container">
+    <div class="fade-in" style="text-align:center;">
+      <div class="section-label" style="justify-content:center;">
+        <span style="display:none;"></span>The Thread
+      </div>
+      <div class="section-title">Everything connects.</div>
+    </div>
+
+    <div class="thread-visual fade-in">
+      <div class="thread-node" style="--node-color: #00FFD4">
+        <div class="thread-circle">&#x1F9EC;</div>
+        <div class="thread-label">Biology</div>
+        <div class="thread-sublabel">The substrate. Living systems as material.</div>
+      </div>
+      <div class="thread-connector" style="--from-color: #00FFD4; --to-color: #6B21A8"></div>
+      <div class="thread-node" style="--node-color: #6B21A8">
+        <div class="thread-circle">&#x2699;&#xFE0F;</div>
+        <div class="thread-label">Technology</div>
+        <div class="thread-sublabel">The lever. Tools that extend what's possible.</div>
+      </div>
+      <div class="thread-connector" style="--from-color: #6B21A8; --to-color: #D4A017"></div>
+      <div class="thread-node" style="--node-color: #D4A017">
+        <div class="thread-circle">&#x1F3A8;</div>
+        <div class="thread-label">Art</div>
+        <div class="thread-sublabel">The expression. Making the invisible visible.</div>
+      </div>
+      <div class="thread-connector" style="--from-color: #D4A017; --to-color: #39ff14"></div>
+      <div class="thread-node" style="--node-color: #39ff14">
+        <div class="thread-circle">&#x1F310;</div>
+        <div class="thread-label">Community</div>
+        <div class="thread-sublabel">The multiplier. Building together beats building alone.</div>
+      </div>
+      <div class="thread-connector" style="--from-color: #39ff14; --to-color: #00FFD4"></div>
+      <div class="thread-node" style="--node-color: #00FFD4">
+        <div class="thread-circle">&#x267E;&#xFE0F;</div>
+        <div class="thread-label">Repeat</div>
+        <div class="thread-sublabel">The cycle feeds itself. Emergence from complexity.</div>
+      </div>
+    </div>
+
+    <p class="thread-desc fade-in">
+      The projects in Polygenik aren't random. They're expressions of the same worldview: that biology is technology, that art is research, that community is infrastructure, and that the most powerful innovations come from refusing to separate these domains. The interconnection is the brand.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════ JOIN ═══════════════ -->
+<section id="join">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">Join the Collective</div>
+      <div class="section-title">What would you build?</div>
+    </div>
+    <div class="join-content fade-in">
+      <div class="join-text">
+        <p>
+          We're not hiring. We're looking for <strong style="color:var(--text-primary)">co-conspirators</strong>. People who build things on the edges of disciplines, who think biology is the next computing platform, who have a project that doesn't fit into any existing category.
+        </p>
+        <p>
+          Whether you're a synthetic biologist with a fashion obsession, a bartender who thinks about fermentation kinetics, or an engineer who makes music with living organisms &mdash; there might be a world inside Polygenik where you belong.
+        </p>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+          Tell us who you are and what you'd build if you had no constraints.
+        </p>
+      </div>
+      <form class="join-form" onsubmit="handleJoinSubmit(event)">
+        <input type="text" placeholder="Your name" required>
+        <input type="email" placeholder="Email" required>
+        <textarea placeholder="What would you build if you had no constraints?"></textarea>
+        <button type="submit" class="join-submit">Transmit &rarr;</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">POLYGENIK</div>
+        <div class="footer-copy">&copy; 2026 Polygenik Collective. Multiple inputs, emergent outputs.</div>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:hello@polygenik.com">Email</a>
+        <a href="https://instagram.com/polygenik" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://twitter.com/polygenik" target="_blank" rel="noopener">X / Twitter</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════
+     JAVASCRIPT
+     ═══════════════════════════════════════════════════════ -->
+<script>
+// ───────────────────────────────────────────────
+// PROJECT DATA
+// ───────────────────────────────────────────────
+const projects = [
+  {
+    name: "The Crow's Nest",
+    icon: "🏴‍☠️",
+    desc: "Secret rooftop pop-up biopunk bar. Space pirate tiki meets ultrasonic-aged cocktails and functional NA protocols.",
+    status: "Active",
+    tags: ["food-bev", "art", "science"],
+    accent: "#39ff14",
+    details: {
+      long: "A clandestine rooftop bar experience that fuses biopunk aesthetics with space pirate tiki culture. Cocktails are aged in minutes using ultrasonic cavitation technology, while a full NA protocol menu serves functional beverages designed with the same rigor as the alcoholic menu.",
+      link: "#",
+      collaborators: "Bartenders, sound engineers, set designers"
+    }
+  },
+  {
+    name: "BIOFORM",
+    icon: "🧬",
+    desc: "Living computational art installation and performance troupe. Evolutionary algorithms, biological instruments, live microscopy.",
+    status: "Active",
+    tags: ["art", "science"],
+    accent: "#00FFD4",
+    details: {
+      long: "An interdisciplinary art + science performance collective creating installations driven by evolutionary algorithms, live microscopy projections, biological instruments, and the Visceral Cartography costume collection. Art that is literally alive.",
+      link: "#",
+      collaborators: "Biologists, performers, visual artists, musicians"
+    }
+  },
+  {
+    name: "Mr. E",
+    icon: "🎭",
+    desc: "Musical persona with a four-face Tetrad mask. Ska, punk, psytrance, DnB, and comedic rap — all one entity.",
+    status: "Active",
+    tags: ["music", "art"],
+    accent: "#6B21A8",
+    details: {
+      long: "A musical alter ego that refuses genre boundaries, performing behind a rotating four-face Tetrad mask. Each face represents a different sonic personality — from ska punk to psytrance to drum & bass to comedic rap — often within the same set.",
+      link: "#",
+      collaborators: "Musicians, mask fabricators, visual designers"
+    }
+  },
+  {
+    name: "Visceral Cartography",
+    icon: "🩸",
+    desc: "Biopunk haute couture. 20-look collection made from mycelium, bacterial cellulose, chitin, and embedded circuitry.",
+    status: "In Development",
+    tags: ["fashion", "science", "art"],
+    accent: "#8B0000",
+    details: {
+      long: "A fashion collection that maps the body's internal landscape onto its surface. Twenty looks constructed from living and bio-derived materials — mycelium leather, bacterial cellulose textiles, chitin structures, and wearable circuits — blurring the boundary between organism and garment.",
+      link: "#",
+      collaborators: "Fashion designers, biomaterial scientists, textile engineers"
+    }
+  },
+  {
+    name: "Biological Frontier Foundation",
+    icon: "🌿",
+    desc: "Advocacy organization for biological civil liberties. Your body, your genome, your microbiome, your rights.",
+    status: "In Development",
+    tags: ["advocacy", "science"],
+    accent: "#1a5c2a",
+    details: {
+      long: "A nonprofit advocacy organization dedicated to establishing and protecting biological civil liberties — the right to understand, modify, and maintain sovereignty over your own biological systems. Engaging with policy, education, and community organizing.",
+      link: "#",
+      collaborators: "Policy experts, bioethicists, legal advisors, scientists"
+    }
+  },
+  {
+    name: "Fathomm",
+    icon: "🧭",
+    desc: "Medical tourism reimagined. Gene therapy voyages departing from San Francisco.",
+    status: "Concept",
+    tags: ["health", "science"],
+    accent: "#00d4ff",
+    details: {
+      long: "A medical tourism company designed around the premise that the most advanced therapies shouldn't require navigating foreign healthcare systems alone. Curated gene therapy voyages combining cutting-edge treatment access with comprehensive patient support.",
+      link: "#",
+      collaborators: "Medical advisors, travel coordinators, gene therapy specialists"
+    }
+  },
+  {
+    name: "California Shine",
+    icon: "🥃",
+    desc: "Ultrasonic aging technology for spirits and beverages. Months of barrel character in minutes.",
+    status: "Active",
+    tags: ["food-bev", "science", "product"],
+    accent: "#D4A017",
+    details: {
+      long: "Proprietary ultrasonic cavitation technology that accelerates the molecular interactions typically achieved through years of barrel aging. California Shine compresses months of flavor development into minutes, working with distillers, brewers, and beverage companies.",
+      link: "#",
+      collaborators: "Distillers, food scientists, engineers"
+    }
+  },
+  {
+    name: "Toothpencil",
+    icon: "✏️",
+    desc: "Biodegradable charcoal toothbrush shaped like a pencil. Because oral care shouldn't cost the planet.",
+    status: "In Development",
+    tags: ["product", "science"],
+    accent: "#98FB98",
+    details: {
+      long: "An activated charcoal toothbrush in a pencil form factor, made entirely from biodegradable materials. A simple, beautiful answer to the 1 billion plastic toothbrushes thrown away annually in the US alone.",
+      link: "#",
+      collaborators: "Industrial designers, materials scientists"
+    }
+  },
+  {
+    name: "Spira",
+    icon: "🌀",
+    desc: "Algae-based food coloring and ingredients. Replacing synthetic dyes with photosynthetic pigments.",
+    status: "Active",
+    tags: ["food-bev", "science", "product"],
+    accent: "#0066CC",
+    details: {
+      long: "A biotechnology company producing vibrant, natural food colorings from spirulina and other microalgae. Spira's phycocyanin blue and other pigments replace petroleum-derived synthetic dyes across the food and beverage industry.",
+      link: "https://spirainc.com",
+      collaborators: "Algae biologists, food scientists, production engineers"
+    }
+  },
+  {
+    name: "Cellsius",
+    icon: "🔬",
+    desc: "Community biology lab. Open-access biotech workspace for citizen scientists, artists, and builders.",
+    status: "Concept",
+    tags: ["science", "art"],
+    accent: "#00b4d8",
+    details: {
+      long: "A community biology laboratory providing open access to biotechnology equipment, training, and collaborative workspace. Designed for citizen scientists, bio-artists, students, and anyone who believes that biology is too important to be locked behind institutional doors.",
+      link: "#",
+      collaborators: "Community organizers, lab managers, educators"
+    }
+  }
+];
+
+// ───────────────────────────────────────────────
+// PEOPLE DATA
+// ───────────────────────────────────────────────
+const people = [
+  {
+    name: "Elliot Roth",
+    initials: "ER",
+    role: "Founder / Creative Director",
+    founder: true,
+    projects: ["All Projects"]
+  },
+  {
+    name: "Open Role",
+    initials: "?",
+    role: "Biomaterials Lead",
+    founder: false,
+    projects: ["Visceral Cartography", "BIOFORM"]
+  },
+  {
+    name: "Open Role",
+    initials: "?",
+    role: "Community Builder",
+    founder: false,
+    projects: ["Cellsius", "BFF"]
+  },
+  {
+    name: "Open Role",
+    initials: "?",
+    role: "Sound / Music Director",
+    founder: false,
+    projects: ["Mr. E", "BIOFORM", "Crow's Nest"]
+  }
+];
+
+// ───────────────────────────────────────────────
+// RENDER PROJECTS
+// ───────────────────────────────────────────────
+function renderProjects(filter = 'all') {
+  const grid = document.getElementById('projectsGrid');
+  grid.innerHTML = '';
+
+  const filtered = filter === 'all'
+    ? projects
+    : projects.filter(p => p.tags.includes(filter));
+
+  filtered.forEach((p, i) => {
+    const statusClass = p.status === 'Active' ? '' : p.status === 'In Development' ? 'dev' : 'concept';
+    const card = document.createElement('div');
+    card.className = 'project-card fade-in';
+    card.style.setProperty('--accent', p.accent);
+    card.style.transitionDelay = `${i * 0.06}s`;
+
+    card.innerHTML = `
+      <div class="card-header">
+        <div class="card-icon" style="border-color: ${p.accent}40; color: ${p.accent}">${p.icon}</div>
+        <div class="card-status ${statusClass}">${p.status}</div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">${p.name}</div>
+        <div class="card-desc">${p.desc}</div>
+        <div class="card-tags">
+          ${p.tags.map(t => `<span class="card-tag">${t.replace('-', ' & ')}</span>`).join('')}
+        </div>
+      </div>
+      <div class="card-expanded-content">
+        <div class="expanded-details">
+          <div class="detail-section">
+            <h4>About</h4>
+            <p>${p.details.long}</p>
+          </div>
+          <div class="detail-section">
+            <h4>Seeking Collaborators</h4>
+            <p>${p.details.collaborators}</p>
+            ${p.details.link !== '#' ? `<br><h4>Website</h4><a href="${p.details.link}" target="_blank" rel="noopener">${p.details.link}</a>` : ''}
+          </div>
+        </div>
+      </div>
+      <div class="card-close-hint">Click to collapse</div>
+    `;
+
+    card.addEventListener('click', () => {
+      const wasExpanded = card.classList.contains('expanded');
+      document.querySelectorAll('.project-card.expanded').forEach(c => c.classList.remove('expanded'));
+      if (!wasExpanded) card.classList.add('expanded');
+    });
+
+    grid.appendChild(card);
+  });
+
+  // Trigger fade-in
+  requestAnimationFrame(() => {
+    grid.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+  });
+}
+
+// ───────────────────────────────────────────────
+// RENDER PEOPLE
+// ───────────────────────────────────────────────
+function renderPeople() {
+  const grid = document.getElementById('peopleGrid');
+  grid.innerHTML = '';
+
+  people.forEach(p => {
+    const card = document.createElement('div');
+    card.className = `person-card${p.founder ? ' founder' : ''}`;
+    card.innerHTML = `
+      <div class="person-avatar">${p.initials}</div>
+      <div class="person-name">${p.name}</div>
+      <div class="person-role">${p.role}</div>
+      <div class="person-projects">
+        ${p.projects.map(pr => `<span class="person-project-tag">${pr}</span>`).join('')}
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// ───────────────────────────────────────────────
+// FILTER BAR
+// ───────────────────────────────────────────────
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderProjects(btn.dataset.filter);
+  });
+});
+
+// ───────────────────────────────────────────────
+// SCROLL ANIMATIONS
+// ───────────────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+function observeElements() {
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+}
+
+// ───────────────────────────────────────────────
+// NAV SCROLL EFFECT
+// ───────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ───────────────────────────────────────────────
+// MOBILE MENU
+// ───────────────────────────────────────────────
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// ───────────────────────────────────────────────
+// JOIN FORM
+// ───────────────────────────────────────────────
+function handleJoinSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.join-submit');
+  btn.textContent = 'Signal received ✓';
+  btn.style.background = 'var(--bioform)';
+  btn.style.color = 'var(--bg-primary)';
+  btn.style.borderColor = 'var(--bioform)';
+  setTimeout(() => {
+    btn.textContent = 'Transmit →';
+    btn.style.background = 'transparent';
+    btn.style.color = 'var(--bioform)';
+    e.target.reset();
+  }, 3000);
+}
+
+// ───────────────────────────────────────────────
+// PARTICLE NETWORK ANIMATION
+// ───────────────────────────────────────────────
+(function initParticles() {
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  let width, height, particles, mouse;
+  const COLORS = ['#00FFD4', '#39ff14', '#6B21A8', '#D4A017', '#0066CC', '#00d4ff', '#8B0000'];
+  const PARTICLE_COUNT = 80;
+  const CONNECTION_DIST = 160;
+
+  mouse = { x: -1000, y: -1000 };
+
+  function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  }
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      this.vx = (Math.random() - 0.5) * 0.4;
+      this.vy = (Math.random() - 0.5) * 0.4;
+      this.radius = Math.random() * 1.5 + 0.5;
+      this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+      this.alpha = Math.random() * 0.5 + 0.2;
+    }
+
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+
+      if (this.x < 0 || this.x > width) this.vx *= -1;
+      if (this.y < 0 || this.y > height) this.vy *= -1;
+
+      // Mouse repulsion
+      const dx = this.x - mouse.x;
+      const dy = this.y - mouse.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 120) {
+        this.vx += dx / dist * 0.15;
+        this.vy += dy / dist * 0.15;
+      }
+
+      // Damping
+      this.vx *= 0.999;
+      this.vy *= 0.999;
+    }
+
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.globalAlpha = this.alpha;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  function init() {
+    resize();
+    particles = Array.from({ length: PARTICLE_COUNT }, () => new Particle());
+  }
+
+  function drawConnections() {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < CONNECTION_DIST) {
+          const alpha = (1 - dist / CONNECTION_DIST) * 0.12;
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = particles[i].color;
+          ctx.globalAlpha = alpha;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+          ctx.globalAlpha = 1;
+        }
+      }
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    drawConnections();
+    requestAnimationFrame(animate);
+  }
+
+  window.addEventListener('resize', () => { resize(); });
+  window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+
+  init();
+  animate();
+})();
+
+// ───────────────────────────────────────────────
+// INIT
+// ───────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  renderProjects();
+  renderPeople();
+  observeElements();
+});
+</script>
+
+</body>
+</html>
