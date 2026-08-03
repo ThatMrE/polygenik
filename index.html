@@ -29,6 +29,8 @@
     --acid-deep:#aad400;
     --flesh:#ff3d68;        /* celebrity meat */
     --flesh-deep:#c8003c;
+    --rev:#c084fc;          /* the people's pharma / revolution violet */
+    --rev-deep:#7c3aed;
     --muted:#5c574c;
     --muted-ink:rgba(236,231,218,0.55);
     --line:rgba(11,11,11,0.16);
@@ -241,6 +243,15 @@
   .feature{color:var(--bone);position:relative;overflow:hidden;border-bottom:1px solid #000;}
   .feature.peptide{background:var(--ink);}
   .feature.meat{background:#120608;}
+  .feature.pharma{background:#0c0710;}
+  .feature.pharma .feat-tag{color:var(--rev);}
+  .feature.pharma h2 em{color:var(--rev);font-style:normal;}
+  .feature.pharma .pull{border-color:var(--rev);}
+  .feature.pharma .stat{background:#150a1a;}
+  .feature.pharma .stat .num{color:var(--rev);}
+  .feature.pharma .feat-list li::before{color:var(--rev);}
+  .feature.pharma .btn-fill.inv{background:var(--rev);color:#0c0710;border-color:var(--rev);}
+  .feature.pharma .btn-fill.inv:hover{box-shadow:4px 4px 0 var(--bone);}
   .feature .wrap{padding:clamp(3.5rem,8vw,6.5rem) clamp(1.1rem,4vw,3rem);position:relative;z-index:2;}
   .feat-tag{
     font-family:var(--mono);font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;
@@ -375,8 +386,8 @@
 <!-- ── TICKER ── -->
 <div class="ticker" aria-hidden="true">
   <div class="ticker-track">
-    <span>◉ POLYGENIK</span><span>A BIOTECH ART COLLECTIVE</span><span>SAN FRANCISCO · FRONTIER TOWER</span><span><b>FOR RESEARCH USE ONLY</b></span><span>DROP 001 — CHINESE PEPTIDE RAVE — SOLD OUT</span><span>DROP 002 — CELEBRITY MEAT TASTING — <b>LOADING</b></span><span>NOT FOR HUMAN CONSUMPTION*</span>
-    <span>◉ POLYGENIK</span><span>A BIOTECH ART COLLECTIVE</span><span>SAN FRANCISCO · FRONTIER TOWER</span><span><b>FOR RESEARCH USE ONLY</b></span><span>DROP 001 — CHINESE PEPTIDE RAVE — SOLD OUT</span><span>DROP 002 — CELEBRITY MEAT TASTING — <b>LOADING</b></span><span>NOT FOR HUMAN CONSUMPTION*</span>
+    <span>◉ POLYGENIK</span><span>A BIOTECH ART COLLECTIVE</span><span>SAN FRANCISCO · FRONTIER TOWER</span><span><b>FOR RESEARCH USE ONLY</b></span><span>DROP 001 — THE PEOPLE'S PHARMA — SOLD OUT</span><span>DROP 002 — CHINESE PEPTIDE RAVE — SOLD OUT</span><span>DROP 003 — CELEBRITY MEAT TASTING — <b>LOADING</b></span><span>NOT FOR HUMAN CONSUMPTION*</span>
+    <span>◉ POLYGENIK</span><span>A BIOTECH ART COLLECTIVE</span><span>SAN FRANCISCO · FRONTIER TOWER</span><span><b>FOR RESEARCH USE ONLY</b></span><span>DROP 001 — THE PEOPLE'S PHARMA — SOLD OUT</span><span>DROP 002 — CHINESE PEPTIDE RAVE — SOLD OUT</span><span>DROP 003 — CELEBRITY MEAT TASTING — <b>LOADING</b></span><span>NOT FOR HUMAN CONSUMPTION*</span>
   </div>
 </div>
 
@@ -463,8 +474,20 @@
       <p class="sec-note">Each drop is a one&#8209;night biological event. When it's gone, it's a case study.</p>
     </div>
 
-    <div class="drop-row linked" onclick="location.href='#peptide'">
+    <div class="drop-row linked" onclick="location.href='#pharma'">
       <div class="drop-num">001</div>
+      <div class="drop-main">
+        <h3>The People's Pharma</h3>
+        <p>Pills for invites · drum &amp; bass · The Kink Store · JPM week</p>
+      </div>
+      <div class="drop-meta">
+        <span class="badge sold">Sold Out</span>
+        <span class="drop-arrow">CASE FILE →</span>
+      </div>
+    </div>
+
+    <div class="drop-row linked" onclick="location.href='#peptide'">
+      <div class="drop-num">002</div>
       <div class="drop-main">
         <h3>Chinese Peptide Rave</h3>
         <p>Mix-your-own peptides · techno · Frontier Tower · Dec 13, 2025</p>
@@ -476,7 +499,7 @@
     </div>
 
     <div class="drop-row linked" onclick="location.href='#meat'">
-      <div class="drop-num">002</div>
+      <div class="drop-num">003</div>
       <div class="drop-main">
         <h3>Celebrity Meat Tasting</h3>
         <p>Cultivated meat from famous cells · a dinner party about consent</p>
@@ -488,24 +511,55 @@
     </div>
 
     <div class="drop-row">
-      <div class="drop-num">003</div>
+      <div class="drop-num">004</div>
       <div class="drop-main">
         <h3>Classified</h3>
-        <p>Something is growing in the incubator. It is not ready to be named.</p>
+        <p>Something is culturing in the incubator. Join the colony to know the moment it goes contagious.</p>
       </div>
       <div class="drop-meta">
         <span class="badge classified">Culturing</span>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="drop-row">
-      <div class="drop-num">004</div>
-      <div class="drop-main">
-        <h3>Classified</h3>
-        <p>Join the colony to be notified the moment it goes contagious.</p>
+<!-- ── FEATURE: THE PEOPLE'S PHARMA ── -->
+<section class="feature pharma" id="pharma">
+  <div class="wrap">
+    <p class="feat-tag">◈ DROP 001 — CASE FILE — SOLD OUT</p>
+    <div class="feat-grid">
+      <div>
+        <h2>The People's<br><em>Pharma</em></h2>
+        <p class="feat-lede">
+          We counter&#8209;programmed the largest pharmaceutical conference on earth. The invitations were <b>pills</b> — real capsules, each sealed with a secret passcode, handed out by lil' pharma on the floor of <b>JPM</b>. Crack the code, find the door.
+        </p>
+        <div class="feat-body">
+          <p>The address was a rented kink club — <b>The Kink Store</b> — walls hung with graphic oil paintings. Doors at 9, IDs at the door, consent in everything. Attendees tagged lab coats while drum &amp; bass ran till sunrise. (No, it wasn't a play party. Funny you asked.)</p>
+          <p>Every dollar went to distributing knowledge and the means of producing medicine for all — through community biotechnology, not megacorp patents.</p>
+        </div>
+        <blockquote class="pull">
+          "Pharmaceutical executives are just drug dealers dressed up in suits. What would a different world look like — one where grassroots dealers made medicines instead of numbing agents?"
+          <cite>— The People's Pharma manifesto</cite>
+        </blockquote>
+        <div class="feat-actions">
+          <a href="https://luma.com/wdr1" target="_blank" rel="noopener" class="btn btn-fill inv">See the Luma →</a>
+          <a href="#join" class="btn ghost">Join the revolution</a>
+        </div>
       </div>
-      <div class="drop-meta">
-        <span class="badge classified">Incubating</span>
+      <div>
+        <div class="stat-grid">
+          <div class="stat"><div class="num">1 / 3</div><div class="lbl">Insurance claims denied — why people are rising up against the suits</div></div>
+          <div class="stat"><div class="num">100%</div><div class="lbl">Proceeds → community biotech: knowledge + the means to make medicine for all</div></div>
+          <div class="stat"><div class="num">JPM</div><div class="lbl">Counter-programmed during the largest pharma conference on earth</div></div>
+          <div class="stat"><div class="num">9PM</div><div class="lbl">Doors at The Kink Store — pill in hand, passcode inside</div></div>
+        </div>
+        <ul class="feat-list">
+          <li>Invites were pills — the passcode sealed inside</li>
+          <li>Drum &amp; bass till sunrise · multiple DJs · a bar · live art</li>
+          <li>Dress: chrome, leather, lab chic, CV Dazzle, biomods</li>
+          <li>Tag a lab coat — here to share, not stare</li>
+          <li>DNA is decentralized, self-replicating, dancing in the spiral of life</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -514,7 +568,7 @@
 <!-- ── FEATURE: PEPTIDE RAVE ── -->
 <section class="feature peptide" id="peptide">
   <div class="wrap">
-    <p class="feat-tag">◉ DROP 001 — CASE FILE — SOLD OUT</p>
+    <p class="feat-tag">◉ DROP 002 — CASE FILE — SOLD OUT</p>
     <div class="feat-grid">
       <div>
         <h2>The Chinese<br><em>Peptide Rave</em></h2>
@@ -555,7 +609,7 @@
 <!-- ── FEATURE: CELEBRITY MEAT ── -->
 <section class="feature meat" id="meat">
   <div class="wrap">
-    <p class="feat-tag">◆ DROP 002 — NOW LOADING</p>
+    <p class="feat-tag">◆ DROP 003 — NOW LOADING</p>
     <div class="feat-grid">
       <div>
         <h2>The Celebrity<br><em>Meat Tasting</em></h2>
@@ -692,6 +746,7 @@
       <div class="foot-links">
         <a href="#manifesto">Manifesto</a>
         <a href="#drops">Drops</a>
+        <a href="#pharma">People's Pharma</a>
         <a href="#peptide">Peptide Rave</a>
         <a href="#meat">Celebrity Meat</a>
         <a href="#lineage">Lineage</a>
