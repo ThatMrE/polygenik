@@ -3,7 +3,7 @@
 
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/polygenik.html"
   status = 200
 
 [[headers]]
