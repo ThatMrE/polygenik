@@ -726,8 +726,11 @@
   <div class="wrap">
     <h2>Join the<br><em>Colony</em></h2>
     <p>Drops are small, unannounced, and disappear fast. Get the coordinates before the rest of the internet does.</p>
-    <form class="form" id="joinform" onsubmit="return joinColony(event)">
-      <input type="email" id="joinemail" placeholder="you@lab.bio" required aria-label="Email address">
+    <form class="form" id="joinform" name="polygenik-signup" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="return joinColony(event)">
+      <input type="hidden" name="form-name" value="polygenik-signup" />
+      <p hidden aria-hidden="true" style="display:none"><label>Don't fill this out: <input name="bot-field" /></label></p>
+      <input type="hidden" name="source" value="polygenik.com" />
+      <input type="email" name="email" id="joinemail" placeholder="you@lab.bio" required aria-label="Email address">
       <button type="submit">Inoculate Me</button>
     </form>
     <p class="form-note">No spam. No prescriptions. Occasional biohazards.</p>
@@ -774,7 +777,10 @@
 function joinColony(e){
   e.preventDefault();
   var f=document.getElementById('joinform'),ok=document.getElementById('signup-ok');
-  f.style.display='none';ok.style.display='block';
+  function done(){f.style.display='none';ok.style.display='block';}
+  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(f)).toString()})
+    .then(done)
+    .catch(done);
   return false;
 }
 
