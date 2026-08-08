@@ -235,6 +235,7 @@
   .badge.live{background:var(--flesh);color:#fff;border-color:var(--flesh);animation:blink 1.6s step-end infinite;}
   .badge.next{background:var(--acid);color:var(--ink);border-color:var(--ink);}
   .badge.classified{background:transparent;color:var(--muted);border-style:dashed;}
+  .badge.dev{background:transparent;color:var(--acid-deep);border-color:var(--acid-deep);}
   @keyframes blink{50%{opacity:0.45;}}
   .drop-arrow{font-family:var(--mono);font-size:0.75rem;color:var(--muted);letter-spacing:0.1em;}
   .drop-row.linked:hover .drop-arrow{color:var(--ink);}
@@ -317,6 +318,18 @@
   .lin-card .who{font-family:var(--mono);font-size:0.72rem;color:var(--muted);margin-bottom:0.7rem;}
   .lin-card p{font-size:0.9rem;color:var(--muted);line-height:1.6;}
 
+  /* ── THE SLATE ── */
+  .slate{padding:clamp(3.5rem,7vw,6rem) 0;border-bottom:1px solid var(--line);}
+  .slate-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:0.5rem;}
+  .slate-card{border:1px solid var(--line);padding:1.4rem;background:var(--bone-2);display:flex;flex-direction:column;gap:0.5rem;transition:transform .12s,box-shadow .18s,background .18s;}
+  .slate-card:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--ink);background:#fff;}
+  .slate-cat{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--acid-deep);}
+  .slate-card h4{font-size:1.05rem;font-weight:800;letter-spacing:-0.01em;line-height:1.1;}
+  .slate-card p{font-size:0.85rem;color:var(--muted);line-height:1.55;flex:1;}
+  .slate-status{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--line);padding-top:0.6rem;margin-top:0.3rem;}
+  @media (max-width:860px){ .slate-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){ .slate-grid{grid-template-columns:1fr;} }
+
   /* ── ABOUT ── */
   .about{background:var(--ink);color:var(--bone);border-bottom:1px solid #000;}
   .about .wrap{padding:clamp(3.5rem,7vw,6rem) clamp(1.1rem,4vw,3rem);}
@@ -386,8 +399,8 @@
 <!-- ── TICKER ── -->
 <div class="ticker" aria-hidden="true">
   <div class="ticker-track">
-    <span>◉ POLYGENIK</span><span>A BIOTECH ART COLLECTIVE</span><span>SAN FRANCISCO · FRONTIER TOWER</span><span><b>FOR RESEARCH USE ONLY</b></span><span>DROP 001 — THE PEOPLE'S PHARMA — SOLD OUT</span><span>DROP 002 — CHINESE PEPTIDE RAVE — SOLD OUT</span><span>DROP 003 — CELEBRITY MEAT TASTING — <b>LOADING</b></span><span>NOT FOR HUMAN CONSUMPTION*</span>
-    <span>◉ POLYGENIK</span><span>A BIOTECH ART COLLECTIVE</span><span>SAN FRANCISCO · FRONTIER TOWER</span><span><b>FOR RESEARCH USE ONLY</b></span><span>DROP 001 — THE PEOPLE'S PHARMA — SOLD OUT</span><span>DROP 002 — CHINESE PEPTIDE RAVE — SOLD OUT</span><span>DROP 003 — CELEBRITY MEAT TASTING — <b>LOADING</b></span><span>NOT FOR HUMAN CONSUMPTION*</span>
+    <span>◉ POLYGENIK</span><span>A BIOTECH ART COLLECTIVE</span><span>SAN FRANCISCO · FRONTIER TOWER</span><span><b>FOR RESEARCH USE ONLY</b></span><span>DROP 001 — THE PEOPLE'S PHARMA — SOLD OUT</span><span>DROP 002 — CHINESE PEPTIDE RAVE — SOLD OUT</span><span>DROP 003 — CELEBRITY MEAT TASTING — <b>LOADING</b></span><span>DROP 004 — THE FREEZER — IN DEVELOPMENT</span><span>THE SLATE — 15 PROPERTIES IN THE INCUBATOR</span><span>NOT FOR HUMAN CONSUMPTION*</span>
+    <span>◉ POLYGENIK</span><span>A BIOTECH ART COLLECTIVE</span><span>SAN FRANCISCO · FRONTIER TOWER</span><span><b>FOR RESEARCH USE ONLY</b></span><span>DROP 001 — THE PEOPLE'S PHARMA — SOLD OUT</span><span>DROP 002 — CHINESE PEPTIDE RAVE — SOLD OUT</span><span>DROP 003 — CELEBRITY MEAT TASTING — <b>LOADING</b></span><span>DROP 004 — THE FREEZER — IN DEVELOPMENT</span><span>THE SLATE — 15 PROPERTIES IN THE INCUBATOR</span><span>NOT FOR HUMAN CONSUMPTION*</span>
   </div>
 </div>
 
@@ -398,8 +411,7 @@
     <ul class="nav-links" id="navlinks">
       <li><a href="#manifesto">Manifesto</a></li>
       <li><a href="#drops">Drops</a></li>
-      <li><a href="#peptide">Peptide Rave</a></li>
-      <li><a href="#meat">Celebrity Meat</a></li>
+      <li><a href="#slate">The Slate</a></li>
       <li><a href="#about">Lab</a></li>
       <li><a href="#join" class="nav-cta">Join the Colony</a></li>
     </ul>
@@ -471,7 +483,7 @@
         <p class="sec-eyebrow">The Ledger — Numbered Drops</p>
         <h2 class="sec-title">Field<br>Experiments</h2>
       </div>
-      <p class="sec-note">Each drop is a one&#8209;night biological event. When it's gone, it's a case study.</p>
+      <p class="sec-note">Numbered releases. Some last one night. Some never end.</p>
     </div>
 
     <div class="drop-row linked" onclick="location.href='#pharma'">
@@ -513,11 +525,44 @@
     <div class="drop-row">
       <div class="drop-num">004</div>
       <div class="drop-main">
-        <h3>Classified</h3>
-        <p>Something is culturing in the incubator. Join the colony to know the moment it goes contagious.</p>
+        <h3>The Freezer</h3>
+        <p>A public −80&#8202;°C at 995 Market St · buy a numbered slot for ten years · store anything biological</p>
       </div>
       <div class="drop-meta">
-        <span class="badge classified">Culturing</span>
+        <span class="badge dev">In Development</span>
+      </div>
+    </div>
+
+    <div class="drop-row">
+      <div class="drop-num">005</div>
+      <div class="drop-main">
+        <h3>Honest Placebo</h3>
+        <p>A pill that contains nothing, says so on the label, and works about a third of the time anyway</p>
+      </div>
+      <div class="drop-meta">
+        <span class="badge dev">In Development</span>
+      </div>
+    </div>
+
+    <div class="drop-row">
+      <div class="drop-num">006</div>
+      <div class="drop-main">
+        <h3>Extinction Credits</h3>
+        <p>A functioning exchange for the right to extinguish a species · priced by intelligence · non-exercisable</p>
+      </div>
+      <div class="drop-meta">
+        <span class="badge classified">Concept</span>
+      </div>
+    </div>
+
+    <div class="drop-row">
+      <div class="drop-num">007</div>
+      <div class="drop-main">
+        <h3>Classified</h3>
+        <p>A named donor, a cultured wafer, and a thousand-year argument about the body. Signed when the collaborator is.</p>
+      </div>
+      <div class="drop-meta">
+        <span class="badge classified">Incubating</span>
       </div>
     </div>
   </div>
@@ -657,6 +702,85 @@
 <!-- warning tape -->
 <div class="warn-tape" aria-hidden="true"><div class="tt"><span>⚠ FOR RESEARCH USE ONLY</span><span>⚠ NOT FOR HUMAN CONSUMPTION</span><span>⚠ THE PROVOCATION IS THE POINT</span><span>⚠ CONSENT IS THE ART</span><span>⚠ FOR RESEARCH USE ONLY</span><span>⚠ NOT FOR HUMAN CONSUMPTION</span><span>⚠ THE PROVOCATION IS THE POINT</span><span>⚠ CONSENT IS THE ART</span></div></div>
 
+<!-- ── THE SLATE ── -->
+<section class="slate" id="slate">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="sec-eyebrow">The Slate — Loading</p>
+        <h2 class="sec-title">Also in the<br>incubator</h2>
+      </div>
+      <p class="sec-note">Beyond the drops: a shop, a set of free instruments, and two institutions we're standing up.</p>
+    </div>
+    <div class="slate-grid">
+
+      <div class="slate-card">
+        <div class="slate-cat">Shop · Editions</div>
+        <h4>For Research Use Only</h4>
+        <p>The sticker that removes a thing from the world of consequences. Submit any object for free certification; the public register is the artwork.</p>
+        <div class="slate-status">Shipping first</div>
+      </div>
+
+      <div class="slate-card">
+        <div class="slate-cat">Shop · Merch</div>
+        <h4>BSL-8</h4>
+        <p>Containment, signage and PPE for a biosafety level that does not exist. Compliant with no standard currently in force. PO accepted.</p>
+        <div class="slate-status">Shipping soon</div>
+      </div>
+
+      <div class="slate-card">
+        <div class="slate-cat">Edition · Sculpture</div>
+        <h4>Insulin, Two Prices</h4>
+        <p>Two identical vials on one plinth, priced at what the same molecule costs in two countries. The argument is arithmetic. Edition of 50.</p>
+        <div class="slate-status">In fabrication</div>
+      </div>
+
+      <div class="slate-card">
+        <div class="slate-cat">Free Tool</div>
+        <h4>Reviewer 2</h4>
+        <p>Submit your paper. Get rejected. Instantly. Pick your antagonist — the Territorialist, the Methodologist, the Philosopher. There is no accept path.</p>
+        <div class="slate-status">Ships first · free</div>
+      </div>
+
+      <div class="slate-card">
+        <div class="slate-cat">Free Tool · with Binomica</div>
+        <h4>This Enzyme Does Not Exist</h4>
+        <p>Infinite generated enzymes — none real, all beautiful, each downloadable as a PDB. In collaboration with Binomica Labs.</p>
+        <div class="slate-status">In development</div>
+      </div>
+
+      <div class="slate-card">
+        <div class="slate-cat">Free Tool</div>
+        <h4>Scientifically Accurate Astrology</h4>
+        <p>Your birthday really does predict your life — through school cutoffs, gestational vitamin D and seasonal exposure, not Saturn. Every claim cited; nothing stored.</p>
+        <div class="slate-status">Loading · January</div>
+      </div>
+
+      <div class="slate-card">
+        <div class="slate-cat">Free Game · with Aileron</div>
+        <h4>FDA: Forever Doesn't Allow</h4>
+        <p>A clickthrough game about the gap between a therapy existing and a patient reaching it. Every mechanic is a real, cited catch&#8209;22, aimed squarely at the institution.</p>
+        <div class="slate-status">With Aileron Games</div>
+      </div>
+
+      <div class="slate-card">
+        <div class="slate-cat">Institution</div>
+        <h4>The Polygenik IRB</h4>
+        <p>A review board for work no one is required to submit. Submit anyway. Every verdict published in full — including the ones against us. Carries no legal weight whatsoever.</p>
+        <div class="slate-status">Convening</div>
+      </div>
+
+      <div class="slate-card">
+        <div class="slate-cat">Journal · Publishing</div>
+        <h4>Methods + Madness</h4>
+        <p>A journal of failed experiments and negative results, peer-reviewed where it matters and printed like a fashion magazine. Two issues a year, numbered, capped.</p>
+        <div class="slate-status">Vol. 1 loading</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ── LINEAGE ── -->
 <section class="lineage" id="lineage">
   <div class="wrap">
@@ -752,6 +876,7 @@
         <a href="#pharma">People's Pharma</a>
         <a href="#peptide">Peptide Rave</a>
         <a href="#meat">Celebrity Meat</a>
+        <a href="#slate">The Slate</a>
         <a href="#lineage">Lineage</a>
         <a href="mailto:hello@biopunklab.com">Email</a>
         <a href="https://instagram.com/polygenik" target="_blank" rel="noopener">Instagram</a>
