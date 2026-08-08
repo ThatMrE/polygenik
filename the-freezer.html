@@ -1,0 +1,665 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MINUS EIGHTY — The Freezer — A POLYGENIK Property</title>
+<meta name="description" content="A public −80 °C freezer on the eighth floor of 995 Market Street. Buy a numbered slot for ten years. Store anything biological. Sealed contents, public manifest. Slot licence, retrieval and destruction rights, named beneficiary. $250 for ten years.">
+<meta name="theme-color" content="#cfd3d6">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://minus80.co">
+<meta property="og:title" content="MINUS EIGHTY — The Freezer">
+<meta property="og:description" content="A public −80 °C freezer at 995 Market Street. Buy a numbered slot for ten years. Store anything biological. Sealed contents, public manifest.">
+<meta property="og:site_name" content="THE FREEZER — A POLYGENIK Property">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ice:#dfe3e6;          /* coldest ground */
+    --frost:#eaedef;        /* panel */
+    --panel:#f3f5f6;        /* raised panel */
+    --steel:#9aa2a8;        /* mid grey */
+    --ink:#1c2124;          /* near-black cold ink */
+    --ink-2:#3b4247;
+    --muted:#6b747a;
+    --line:rgba(28,33,36,0.14);
+    --line-2:rgba(28,33,36,0.28);
+    --cold:#4d7f95;         /* cold blue accent, used sparingly */
+    --warn:#a2512b;         /* rust — used only for warnings/prohibitions */
+    --ok:#3f6f57;
+    --mono:'IBM Plex Mono', ui-monospace, monospace;
+    --sans:'IBM Plex Sans', system-ui, sans-serif;
+  }
+
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  body{
+    background:var(--ice);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-weight:400;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    background-image:
+      linear-gradient(180deg, #e8ebed 0%, var(--ice) 22%);
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  ::selection{background:var(--ink);color:var(--frost);}
+
+  .mono{font-family:var(--mono);}
+  .num{font-family:var(--mono);font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(1.1rem,4vw,3rem);}
+  .rule{height:1px;background:var(--line);border:0;}
+
+  /* ── LABELS ── */
+  .kicker{
+    font-family:var(--mono);
+    font-size:0.68rem;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .seclabel{
+    display:flex;align-items:baseline;gap:1rem;
+    font-family:var(--mono);
+    font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;
+    color:var(--muted);
+    padding-bottom:0.9rem;margin-bottom:2.2rem;
+    border-bottom:1px solid var(--line);
+  }
+  .seclabel .no{color:var(--ink);}
+  .seclabel .fill{flex:1;}
+
+  /* ── TOP BAR ── */
+  header.bar{
+    position:sticky;top:0;z-index:80;
+    background:rgba(223,227,230,0.9);
+    backdrop-filter:saturate(120%) blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .bar-in{
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    padding:0.7rem clamp(1.1rem,4vw,3rem);
+    font-family:var(--mono);font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;
+  }
+  .bar-in .brand{font-weight:600;letter-spacing:0.2em;color:var(--ink);}
+  .bar-in .meta{color:var(--muted);display:flex;gap:1.4rem;flex-wrap:wrap;}
+  .bar-in .meta .dot{color:var(--cold);}
+
+  /* ── HERO ── */
+  .hero{padding:clamp(3rem,8vw,6.5rem) 0 clamp(2.5rem,6vw,4.5rem);}
+  .hero h1{
+    font-family:var(--sans);
+    font-weight:700;
+    font-size:clamp(3rem,13vw,9.5rem);
+    line-height:0.9;
+    letter-spacing:-0.03em;
+    margin:0.2rem 0 1.6rem;
+    color:var(--ink);
+  }
+  .hero .sub{max-width:52ch;font-size:clamp(1rem,2.2vw,1.25rem);color:var(--ink-2);}
+  .hero .sub .em{color:var(--ink);border-bottom:1px solid var(--line-2);}
+
+  /* readout grid */
+  .readout{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    margin:2.6rem 0 1rem;
+  }
+  .readout .cell{background:var(--panel);padding:1.4rem 1.3rem;}
+  .readout .cap{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);}
+  .readout .big{
+    font-family:var(--mono);font-variant-numeric:tabular-nums;
+    font-size:clamp(1.9rem,5vw,2.9rem);font-weight:500;line-height:1.05;margin-top:0.5rem;color:var(--ink);
+  }
+  .readout .big small{font-size:0.42em;color:var(--muted);letter-spacing:0.04em;}
+  .readout .note{font-family:var(--mono);font-size:0.6rem;color:var(--muted);margin-top:0.5rem;letter-spacing:0.04em;}
+  #temp .big{color:var(--cold);}
+  .pulse{display:inline-block;width:0.5rem;height:0.5rem;border-radius:50%;background:var(--cold);margin-right:0.4rem;vertical-align:middle;animation:blink 2.6s ease-in-out infinite;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.25;}}
+
+  .hero-cta{display:flex;flex-wrap:wrap;gap:0.8rem;align-items:center;margin-top:1.8rem;}
+  .btn{
+    display:inline-block;
+    font-family:var(--mono);font-size:0.74rem;letter-spacing:0.16em;text-transform:uppercase;
+    padding:0.85rem 1.5rem;border:1px solid var(--ink);color:var(--frost);background:var(--ink);
+    transition:background .18s ease,color .18s ease;
+  }
+  .btn:hover{background:transparent;color:var(--ink);}
+  .btn.ghost{background:transparent;color:var(--ink);}
+  .btn.ghost:hover{background:var(--ink);color:var(--frost);}
+
+  /* ── SECTIONS ── */
+  section{padding:clamp(3rem,7vw,5.5rem) 0;}
+  section.alt{background:var(--frost);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  h2.sec{
+    font-family:var(--sans);font-weight:600;
+    font-size:clamp(1.7rem,4.5vw,2.9rem);line-height:1.02;letter-spacing:-0.02em;
+    margin-bottom:1.4rem;color:var(--ink);
+  }
+  .lede{max-width:60ch;font-size:1.05rem;color:var(--ink-2);}
+
+  /* argument */
+  .argument{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:2rem;}
+  .argument p{background:var(--ice);padding:1.8rem;margin:0;font-size:0.98rem;color:var(--ink-2);}
+  .argument p .lead{display:block;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.7rem;}
+  .argument p b{color:var(--ink);font-weight:600;}
+  .cites{margin-top:1.2rem;font-family:var(--mono);font-size:0.68rem;color:var(--muted);line-height:1.9;}
+  .cites li{list-style:none;padding-left:1.4rem;position:relative;}
+  .cites li::before{content:"§";position:absolute;left:0;color:var(--cold);}
+
+  /* the slot */
+  .slot-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:2.4rem;align-items:start;}
+  .spec{border:1px solid var(--line);background:var(--panel);}
+  .spec .row{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;padding:1rem 1.3rem;border-bottom:1px solid var(--line);align-items:baseline;}
+  .spec .row:last-child{border-bottom:0;}
+  .spec .row .k{font-family:var(--mono);font-size:0.64rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+  .spec .row .v{font-size:0.95rem;color:var(--ink);}
+  .spec .row .v em{color:var(--muted);font-style:normal;}
+
+  .vial-card{border:1px solid var(--line);background:var(--ice);padding:1.8rem;text-align:center;}
+  .vial-card .price{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:3.4rem;font-weight:500;line-height:1;color:var(--ink);}
+  .vial-card .price small{font-size:0.28em;color:var(--muted);display:block;letter-spacing:0.16em;text-transform:uppercase;margin-top:0.6rem;}
+  .vial-svg{margin:0 auto 1.4rem;display:block;}
+  .vial-card .fine{font-family:var(--mono);font-size:0.62rem;color:var(--muted);margin-top:1.2rem;line-height:1.8;letter-spacing:0.02em;}
+
+  /* manifest */
+  .manifest-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:1rem;margin-bottom:1.6rem;}
+  .manifest-head .count{font-family:var(--mono);font-size:0.7rem;color:var(--muted);letter-spacing:0.14em;text-transform:uppercase;}
+  .m-scroll{overflow-x:auto;border:1px solid var(--line-2);background:var(--frost);}
+  table.manifest{width:100%;border-collapse:collapse;font-size:0.86rem;min-width:760px;}
+  table.manifest thead th{
+    font-family:var(--mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);
+    text-align:left;padding:0.9rem 1rem;border-bottom:1px solid var(--line-2);font-weight:500;position:sticky;top:0;background:var(--frost);
+  }
+  table.manifest tbody td{padding:0.85rem 1rem;border-bottom:1px solid var(--line);vertical-align:top;}
+  table.manifest tbody tr:last-child td{border-bottom:0;}
+  table.manifest tbody tr:hover td{background:var(--panel);}
+  table.manifest .slotno{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--ink);font-weight:500;}
+  table.manifest .dep{color:var(--ink);}
+  table.manifest .dep.wh{color:var(--muted);font-style:italic;}
+  table.manifest .desc{color:var(--ink-2);}
+  table.manifest .date{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--muted);white-space:nowrap;}
+  .m-foot{font-family:var(--mono);font-size:0.64rem;color:var(--muted);margin-top:1rem;line-height:1.8;}
+
+  /* prohibited */
+  .prohibited{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line-2);margin-top:2rem;}
+  .prohibited .item{background:var(--ice);padding:1.4rem 1.5rem;}
+  .prohibited .item .code{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.16em;color:var(--warn);text-transform:uppercase;}
+  .prohibited .item h3{font-size:1.02rem;font-weight:600;margin:0.5rem 0 0.5rem;color:var(--ink);}
+  .prohibited .item p{font-size:0.9rem;color:var(--ink-2);margin:0;}
+  .no-mark{color:var(--warn);font-family:var(--mono);}
+
+  /* terms */
+  .terms{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem;margin-top:2rem;}
+  .term{border:1px solid var(--line);background:var(--panel);padding:1.5rem;}
+  .term .q{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--cold);margin-bottom:0.7rem;}
+  .term h3{font-size:1.05rem;font-weight:600;margin-bottom:0.5rem;color:var(--ink);}
+  .term p{font-size:0.92rem;color:var(--ink-2);}
+
+  /* deposit form */
+  .form-wrap{display:grid;grid-template-columns:1fr 1fr;gap:2.4rem;align-items:start;}
+  form.deposit label{display:block;margin-bottom:1.1rem;}
+  form.deposit .lbl{font-family:var(--mono);font-size:0.64rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.4rem;}
+  form.deposit input,form.deposit select,form.deposit textarea{
+    width:100%;font-family:var(--sans);font-size:0.95rem;color:var(--ink);
+    background:var(--frost);border:1px solid var(--line-2);padding:0.7rem 0.8rem;border-radius:0;
+  }
+  form.deposit textarea{min-height:6rem;resize:vertical;}
+  form.deposit input:focus,form.deposit select:focus,form.deposit textarea:focus{outline:2px solid var(--cold);outline-offset:-1px;border-color:var(--cold);}
+  .checkrow{display:flex;gap:0.6rem;align-items:flex-start;margin-bottom:1.1rem;font-size:0.82rem;color:var(--ink-2);}
+  .checkrow input{width:auto;margin-top:0.2rem;}
+  .form-note{font-family:var(--mono);font-size:0.66rem;color:var(--muted);line-height:1.9;}
+  .confirm{
+    margin-top:1.2rem;padding:1.1rem 1.2rem;border:1px solid var(--ok);background:var(--panel);
+    font-family:var(--mono);font-size:0.76rem;color:var(--ok);line-height:1.7;display:none;
+  }
+  .confirm.show{display:block;}
+  .confirm .ref{color:var(--ink);}
+
+  /* footer */
+  footer{border-top:1px solid var(--line-2);padding:2.6rem 0 3.4rem;background:var(--frost);}
+  .foot-in{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1.4rem;align-items:flex-end;}
+  .foot-in .col p{font-family:var(--mono);font-size:0.68rem;color:var(--muted);line-height:1.9;letter-spacing:0.04em;}
+  .foot-in a.home{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;border-bottom:1px solid var(--line-2);padding-bottom:2px;}
+  .foot-in a.home:hover{color:var(--cold);border-color:var(--cold);}
+  .prop{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);}
+  .prop a{color:var(--ink);border-bottom:1px solid var(--line-2);}
+  .prop a:hover{color:var(--cold);}
+
+  @media (max-width:820px){
+    .argument,.prohibited{grid-template-columns:1fr;}
+    .slot-grid,.form-wrap,.terms{grid-template-columns:1fr;}
+    .readout{grid-template-columns:1fr;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .pulse{animation:none;}
+    *{transition:none !important;}
+  }
+</style>
+
+<header class="bar">
+  <div class="bar-in">
+    <div class="brand">THE FREEZER · MINUS EIGHTY</div>
+    <div class="meta">
+      <span><span class="dot">●</span> 995 MARKET ST · FLR 08</span>
+      <span>DROP 004 → PERMANENT</span>
+      <span class="num" id="bar-temp">−80.4 °C</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="wrap">
+    <div class="kicker">A PUBLIC −80 °C FREEZER · SEALED CONTENTS, PUBLIC MANIFEST</div>
+    <h1>MINUS<br>EIGHTY</h1>
+    <p class="sub">
+      Currently holding <span class="em num" id="hero-count">129</span> samples at
+      <span class="em num">−80.4&nbsp;°C</span> on the eighth floor of 995 Market Street.
+      There are hundreds of millions of human samples in institutional freezers. Almost none of
+      the people they came from were given a number, a key, or the right to ask for them back.
+    </p>
+
+    <div class="readout" aria-label="Facility readout">
+      <div class="cell" id="temp">
+        <div class="cap"><span class="pulse"></span>Cabinet temperature</div>
+        <div class="big num" id="temp-val">−80.4&nbsp;<small>°C</small></div>
+        <div class="note" id="temp-note">Simulated readout — illustrative only, not a live logger feed.</div>
+      </div>
+      <div class="cell">
+        <div class="cap">Slots remaining</div>
+        <div class="big num" id="remaining">271&nbsp;<small>/ 400</small></div>
+        <div class="note">129 held · 20 reserved for commissions · 251 open</div>
+      </div>
+      <div class="cell">
+        <div class="cap">Next available slot</div>
+        <div class="big num">No.&nbsp;130</div>
+        <div class="note">Ten-year term · $250</div>
+      </div>
+    </div>
+
+    <div class="hero-cta">
+      <a class="btn" href="#deposit">APPLY FOR A SLOT</a>
+      <a class="btn ghost" href="#manifest">READ THE MANIFEST</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 02 THE ARGUMENT ══ -->
+<section class="alt" id="argument">
+  <div class="wrap">
+    <div class="seclabel"><span class="no">02</span><span>THE ARGUMENT</span><span class="fill"></span><span>ON CUSTODY</span></div>
+    <h2 class="sec">Who holds the key.</h2>
+    <p class="lede">Custody is the thing biobanks have always taken without asking. The Freezer does not invent a new right. It gives you the boring paperwork that institutions kept for themselves.</p>
+
+    <div class="argument">
+      <p>
+        <span class="lead">01 · Scale</span>
+        The world's freezers are already full of people. A widely cited RAND analysis
+        estimated more than <b>307 million</b> tissue specimens stored in United States
+        repositories by 1999, accumulating by roughly <b>20 million a year</b>. Nobody has ever
+        recounted them downward.
+      </p>
+      <p>
+        <span class="lead">02 · The named collections</span>
+        <b>UK Biobank</b> alone holds on the order of <b>15 million</b> aliquots drawn from
+        <b>500,000</b> volunteers. National projects in the United States, China, Estonia and
+        Iceland hold millions more. These are real, careful, well-run archives. That is exactly
+        the point.
+      </p>
+      <p>
+        <span class="lead">03 · Consent, in practice</span>
+        Consent at that scale is broad, one-time, and delegated. A signature at intake becomes
+        a permission that outlives the memory of signing it. The sample stays; the person moves
+        on. Very few donors could tell you their <b>slot number</b>, because they were never
+        given one.
+      </p>
+      <p>
+        <span class="lead">04 · The inversion</span>
+        The Freezer changes one variable. You get the number. You get the receipt. You can walk
+        in and <b>retrieve</b> what is yours, and you can order it <b>destroyed</b>. The contents
+        stay sealed; the register stays public. Custody, returned to the person it came from.
+      </p>
+    </div>
+
+    <ul class="cites">
+      <li>RAND, <i>Handbook of Human Tissue Sources</i> (1999): &gt;307M specimens in U.S. repositories, +~20M/yr.</li>
+      <li>UK Biobank: ~500,000 participants; ~15M biological samples under −80 °C and vapour-phase storage.</li>
+      <li>Figures cited as published context for the argument; The Freezer is an independent facility and is not affiliated with any of the above.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══ 03 THE SLOT ══ -->
+<section id="slot">
+  <div class="wrap">
+    <div class="seclabel"><span class="no">03</span><span>THE SLOT</span><span class="fill"></span><span>WHAT YOU GET</span></div>
+    <h2 class="sec">One numbered position. Ten years. Yours.</h2>
+
+    <div class="slot-grid">
+      <div class="spec">
+        <div class="row"><span class="k">Position</span><span class="v">A single numbered slot in the cabinet — e.g. <span class="num">No. 130</span>. The number is permanent and printed on the register.</span></div>
+        <div class="row"><span class="k">Vessel</span><span class="v">One sterile cryovial, <span class="num">2 ml</span> or <span class="num">5 ml</span>, externally threaded, silicone-sealed, rated for vapour-phase and mechanical −80 °C storage. <em>One vessel per slot.</em></span></div>
+        <div class="row"><span class="k">Term</span><span class="v"><span class="num">Ten years</span> from the date of deposit, recorded to the day on the manifest.</span></div>
+        <div class="row"><span class="k">Key tag</span><span class="v">A physical anodised tag stamped with your slot number, mailed to you. It is proof of custody, not an electronic key — retrieval is by appointment and identity check.</span></div>
+        <div class="row"><span class="k">Retrieval rights</span><span class="v">You, or your named beneficiary, may recover the vial in person during the term, once, with 14 days' notice. Retrieval closes the slot.</span></div>
+        <div class="row"><span class="k">Destruction rights</span><span class="v">You may order the contents autoclaved and disposed of at any time, in writing. Destruction is logged on the manifest and is irreversible.</span></div>
+        <div class="row"><span class="k">Named beneficiary</span><span class="v">One person you nominate at deposit, who inherits retrieval and destruction rights if you die during the term.</span></div>
+        <div class="row"><span class="k">At term's end</span><span class="v">Your choice, made at deposit: a $50 renewal reminder, or auto-lapse of the vial into the public collection.</span></div>
+      </div>
+
+      <div class="vial-card">
+        <!-- Inline SVG cryovial -->
+        <svg class="vial-svg" width="72" height="200" viewBox="0 0 72 200" role="img" aria-label="Line drawing of a screw-cap cryovial">
+          <defs></defs>
+          <!-- cap -->
+          <rect x="20" y="6" width="32" height="22" rx="2" fill="none" stroke="#3b4247" stroke-width="2"/>
+          <line x1="26" y1="6" x2="26" y2="28" stroke="#9aa2a8" stroke-width="1"/>
+          <line x1="32" y1="6" x2="32" y2="28" stroke="#9aa2a8" stroke-width="1"/>
+          <line x1="40" y1="6" x2="40" y2="28" stroke="#9aa2a8" stroke-width="1"/>
+          <line x1="46" y1="6" x2="46" y2="28" stroke="#9aa2a8" stroke-width="1"/>
+          <!-- neck threads -->
+          <path d="M22 28 h28 M22 33 h28 M22 38 h28" stroke="#9aa2a8" stroke-width="1" fill="none"/>
+          <!-- body -->
+          <path d="M22 40 v120 a14 14 0 0 0 28 0 v-120 z" fill="#eaedef" stroke="#3b4247" stroke-width="2"/>
+          <!-- graduation ticks -->
+          <line x1="24" y1="70" x2="31" y2="70" stroke="#9aa2a8" stroke-width="1"/>
+          <line x1="24" y1="90" x2="31" y2="90" stroke="#9aa2a8" stroke-width="1"/>
+          <line x1="24" y1="110" x2="34" y2="110" stroke="#9aa2a8" stroke-width="1"/>
+          <line x1="24" y1="130" x2="31" y2="130" stroke="#9aa2a8" stroke-width="1"/>
+          <!-- fill -->
+          <path d="M22 120 v40 a14 14 0 0 0 28 0 v-40 z" fill="#4d7f95" opacity="0.28"/>
+          <!-- label -->
+          <rect x="21" y="60" width="30" height="26" fill="#f3f5f6" stroke="#9aa2a8" stroke-width="1"/>
+          <text x="36" y="76" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#1c2124">130</text>
+        </svg>
+        <div class="price">$250<small>ten-year term</small></div>
+        <p class="fine">
+          ≈ $2.08 a month for cryogenic custody.<br>
+          400 slots total. 20 held for commissioned deposits.<br>
+          Application, not instant checkout — see below.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 04 THE MANIFEST ══ -->
+<section class="alt" id="manifest">
+  <div class="wrap">
+    <div class="seclabel"><span class="no">04</span><span>THE MANIFEST</span><span class="fill"></span><span>THE PUBLIC REGISTER</span></div>
+    <div class="manifest-head">
+      <div>
+        <h2 class="sec" style="margin-bottom:0.6rem;">The Manifest.</h2>
+        <p class="lede">Sealed contents, public register. Each line is a slot, a person, and a thing they could not bring themselves to throw away. The register is the artwork.</p>
+      </div>
+      <div class="count">Displaying 16 of 129 held · updated continuously</div>
+    </div>
+
+    <div class="m-scroll">
+      <table class="manifest">
+        <thead>
+          <tr>
+            <th style="width:10%">Slot</th>
+            <th style="width:22%">Depositor</th>
+            <th style="width:40%">Contents (as declared)</th>
+            <th style="width:14%">Deposited</th>
+            <th style="width:14%">Expires</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="slotno">001</td><td class="dep">Polygenik (commission)</td><td class="desc">Sourdough starter, continuously fed since 2011; "Doreen"</td><td class="date">2024-03-14</td><td class="date">2034-03-14</td></tr>
+          <tr><td class="slotno">004</td><td class="dep">M. Okafor</td><td class="desc">Excised mast-cell tumour, feline; "Biscuit"</td><td class="date">2024-04-02</td><td class="date">2034-04-02</td></tr>
+          <tr><td class="slotno">009</td><td class="dep wh">withheld</td><td class="desc">Breastmilk, 5 ml, expressed the last week of nursing</td><td class="date">2024-05-19</td><td class="date">2034-05-19</td></tr>
+          <tr><td class="slotno">013</td><td class="dep">R. &amp; T. Alvarez</td><td class="desc">Umbilical cord blood, first child</td><td class="date">2024-06-07</td><td class="date">2034-06-07</td></tr>
+          <tr><td class="slotno">017</td><td class="dep wh">withheld</td><td class="desc">An ex-partner's toothbrush, unwashed</td><td class="date">2024-06-30</td><td class="date">2034-06-30</td></tr>
+          <tr><td class="slotno">022</td><td class="dep">J. Feldman</td><td class="desc">A lock of my father's hair, cut the morning of the funeral</td><td class="date">2024-07-21</td><td class="date">2034-07-21</td></tr>
+          <tr><td class="slotno">028</td><td class="dep wh">withheld</td><td class="desc">A vial of tears, collected over one bad autumn</td><td class="date">2024-08-11</td><td class="date">2034-08-11</td></tr>
+          <tr><td class="slotno">031</td><td class="dep">Heirloom Seed Trust</td><td class="desc">Glass Gem corn &amp; Cherokee Trail-of-Tears bean seed</td><td class="date">2024-09-03</td><td class="date">2034-09-03</td></tr>
+          <tr><td class="slotno">036</td><td class="dep">L. Nakamura</td><td class="desc">Whiskers of a dog who died in June; "Momo"</td><td class="date">2024-09-28</td><td class="date">2034-09-28</td></tr>
+          <tr><td class="slotno">041</td><td class="dep wh">withheld</td><td class="desc">A wedge of wedding cake, third anniversary</td><td class="date">2024-10-16</td><td class="date">2034-10-16</td></tr>
+          <tr><td class="slotno">047</td><td class="dep">D. Achebe</td><td class="desc">Skin swab of the family gut &amp; hand microbiome, four members</td><td class="date">2024-11-04</td><td class="date">2034-11-04</td></tr>
+          <tr><td class="slotno">052</td><td class="dep wh">withheld</td><td class="desc">A grandmother's rosemary cutting, rooted then frozen</td><td class="date">2024-11-29</td><td class="date">2034-11-29</td></tr>
+          <tr><td class="slotno">058</td><td class="dep">P. Castellano</td><td class="desc">Baby teeth, complete set, kept in a film canister since 1994</td><td class="date">2024-12-18</td><td class="date">2034-12-18</td></tr>
+          <tr><td class="slotno">063</td><td class="dep">Polygenik (commission)</td><td class="desc">Kombucha SCOBY, mother culture of a closed bar in the Tenderloin</td><td class="date">2025-01-22</td><td class="date">2035-01-22</td></tr>
+          <tr><td class="slotno">071</td><td class="dep wh">withheld</td><td class="desc">A returned engagement ring, and the cheek swab that went with it</td><td class="date">2025-02-14</td><td class="date">2035-02-14</td></tr>
+          <tr><td class="slotno">088</td><td class="dep">S. Whitlock</td><td class="desc">Fur brushed from a horse, sold when the ranch closed</td><td class="date">2025-03-09</td><td class="date">2035-03-09</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="m-foot">
+      Depositors may list a name or elect "withheld"; the choice is theirs and is shown exactly as given.<br>
+      Contents are declared by the depositor at deposit and are not verified beyond the prohibited schedule below. Vessels remain sealed.
+    </p>
+  </div>
+</section>
+
+<!-- ══ 05 WHAT CANNOT GO IN ══ -->
+<section id="prohibited">
+  <div class="wrap">
+    <div class="seclabel"><span class="no">05</span><span>WHAT CANNOT GO IN</span><span class="fill"></span><span>SCHEDULE A8 · PROHIBITED CONTENTS</span></div>
+    <h2 class="sec">The prohibited schedule.</h2>
+    <p class="lede">Being visibly rigorous here is what makes everything above credible. If any of the following applies, we cannot accept your deposit, and we will say so plainly.</p>
+
+    <div class="prohibited">
+      <div class="item">
+        <div class="code">P-01 · SELECT AGENTS</div>
+        <h3><span class="no-mark">✕</span> No select agents or toxins</h3>
+        <p>Nothing on the U.S. Federal Select Agent list — no cultured pathogens, viable spores, or biological toxins. We are not a registered facility and never will be.</p>
+      </div>
+      <div class="item">
+        <div class="code">P-02 · CONTROLLED SUBSTANCES</div>
+        <h3><span class="no-mark">✕</span> No controlled substances</h3>
+        <p>Nothing scheduled under the Controlled Substances Act, and no unlabelled powders, pills, or extracts. A frozen slot is not a stash.</p>
+      </div>
+      <div class="item">
+        <div class="code">P-03 · HUMAN REMAINS</div>
+        <h3><span class="no-mark">✕</span> No human remains or decedent tissue</h3>
+        <p>California law on human remains is specific and we honour it. No tissue, fluid, or bone from a deceased person, and no ashes. Tissue and fluids are accepted only from a <em>living, consenting</em> donor.</p>
+      </div>
+      <div class="item">
+        <div class="code">P-04 · FETAL TISSUE</div>
+        <h3><span class="no-mark">✕</span> No fetal or embryonic remains</h3>
+        <p>No products of conception, fetal tissue, or embryonic material of any kind. This is a firm line, not a case-by-case one.</p>
+      </div>
+      <div class="item">
+        <div class="code">P-05 · CLINICAL SPECIMENS</div>
+        <h3><span class="no-mark">✕</span> No unfixed clinical specimens</h3>
+        <p>No fresh blood, unfixed biopsies, or diagnostic material shipped by post. Shipping instructions are issued only after an application is approved, and only for stable, non-infectious material.</p>
+      </div>
+      <div class="item">
+        <div class="code">P-06 · RESERVED RIGHTS</div>
+        <h3><span class="no-mark">✕</span> We may refuse, and we may inspect</h3>
+        <p>Sealed does not mean unexamined. We reserve the right to refuse any deposit, to inspect where law or safety requires, and to report where we are legally obliged to.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 06 TERMS & CUSTODY ══ -->
+<section class="alt" id="terms">
+  <div class="wrap">
+    <div class="seclabel"><span class="no">06</span><span>TERMS &amp; CUSTODY</span><span class="fill"></span><span>SLOT LICENCE A8 · SUMMARY</span></div>
+    <h2 class="sec">The four questions that make this an institution.</h2>
+    <p class="lede">Answering these properly is the difference between an art project and a promise. The summaries below are governed by the full Slot Licence Agreement (A8), available on request before you deposit.</p>
+
+    <div class="terms">
+      <div class="term">
+        <div class="q">If Polygenik dissolves</div>
+        <h3>Wind-down clause</h3>
+        <p>A named successor custodian assumes the freezer under the same terms. If none can be found, depositors receive 180 days' written notice to retrieve, after which un-retrieved contents are destroyed on a stated timeline and logged. The freezer is never sold with contents inside.</p>
+      </div>
+      <div class="term">
+        <div class="q">If the freezer fails</div>
+        <h3>Redundancy &amp; honesty</h3>
+        <p>Temperature is logged with SMS alerting; a backup CO₂/LN₂ plan and a documented response procedure are in place, with a second cabinet at a different address before slot 400 sells. We cannot guarantee against total loss, and the licence caps liability. We would rather tell you that than pretend otherwise.</p>
+      </div>
+      <div class="term">
+        <div class="q">If the term lapses</div>
+        <h3>Your pre-chosen default</h3>
+        <p>At deposit you choose one of two lapse behaviours: a $50 renewal reminder at year nine, or automatic transfer of the sealed vial into the public collection under a new anonymised slot number. No silent disposal, ever.</p>
+      </div>
+      <div class="term">
+        <div class="q">If the depositor dies</div>
+        <h3>Named beneficiary</h3>
+        <p>The one beneficiary named at deposit inherits full retrieval and destruction rights for the remainder of the term, on presentation of identity and the key tag or a certified copy of the death record. If no beneficiary is reachable, the term runs to its stated end and the lapse default applies.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 07 DEPOSIT ══ -->
+<section id="deposit">
+  <div class="wrap">
+    <div class="seclabel"><span class="no">07</span><span>DEPOSIT</span><span class="fill"></span><span>APPLICATION, NOT CHECKOUT</span></div>
+    <h2 class="sec">Apply for a slot.</h2>
+    <p class="lede">This is an application, not an instant purchase. We read what people intend to send before we send shipping instructions. Nothing below is stored — this page keeps no data.</p>
+
+    <div class="form-wrap" style="margin-top:2rem;">
+      <form class="deposit" id="apply" novalidate>
+        <label>
+          <span class="lbl">Your name (or leave blank for "withheld")</span>
+          <input type="text" name="name" autocomplete="off" placeholder="Optional">
+        </label>
+        <label>
+          <span class="lbl">Email for the reply *</span>
+          <input type="email" name="email" autocomplete="off" placeholder="you@example.com" required>
+        </label>
+        <label>
+          <span class="lbl">Vessel</span>
+          <select name="vessel">
+            <option>2 ml cryovial</option>
+            <option>5 ml cryovial</option>
+          </select>
+        </label>
+        <label>
+          <span class="lbl">What you intend to deposit *</span>
+          <textarea name="contents" placeholder="One or two sentences. Be honest — this is what we read." required></textarea>
+        </label>
+        <label>
+          <span class="lbl">Named beneficiary (name &amp; relationship)</span>
+          <input type="text" name="beneficiary" autocomplete="off" placeholder="e.g. Priya Rao, sister">
+        </label>
+        <label>
+          <span class="lbl">At term's end, if I do nothing</span>
+          <select name="lapse">
+            <option>Send me a $50 renewal reminder at year nine</option>
+            <option>Lapse the vial into the public collection</option>
+          </select>
+        </label>
+        <div class="checkrow">
+          <input type="checkbox" id="ack" name="ack" required>
+          <label for="ack" style="margin:0;">I have read <b>What Cannot Go In</b> (Schedule A8) and confirm my deposit contains none of it, and comes from a living, consenting source.</label>
+        </div>
+        <button type="submit" class="btn">SUBMIT APPLICATION</button>
+        <div class="confirm" id="confirm" role="status" aria-live="polite"></div>
+      </form>
+
+      <div class="form-note">
+        <p style="margin-bottom:1rem;"><b style="color:var(--ink);">What happens next</b></p>
+        <p>01 &nbsp;→ &nbsp;We read your application. Expect a reply within ten working days.</p>
+        <p>02 &nbsp;→ &nbsp;If accepted, we issue a slot number, an invoice for $250, and cold-shipping instructions.</p>
+        <p>03 &nbsp;→ &nbsp;You ship or hand-deliver the vessel. We log it, seal it, and mail your key tag.</p>
+        <p>04 &nbsp;→ &nbsp;Your line appears on the public Manifest. Ten years begin.</p>
+        <p style="margin-top:1.4rem;color:var(--ink-2);">We may decline without giving a reason. Undersupply is fine by us — honesty about capacity is the point.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <div class="col">
+      <p><b style="color:var(--ink);letter-spacing:0.16em;">THE FREEZER · MINUS EIGHTY</b></p>
+      <p>995 Market Street, Floor 08, San Francisco</p>
+      <p>DROP 004, then permanent infrastructure · Sealed contents, public manifest</p>
+      <p style="margin-top:0.8rem;"><a class="home" href="/">← polygenik.com</a></p>
+    </div>
+    <div class="col" style="text-align:right;">
+      <p class="num" id="foot-temp">−80.4 °C · nominal</p>
+      <p class="prop" style="margin-top:0.6rem;"><a href="/">A POLYGENIK property</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ── Simulated cabinet temperature ──
+     ILLUSTRATIVE ONLY. This is a client-side simulation, not a live logger.
+     No network, no external data. It gently drifts around −80.4 °C to read
+     like a real mechanical −80 cabinet's duty cycle. */
+  var reduce = false;
+  try { reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch(e){}
+
+  var base = -80.4;
+  var tempVal  = document.getElementById("temp-val");
+  var barTemp  = document.getElementById("bar-temp");
+  var footTemp = document.getElementById("foot-temp");
+  var t = 0;
+
+  function fmt(x){ return "−" + Math.abs(x).toFixed(1); }
+
+  function tick(){
+    t += 1;
+    // slow sine (compressor duty cycle) + tiny jitter, clamped to a plausible band
+    var drift = Math.sin(t/9) * 0.6 + (Math.random() - 0.5) * 0.25;
+    var v = base + drift;
+    if (v > -79.2) v = -79.2;
+    if (v < -81.6) v = -81.6;
+    if (tempVal)  tempVal.innerHTML  = fmt(v) + "&nbsp;<small>°C</small>";
+    if (barTemp)  barTemp.textContent = fmt(v) + " °C";
+    if (footTemp) footTemp.textContent = fmt(v) + " °C · nominal";
+  }
+
+  tick();
+  if (!reduce) {
+    setInterval(tick, 3000);
+  }
+
+  /* ── Deposit application — client-side only, stores nothing ── */
+  var form = document.getElementById("apply");
+  var confirm = document.getElementById("confirm");
+  if (form && confirm) {
+    form.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var email = form.elements["email"].value.trim();
+      var contents = form.elements["contents"].value.trim();
+      var ack = form.elements["ack"].checked;
+      if (!email || !contents || !ack) {
+        confirm.classList.add("show");
+        confirm.style.borderColor = "#a2512b";
+        confirm.style.color = "#a2512b";
+        confirm.innerHTML = "Incomplete. An email, a description of contents, and the Schedule A8 acknowledgement are all required.";
+        confirm.focus && confirm.focus();
+        return;
+      }
+      // Deadpan institutional confirmation. Nothing is transmitted or stored.
+      var ref = "A8-" + (Math.floor(Math.random()*9000)+1000) + "-" + (new Date().getFullYear());
+      confirm.classList.add("show");
+      confirm.style.borderColor = "#3f6f57";
+      confirm.style.color = "#3f6f57";
+      confirm.innerHTML =
+        "APPLICATION RECEIVED — provisional reference <span class='ref'>" + ref + "</span>.<br>" +
+        "This is a demonstration. Your application was not transmitted and nothing was stored on this device or elsewhere. " +
+        "No slot has been assigned and no payment has been taken. We would read it, then reply within ten working days.";
+      form.reset();
+    });
+  }
+})();
+</script>

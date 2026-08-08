@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+  POLYGENIK — SCIENTIFICALLY ACCURATE ASTROLOGY
+  Self-contained microsite. Strict-CSP compliant.
+  Front-end only. No backend, no account, no storage, no network calls.
+  The chart is generated client-side as inline SVG.
+  Only external resource: Google Fonts (CSS + font files).
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'">
+
+<title>Scientifically Accurate Astrology — POLYGENIK</title>
+<meta name="description" content="Your date of birth really does predict your diagnoses, your schooling, and your odds of playing professional sport. Not because of Saturn — because of school-enrolment cutoffs, gestational vitamin D, seasonal infection, and latitude. Every claim cited. Nothing stored.">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="POLYGENIK">
+<meta property="og:url" content="https://polygenik.com/accurate-astrology">
+<meta property="og:title" content="Scientifically Accurate Astrology — POLYGENIK">
+<meta property="og:description" content="Your birthday predicts your life. Just not for any reason a horoscope would accept. Enter a date, cast the chart. Every claim cited. Nothing stored.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --void:#0b0d1a;
+    --void-2:#0f1224;
+    --panel:#141834;
+    --panel-2:#191d3d;
+    --gold:#d9c48c;
+    --gold-deep:#b79a54;
+    --parch:#efe7d3;
+    --ink-soft:rgba(239,231,211,0.72);
+    --ink-faint:rgba(239,231,211,0.46);
+    --line:rgba(217,196,140,0.24);
+    --line-soft:rgba(217,196,140,0.12);
+    --teal:#6fd6c8;
+    --rose:#e8748f;
+    --violet:#9d8be0;
+    --strong:#7fd7a3;
+    --mixed:#e6c66a;
+    --contested:#e88f6f;
+    --mono:'IBM Plex Mono', ui-monospace, monospace;
+    --serif:'Spectral', Georgia, serif;
+    --disp:'Cormorant Garamond', Georgia, serif;
+  }
+
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+  body{
+    background:
+      radial-gradient(1200px 700px at 50% -10%, rgba(217,196,140,0.08), transparent 60%),
+      radial-gradient(900px 900px at 85% 20%, rgba(111,214,200,0.05), transparent 60%),
+      var(--void);
+    color:var(--parch);
+    font-family:var(--serif);
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--gold);color:var(--void);}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 clamp(1.1rem,4vw,2.6rem);}
+  h1,h2,h3{font-family:var(--disp);font-weight:500;line-height:1.05;}
+  .mono{font-family:var(--mono);}
+
+  /* ---- top strip ---- */
+  .topbar{
+    display:flex;justify-content:space-between;align-items:center;gap:1rem;
+    padding:0.85rem clamp(1.1rem,4vw,2.6rem);
+    border-bottom:1px solid var(--line-soft);
+    font-family:var(--mono);font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--ink-faint);
+  }
+  .topbar a{text-decoration:none;color:var(--gold);}
+  .topbar a:hover{color:var(--parch);}
+
+  /* ---- privacy banner ---- */
+  .privacy{
+    display:flex;align-items:center;gap:0.6rem;justify-content:center;
+    padding:0.55rem 1rem;text-align:center;
+    background:rgba(111,214,200,0.06);
+    border-bottom:1px solid var(--line-soft);
+    font-family:var(--mono);font-size:0.72rem;letter-spacing:0.04em;
+    color:var(--teal);
+  }
+  .privacy svg{flex:none;}
+
+  /* ---- hero ---- */
+  .hero{padding:clamp(3rem,8vw,6rem) 0 clamp(2rem,5vw,3.5rem);text-align:center;}
+  .kicker{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.34em;text-transform:uppercase;color:var(--gold-deep);}
+  .hero h1{font-size:clamp(2.6rem,8vw,5.6rem);letter-spacing:-0.01em;margin:1rem 0 0.4rem;}
+  .hero h1 em{font-style:italic;color:var(--gold);}
+  .lede{max-width:44ch;margin:1.4rem auto 0;font-size:clamp(1.05rem,2.4vw,1.35rem);color:var(--ink-soft);font-weight:300;}
+  .lede strong{color:var(--parch);font-weight:500;}
+  .hero .cite-note{margin-top:1.4rem;font-family:var(--mono);font-size:0.72rem;letter-spacing:0.06em;color:var(--ink-faint);}
+
+  /* ---- form ---- */
+  .caster{
+    max-width:640px;margin:2.4rem auto 0;
+    background:linear-gradient(180deg,var(--panel),var(--panel-2));
+    border:1px solid var(--line);border-radius:14px;
+    padding:clamp(1.4rem,4vw,2rem);
+    box-shadow:0 30px 80px -40px rgba(0,0,0,0.8);
+  }
+  .caster .row{display:flex;flex-wrap:wrap;gap:1rem;}
+  .field{flex:1 1 170px;display:flex;flex-direction:column;gap:0.4rem;text-align:left;}
+  .field label{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-faint);}
+  .field input,.field select{
+    font-family:var(--mono);font-size:0.95rem;
+    background:var(--void-2);color:var(--parch);
+    border:1px solid var(--line);border-radius:8px;
+    padding:0.7rem 0.75rem;width:100%;
+  }
+  .field input:focus,.field select:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold);}
+  .caster button{
+    margin-top:1.3rem;width:100%;cursor:pointer;
+    font-family:var(--mono);font-size:0.82rem;letter-spacing:0.22em;text-transform:uppercase;
+    background:var(--gold);color:var(--void);border:0;border-radius:9px;
+    padding:0.95rem 1rem;transition:background .18s ease,transform .18s ease;
+  }
+  .caster button:hover{background:var(--parch);}
+  .caster button:active{transform:translateY(1px);}
+  .caster .formnote{margin-top:0.9rem;font-family:var(--mono);font-size:0.66rem;letter-spacing:0.03em;color:var(--ink-faint);text-align:center;}
+  .err{color:var(--contested);font-family:var(--mono);font-size:0.74rem;min-height:1.1em;margin-top:0.6rem;text-align:center;}
+
+  /* ---- result ---- */
+  #result{display:none;padding:clamp(2rem,5vw,3.5rem) 0;}
+  #result.show{display:block;}
+
+  .disclaimer{
+    max-width:760px;margin:0 auto clamp(2rem,4vw,3rem);
+    border:1px solid var(--contested);border-radius:12px;
+    background:rgba(232,143,111,0.08);
+    padding:1rem 1.2rem;text-align:center;
+    font-size:0.98rem;color:var(--parch);
+  }
+  .disclaimer strong{color:var(--contested);}
+
+  .chart-stage{display:flex;justify-content:center;margin:0 auto clamp(1.4rem,3vw,2rem);}
+  .chart-stage svg{width:min(560px,92vw);height:auto;filter:drop-shadow(0 40px 90px rgba(0,0,0,0.6));}
+  .chart-caption{text-align:center;font-family:var(--mono);font-size:0.72rem;letter-spacing:0.1em;color:var(--ink-faint);margin-bottom:0.4rem;}
+  .chart-sub{text-align:center;font-family:var(--disp);font-size:clamp(1.3rem,4vw,2rem);color:var(--gold);margin-bottom:1.6rem;}
+  .chart-sub small{display:block;font-family:var(--mono);font-size:0.66rem;letter-spacing:0.12em;color:var(--ink-faint);text-transform:uppercase;margin-top:0.35rem;}
+
+  /* rotating outer ring, disabled for reduced motion */
+  .spin{transform-origin:400px 400px;animation:spin 240s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  @media (prefers-reduced-motion: reduce){ .spin{animation:none;} }
+
+  /* ---- section headers ---- */
+  .sec-head{max-width:820px;margin:clamp(2.4rem,5vw,3.4rem) auto 1.4rem;text-align:center;}
+  .sec-head .kicker{color:var(--gold-deep);}
+  .sec-head h2{font-size:clamp(1.9rem,5vw,3rem);margin-top:0.5rem;}
+  .sec-head p{color:var(--ink-soft);font-weight:300;margin-top:0.6rem;max-width:56ch;margin-left:auto;margin-right:auto;}
+
+  /* ---- reading cards ---- */
+  .cards{display:grid;gap:1.1rem;max-width:820px;margin:0 auto;}
+  .card{
+    background:linear-gradient(180deg,var(--panel),var(--panel-2));
+    border:1px solid var(--line);border-radius:13px;
+    padding:clamp(1.2rem,3vw,1.7rem);
+  }
+  .card .domain{display:inline-block;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--void);background:var(--gold);border-radius:5px;padding:0.2rem 0.55rem;}
+  .card-top{display:flex;flex-wrap:wrap;gap:0.6rem;align-items:center;justify-content:space-between;}
+  .conf{font-family:var(--mono);font-size:0.64rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:20px;border:1px solid;}
+  .conf.Strong{color:var(--strong);border-color:var(--strong);}
+  .conf.Mixed{color:var(--mixed);border-color:var(--mixed);}
+  .conf.Contested{color:var(--contested);border-color:var(--contested);}
+  .card h3{font-size:clamp(1.4rem,3.4vw,1.9rem);margin:0.85rem 0 0.2rem;color:var(--parch);}
+  .card .personal{font-family:var(--mono);font-size:0.74rem;color:var(--teal);letter-spacing:0.02em;margin-bottom:0.7rem;}
+  .card p.plain{font-size:1.04rem;color:var(--ink-soft);font-weight:300;}
+
+  .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0.1rem 1.4rem;margin:1rem 0 0.4rem;border-top:1px solid var(--line-soft);padding-top:0.9rem;}
+  .metric{padding:0.35rem 0;}
+  .metric .k{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-faint);}
+  .metric .v{font-family:var(--mono);font-size:0.9rem;color:var(--parch);margin-top:0.15rem;}
+  .risk{font-family:var(--mono);font-size:0.95rem;color:var(--gold);}
+  .risk .arrow{color:var(--ink-faint);padding:0 0.3rem;}
+  .card .src{margin-top:0.9rem;font-size:0.9rem;}
+  .card .src a{color:var(--teal);text-decoration:underline;text-underline-offset:2px;}
+  .card .src a:hover{color:var(--parch);}
+  .card .basenote{font-family:var(--mono);font-size:0.66rem;color:var(--ink-faint);margin-top:0.55rem;letter-spacing:0.02em;}
+
+  details.disease{max-width:820px;margin:1.6rem auto 0;border:1px dashed var(--line);border-radius:13px;background:rgba(20,24,52,0.4);}
+  details.disease>summary{
+    cursor:pointer;list-style:none;padding:1.05rem 1.3rem;
+    font-family:var(--mono);font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);
+    display:flex;align-items:center;justify-content:space-between;gap:0.8rem;
+  }
+  details.disease>summary::-webkit-details-marker{display:none;}
+  details.disease>summary .hint{color:var(--ink-faint);font-size:0.68rem;text-transform:none;letter-spacing:0.02em;}
+  details.disease>summary .chev{transition:transform .2s ease;}
+  @media (prefers-reduced-motion: reduce){ details.disease>summary .chev{transition:none;} }
+  details.disease[open]>summary .chev{transform:rotate(90deg);}
+  details.disease .inner{padding:0.2rem 1.1rem 1.3rem;}
+  details.disease .warn{font-family:var(--mono);font-size:0.72rem;color:var(--contested);padding:0 0.2rem 1rem;letter-spacing:0.02em;}
+  details.disease .cards{gap:1.1rem;}
+
+  /* ---- prose sections ---- */
+  .prose{max-width:760px;margin:0 auto;}
+  .prose h2{font-size:clamp(1.9rem,5vw,3rem);}
+  .prose h3{font-size:1.35rem;color:var(--gold);margin:1.8rem 0 0.4rem;}
+  .prose p{color:var(--ink-soft);font-weight:300;margin-top:0.9rem;font-size:1.06rem;}
+  .prose ul{margin:0.9rem 0 0 1.1rem;color:var(--ink-soft);font-weight:300;}
+  .prose li{margin:0.5rem 0;}
+  .prose a{color:var(--teal);text-decoration:underline;text-underline-offset:2px;}
+  .compare{width:100%;border-collapse:collapse;margin-top:1.4rem;font-family:var(--mono);font-size:0.86rem;}
+  .compare th,.compare td{text-align:left;padding:0.7rem 0.6rem;border-bottom:1px solid var(--line-soft);vertical-align:top;}
+  .compare th{color:var(--gold);font-weight:500;letter-spacing:0.04em;font-size:0.7rem;text-transform:uppercase;}
+  .compare td:first-child{color:var(--parch);}
+
+  .divider{max-width:820px;margin:clamp(3rem,7vw,5rem) auto;height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);}
+
+  /* ---- method list ---- */
+  .biblio{max-width:820px;margin:1.4rem auto 0;display:grid;gap:0.8rem;}
+  .biblio .ref{border-left:2px solid var(--line);padding:0.2rem 0 0.2rem 0.9rem;font-size:0.95rem;color:var(--ink-soft);font-weight:300;}
+  .biblio .ref a{color:var(--teal);text-decoration:underline;text-underline-offset:2px;}
+  .biblio .ref .tag{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-faint);}
+
+  /* ---- footer ---- */
+  footer{border-top:1px solid var(--line-soft);margin-top:clamp(3rem,8vw,6rem);padding:2.4rem 0;}
+  .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;align-items:center;font-family:var(--mono);font-size:0.72rem;letter-spacing:0.06em;color:var(--ink-faint);}
+  .foot a{color:var(--gold);text-decoration:none;}
+  .foot a:hover{color:var(--parch);}
+  .foot .disclaim{max-width:52ch;text-transform:none;letter-spacing:0.01em;}
+
+  @media (max-width:560px){
+    .metrics{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="/">&larr; POLYGENIK</a>
+  <span>Scientifically Accurate Astrology</span>
+</div>
+
+<div class="privacy" role="note">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+  <span>Nothing is stored. No account, no server, no database, no cookies. Everything runs in your browser and vanishes when you close the tab.</span>
+</div>
+
+<main>
+<!-- ===================== HERO ===================== -->
+<section class="hero wrap">
+  <div class="kicker">A POLYGENIK PROPERTY</div>
+  <h1>Scientifically<br>Accurate <em>Astrology</em></h1>
+  <p class="lede">Your date of birth predicts your diagnoses, your schooling, and your odds of playing professional sport. <strong>Not because of Saturn.</strong> Because of school-enrolment cutoffs, gestational vitamin D, and which viruses were circulating the winter your mother was pregnant.</p>
+  <p class="cite-note">Enter a birthday. Every claim is cited. Nothing is stored.</p>
+
+  <form class="caster" id="caster" novalidate>
+    <div class="row">
+      <div class="field">
+        <label for="dob">Date of birth</label>
+        <input id="dob" name="dob" type="date" required max="2026-08-08" min="1900-01-01">
+      </div>
+      <div class="field">
+        <label for="hemi">Hemisphere</label>
+        <select id="hemi" name="hemi">
+          <option value="N">Northern</option>
+          <option value="S">Southern</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="country">School system</label>
+        <select id="country" name="country">
+          <option value="US">United States (Sep 1)</option>
+          <option value="GB-EW">England &amp; Wales (Sep 1)</option>
+          <option value="GB-SCT">Scotland (Mar 1)</option>
+          <option value="CA">Canada (Jan 1)</option>
+          <option value="AU">Australia (approx. Jul)</option>
+          <option value="NZ">New Zealand (approx. Feb)</option>
+          <option value="DE">Germany (approx. Jul)</option>
+          <option value="JP">Japan (Apr 2)</option>
+          <option value="OTHER">Other / calendar-year cohort</option>
+        </select>
+      </div>
+    </div>
+    <button type="submit">Cast the chart</button>
+    <p class="err" id="err" role="alert" aria-live="assertive"></p>
+    <p class="formnote">Birth date only. No name, no email, no account. This form transmits nothing and saves nothing &mdash; it draws your chart locally and forgets it.</p>
+  </form>
+</section>
+
+<!-- ===================== RESULT ===================== -->
+<section id="result" class="wrap" aria-live="polite">
+  <div class="disclaimer">
+    <strong>Not medical advice.</strong> These are population associations, not predictions about you. A shift in average risk across millions of people says nothing certain about any one person &mdash; you included.
+  </div>
+
+  <p class="chart-caption mono" id="chartCaption">YOUR ACTUAL NATAL CHART</p>
+  <h2 class="chart-sub" id="chartSub"></h2>
+  <div class="chart-stage" id="chartStage"></div>
+
+  <div class="sec-head">
+    <div class="kicker">The readings</div>
+    <h2>What the date actually does</h2>
+    <p>Selection effects first &mdash; the ones that are stronger, funnier, and indict institutions rather than alarm you. Disease associations are lower down, behind a click, with effect sizes and confidence intervals.</p>
+  </div>
+
+  <div class="cards" id="leadCards"></div>
+
+  <details class="disease" id="diseaseBlock">
+    <summary>
+      <span>Show disease associations <span class="hint">weaker, scarier, and easier to misread &mdash; open only with the base rates in mind</span></span>
+      <span class="chev" aria-hidden="true">&#9656;</span>
+    </summary>
+    <div class="inner">
+      <p class="warn">Every number below is an absolute risk shown against its base rate. A change from 0.7% to 0.8% is a change of one person in a thousand. Read it that way.</p>
+      <div class="cards" id="diseaseCards"></div>
+    </div>
+  </details>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===================== WHY THIS WORKS ===================== -->
+<section class="wrap prose">
+  <div class="kicker">Mechanism vs. correlation</div>
+  <h2>Why this works and astrology does not</h2>
+  <p>Astrology and this page agree on one strange fact: your birth date carries information about your life. They disagree completely about why, and the why is the whole thing.</p>
+  <p>Astrology proposes a mechanism &mdash; the gravitational or spiritual influence of distant planets at the moment of birth &mdash; and that mechanism does not survive contact with physics. The delivering obstetrician exerts more gravitational pull on a newborn than Mars does. When astrologers' predictions are tested blind against chance, they land at chance. There is no dose, no gradient, no plausible pathway, and no replication.</p>
+  <p>The findings on this page have all four. Each has a <em>mechanism</em> you can point to: an arbitrary enrolment cutoff that makes one child the youngest in a room of thirty; a winter of low sunlight that lowers a pregnant woman's vitamin D; a respiratory-virus season that peaks in a particular trimester; a latitude that governs how much ultraviolet reaches the skin. Each has a <em>dose-response</em> gradient &mdash; effects strengthen with relative youth, with latitude, with the depth of the season. Each <em>replicates</em> across independent cohorts and countries. And each produces an effect small enough to be honest about and large enough to measure.</p>
+  <p>That is the difference between a horoscope and an epidemiological finding. Astrology is wrong about the mechanism and accidentally right that the date matters. This page keeps the accident and throws away the astrology.</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===================== METHOD & LIMITATIONS ===================== -->
+<section class="wrap prose">
+  <div class="kicker">Method &amp; limitations</div>
+  <h2>How this was built, and where it is weak</h2>
+  <p>Every finding lives in a small data object inside this page, each with an absolute-risk framing, an effect size, a sample size, a confidence label, and a link to the source. Nothing is fetched at runtime; the page talks to no server. If you think an effect size is wrong, the fix is a one-line edit and an email &mdash; corrections welcome.</p>
+
+  <h3>The two rules we do not break</h3>
+  <ul>
+    <li><strong>Absolute risk, always, with the base rate beside it.</strong> "Your lifetime risk goes from roughly 0.7% to roughly 0.8%" is honest. "40% higher risk" is technically true and wildly misleading, because 40% more of a tiny number is still a tiny number. We never print a bare relative risk.</li>
+    <li><strong>Selection effects lead; disease follows a click.</strong> The school-cutoff and draft findings are stronger evidence and they indict institutions, not individuals. Disease associations are smaller, easier to misread, and sit behind a click with their confidence intervals visible.</li>
+  </ul>
+
+  <h3>What is genuinely weak here</h3>
+  <ul>
+    <li><strong>Personalisation is approximate.</strong> School-enrolment cutoffs vary by state, province and year; the ones offered here are representative, not authoritative. Sports selection years differ by sport. We tell you where your birthday probably sat; we cannot know where it actually sat.</li>
+    <li><strong>Season-of-birth disease effects are small and partly contested.</strong> Some have been argued to be statistical artefacts of how birth dates cluster. We label those Mixed or Contested rather than hiding them.</li>
+    <li><strong>Confounding is everywhere.</strong> Birth timing is not random &mdash; season of conception correlates with parental income, planning, and geography, any of which could drive an association attributed to the calendar.</li>
+    <li><strong>Absolute risks are population figures.</strong> They shift the average across a cohort. They are not a forecast for you, and they are not diagnostic.</li>
+  </ul>
+
+  <h3>Sources</h3>
+  <div class="biblio" id="biblio"></div>
+</section>
+
+<!-- ===================== THE PRINT ===================== -->
+<section class="wrap prose" style="margin-top:clamp(3rem,7vw,5rem)">
+  <div class="kicker">The object</div>
+  <h2>The print</h2>
+  <p>The web toy is free and forgets you. The object does not: a letterpressed natal chart cast from your date, with every citation printed on the reverse, in an edition. We call it a chart and let the double meaning sit there. Enquire through <a href="/">POLYGENIK</a>.</p>
+</section>
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="wrap">
+  <div class="foot">
+    <a href="/">A POLYGENIK property</a>
+    <span class="disclaim">Population associations, not predictions. Not medical advice. No data is collected, transmitted, or stored. Risk framing pending review by a statistician before launch.</span>
+  </div>
+</footer>
+
+<script>
+"use strict";
+(function(){
+  /* ------------------------------------------------------------------
+     FINDINGS DATA OBJECT
+     Each finding: domain, confidence (Strong|Mixed|Contested),
+     absolute risk shown against its base rate ALWAYS, effect size,
+     sample size, working citation. `lead:true` = selection effect,
+     shown up top. `lead:false` = disease/season, behind the click.
+  ------------------------------------------------------------------ */
+  var FINDINGS = [
+    {
+      id:"adhd",
+      lead:true,
+      domain:"SELECTION",
+      confidence:"Strong",
+      title:"An ADHD diagnosis you might not have if you'd been born a month later",
+      plain:"Where a September 1 school cutoff is used, children born in August are the youngest in their class — and are diagnosed and treated for ADHD noticeably more often than their September-born classmates, who are nearly a year older. The child did not change. The cutoff did.",
+      base:"~0.64% of September-born children (diagnosed ADHD, this cohort)",
+      after:"~0.85% of August-born children",
+      effect:"Rate ratio 1.34 (95% CI 1.19–1.51) for August vs. September births under a Sep-1 cutoff",
+      sample:"407,846 U.S. children, 2007–2015 commercial insurance claims",
+      cite:"Layton TJ et al. Attention Deficit–Hyperactivity Disorder and Month of School Enrollment. NEJM 2018;379:2122–2130",
+      url:"https://www.nejm.org/doi/full/10.1056/NEJMoa1806828",
+      basenote:"Absolute treated-ADHD rates in this insured cohort; the gap is entirely explained by relative age, not by the children."
+    },
+    {
+      id:"sport",
+      lead:true,
+      domain:"SELECTION",
+      confidence:"Strong",
+      title:"The professional-sport draft that quietly filters by birth month",
+      plain:"Relatively older children in a selection year are bigger, faster and stronger at the moment scouts look. That head start compounds through years of extra coaching and selection. Elite youth academies end up stacked with players born just after the cutoff — not because those children are more talented, but because they were sorted early.",
+      base:"~10% of elite youth players born in the LAST quarter of the selection year",
+      after:"~40% born in the FIRST quarter of the selection year",
+      effect:"Pooled odds ~2–3× favouring relatively older athletes (Q1 vs Q4); largest in adolescent elite selection",
+      sample:"Meta-analysis of 253 studies of annual age-grouping in sport",
+      cite:"Cobley S, Baker J, Wattie N, McKenna J. Annual Age-Grouping and Athlete Development. Sports Medicine 2009;39(3):235–256",
+      url:"https://doi.org/10.2165/00007256-200939030-00005",
+      basenote:"This is a distribution of who gets selected, not a personal risk. Reaching professional sport is rare for everyone; the cutoff only skews who gets the early chances."
+    },
+    {
+      id:"attain",
+      lead:true,
+      domain:"SCHOOLING",
+      confidence:"Strong",
+      title:"Test scores, streaming and university odds, shifted by an arbitrary line",
+      plain:"Being youngest in the year lowers early test scores, raises the odds of being placed in lower streams or flagged for special educational needs, and slightly reduces the chance of going to university at the usual age. Much of the raw score gap fades with time, but the institutional decisions made early — sets, labels, confidence — can persist.",
+      base:"Baseline age-cohort attainment / ~ university entry rate for the older group",
+      after:"Youngest-in-year: roughly 4–12 percentile points lower on early standardised tests; ~2 percentage points less likely to enter university at 18–19 (England)",
+      effect:"Cross-national percentile gaps (TIMSS, grades 4 & 8); UK administrative cohort differences by month of birth",
+      sample:"International TIMSS cohorts (Bedard & Dhuey); full England state-school administrative data (IFS)",
+      cite:"Bedard K, Dhuey E. The Persistence of Early Childhood Maturity. Quarterly Journal of Economics 2006;121(4):1437–1472; Crawford, Dearden & Greaves, IFS, 2013",
+      url:"https://doi.org/10.1162/qjec.121.4.1437",
+      basenote:"Effects are averages across cohorts. Many individuals born late in the year outperform everyone; the point is the systematic tilt, not your ceiling."
+    },
+    {
+      id:"schizo",
+      lead:false,
+      domain:"SEASON",
+      confidence:"Strong",
+      title:"Winter and early-spring birth, and schizophrenia",
+      plain:"Across dozens of studies and both hemispheres, people born in the winter and early spring have a slightly raised lifetime risk of schizophrenia. The leading explanations are seasonal: lower gestational vitamin D and higher exposure to respiratory viruses during pregnancy. The effect is real and replicated, and it is small.",
+      base:"~0.70% lifetime risk (general population baseline)",
+      after:"~0.74% for winter/early-spring births",
+      effect:"Relative risk ≈ 1.05–1.08 for winter/spring vs. summer birth; population-attributable share modest",
+      sample:"Meta-analyses pooling hundreds of thousands of cases across countries",
+      cite:"Davies G, Welham J, Chant D, Torrey EF, McGrath J. A systematic review and meta-analysis of Northern Hemisphere season of birth studies in schizophrenia. Schizophrenia Bulletin 2003;29(3):587–593",
+      url:"https://doi.org/10.1093/oxfordjournals.schbul.a007007",
+      basenote:"A move from 0.70% to 0.74% is about four extra cases per ten thousand people. The overwhelming majority of winter-born people never develop schizophrenia."
+    },
+    {
+      id:"ms",
+      lead:false,
+      domain:"LATITUDE",
+      confidence:"Mixed",
+      title:"Spring birth, high latitude, and multiple sclerosis",
+      plain:"Multiple sclerosis rises steeply with distance from the equator, a latitude gradient that is one of the most robust patterns in the disease's epidemiology and points at ultraviolet light and vitamin D. Layered on top, some studies find an excess of MS among people born in April–May and a deficit among November births in the Northern Hemisphere. The latitude gradient is strong; the birth-month piece is genuinely disputed.",
+      base:"~0.2–0.3% lifetime risk (temperate latitudes; higher further from the equator)",
+      after:"~0.3% baseline rising toward ~0.33% for spring births in high-latitude cohorts",
+      effect:"Latitude gradient large and consistent; month-of-birth risk ratio ≈ 1.05–1.10 (spring vs. autumn), and challenged as a possible statistical artefact",
+      sample:"Systematic review/meta-analysis pooling multiple national MS registries",
+      cite:"Dobson R, Giovannoni G, Ramagopalan S. The month-of-birth effect in multiple sclerosis: meta-analysis and effect of latitude. J Neurol Neurosurg Psychiatry 2013;84(4):427–432",
+      url:"https://doi.org/10.1136/jnnp-2012-303934",
+      basenote:"We label this Mixed on purpose: the latitude signal is strong, the specific birth-month signal has been argued to be an artefact of how birth dates are counted."
+    },
+    {
+      id:"t1d",
+      lead:false,
+      domain:"SEASON",
+      confidence:"Mixed",
+      title:"Spring birth and childhood type 1 diabetes",
+      plain:"Several large registries report a small excess of type 1 diabetes among children born in the spring and a deficit among autumn births, again pointing at seasonal factors around gestation and early infancy. Other cohorts fail to find it, which is why the label here is Mixed rather than Strong.",
+      base:"~0.3–0.4% childhood risk (region-dependent baseline)",
+      after:"~0.4% baseline shifting to ~0.42–0.44% for spring births where the effect appears",
+      effect:"Seasonal risk ratio ≈ 1.05–1.10 (spring vs. autumn); inconsistent between cohorts",
+      sample:"Multi-country registry pooling (EURODIAB-linked analyses)",
+      cite:"Moltchanova EV, Schreier N, Lammi N, Karvonen M. Seasonal variation of diagnosis of type 1 diabetes in children worldwide. Diabetic Medicine 2009;26(7):673–678",
+      url:"https://doi.org/10.1111/j.1464-5491.2009.02743.x",
+      basenote:"Small and not universally replicated. A shift of one or two children per thousand, where it appears at all."
+    },
+    {
+      id:"myopia",
+      lead:false,
+      domain:"EXPOSURE",
+      confidence:"Mixed",
+      title:"Summer birth and short-sightedness",
+      plain:"In a very large conscript study, people born in June–July had more severe myopia on average than those born in December–January. The proposed mechanism is early-life light exposure: a summer newborn meets more daylight in the first months, which may influence how the eye grows. Suggestive, mechanistically plausible, not settled.",
+      base:"Baseline severe-myopia prevalence for winter births in the cohort",
+      after:"Roughly one-quarter higher relative prevalence of severe myopia among summer births (a few percentage points in absolute terms)",
+      effect:"Summer vs. winter odds of severe myopia elevated (~20–25% relative) in a single large cross-section",
+      sample:"276,911 military conscripts, Israel",
+      cite:"Mandel Y, Grotto I, El-Yaniv R, et al. Season of birth, natural light, and myopia. Ophthalmology 2008;115(4):686–692",
+      url:"https://doi.org/10.1016/j.ophtha.2007.05.040",
+      basenote:"Single large cohort, one country. Treat as a suggestive lead, not an established fact."
+    },
+    {
+      id:"phewas",
+      lead:false,
+      domain:"SEASON",
+      confidence:"Mixed",
+      title:"The wider birth-month map of disease risk",
+      plain:"A phenome-wide scan mapped birth month against more than a thousand conditions in a large hospital record system, and found a scatter of small but statistically real associations — across cardiovascular, respiratory and reproductive categories. It is the best single demonstration that the calendar leaves faint fingerprints across many diseases at once. The effects are small and need replication in other populations.",
+      base:"Condition-specific baselines vary; each association is a small shift on its own base rate",
+      after:"Dozens of conditions with modest month-of-birth shifts (typically single-digit relative differences)",
+      effect:"55 of 1,688 conditions significantly associated with birth month after multiple-testing correction",
+      sample:"1,749,400 patient records, single U.S. medical centre (Columbia)",
+      cite:"Boland MR, Shahn Z, Madigan D, Hripcsak G, Tatonetti NP. Birth month affects lifetime disease risk: a phenome-wide method. J Am Med Inform Assoc 2015;22(5):1042–1053",
+      url:"https://doi.org/10.1093/jamia/ocv046",
+      basenote:"A map of small effects, not a verdict on any one. Single-centre; the authors call for replication elsewhere."
+    }
+  ];
+
+  /* Sources also used for mechanism / context, listed in the bibliography */
+  var EXTRA_REFS = [
+    { tag:"EXPOSURE", text:"McGrath JJ, Eyles DW, Pedersen CB, et al. Neonatal vitamin D status and risk of schizophrenia. Arch Gen Psychiatry 2010;67(9):889–894.", url:"https://doi.org/10.1001/archgenpsychiatry.2010.110" },
+    { tag:"EXPOSURE", text:"Brown AS, Begg MD, Gravenstein S, et al. Serologic evidence of prenatal influenza in the etiology of schizophrenia. Arch Gen Psychiatry 2004;61(8):774–780. (Small cohort; later studies inconsistent — treat as Contested.)", url:"https://doi.org/10.1001/archpsyc.61.8.774" },
+    { tag:"CRITIQUE", text:"Fiddes B, Wason J, Kemppinen A, et al. Confounding underlies the apparent month-of-birth effect in multiple sclerosis. Ann Neurol 2013;73(6):714–720. (The case that the MS birth-month signal is an artefact.)", url:"https://doi.org/10.1002/ana.23925" }
+  ];
+
+  /* ------------------------------------------------------------------
+     SCHOOL-SYSTEM CUTOFFS (representative; see limitations)
+     cutMonth = calendar month (1-12) that begins the school cohort year.
+     A child born in cutMonth is the OLDEST; the month before cutMonth is
+     the YOUNGEST.  Approximate, and stated as such on the page.
+  ------------------------------------------------------------------ */
+  var CUTOFFS = {
+    "US":    { cutMonth:9,  label:"a September 1 cutoff" },
+    "GB-EW": { cutMonth:9,  label:"a September 1 cutoff" },
+    "GB-SCT":{ cutMonth:3,  label:"an early-March cutoff" },
+    "CA":    { cutMonth:1,  label:"a calendar-year (January 1) cutoff" },
+    "AU":    { cutMonth:7,  label:"an approximate mid-year cutoff (varies by state)" },
+    "NZ":    { cutMonth:2,  label:"an approximate February school-year start" },
+    "DE":    { cutMonth:7,  label:"an approximate mid-year cutoff (varies by Land)" },
+    "JP":    { cutMonth:4,  label:"an April 2 cutoff" },
+    "OTHER": { cutMonth:1,  label:"a calendar-year (January 1) cohort" }
+  };
+
+  var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  var MONTHS_LONG = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+  /* ---- helpers ---- */
+  function polar(cx, cy, r, deg){
+    var a = (deg - 90) * Math.PI / 180;
+    return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
+  }
+  function arcPath(cx, cy, r, startDeg, endDeg){
+    var s = polar(cx, cy, r, endDeg), e = polar(cx, cy, r, startDeg);
+    var large = (endDeg - startDeg) <= 180 ? 0 : 1;
+    return "M "+s.x.toFixed(2)+" "+s.y.toFixed(2)+" A "+r+" "+r+" 0 "+large+" 0 "+e.x.toFixed(2)+" "+e.y.toFixed(2);
+  }
+  // deterministic pseudo-random from an integer seed
+  function seeded(seed){
+    var x = Math.sin(seed) * 10000;
+    return x - Math.floor(x);
+  }
+  function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+  function dayOfYear(d){
+    var start = new Date(d.getFullYear(),0,0);
+    var diff = d - start;
+    return Math.floor(diff / 86400000);
+  }
+  function isLeap(y){ return (y%4===0 && y%100!==0) || y%400===0; }
+
+  function seasonName(month, hemi){
+    // month 1-12; Northern meteorological seasons, flipped for Southern
+    var nSeason;
+    if(month===12||month<=2) nSeason="winter";
+    else if(month<=5) nSeason="spring";
+    else if(month<=8) nSeason="summer";
+    else nSeason="autumn";
+    if(hemi==="N") return nSeason;
+    var flip = {winter:"summer",summer:"winter",spring:"autumn",autumn:"spring"};
+    return flip[nSeason];
+  }
+
+  /* relative age within the school cohort */
+  function relativeAge(month, country){
+    var cut = CUTOFFS[country] || CUTOFFS.OTHER;
+    var pos = (month - cut.cutMonth + 12) % 12; // 0=oldest ... 11=youngest
+    var quartile;
+    if(pos <= 2) quartile = "oldest";
+    else if(pos <= 5) quartile = "older half";
+    else if(pos <= 8) quartile = "younger half";
+    else quartile = "youngest";
+    return { pos:pos, quartile:quartile, label:cut.label, cutMonth:cut.cutMonth };
+  }
+
+  /* ------------------------------------------------------------------
+     PERSONALISATION LINES  (per finding, given the parsed birth data)
+  ------------------------------------------------------------------ */
+  function personalize(id, ctx){
+    var m = ctx.month, ra = ctx.rel, season = ctx.season, hemi=ctx.hemi;
+    switch(id){
+      case "adhd":
+        if(ra.quartile==="youngest") return "Born in "+MONTHS_LONG[m-1]+" under "+ra.label+", you would have been among the YOUNGEST in your school year — exactly the group where diagnosis rates run highest.";
+        if(ra.quartile==="oldest") return "Born in "+MONTHS_LONG[m-1]+" under "+ra.label+", you would have been among the OLDEST in your year — the lower-diagnosis end of this effect.";
+        return "Born in "+MONTHS_LONG[m-1]+" under "+ra.label+", you sit in the "+ra.quartile+" of your school year.";
+      case "sport":
+        if(ra.quartile==="oldest") return "As one of the relatively OLDER children in the year, the early-selection tilt would have been in your favour.";
+        if(ra.quartile==="youngest") return "As one of the YOUNGEST in the year, early sports selection would have been tilted against you — through no fault of your legs.";
+        return "You sit in the "+ra.quartile+" of the selection year for early sports sorting.";
+      case "attain":
+        if(ra.quartile==="youngest") return "Youngest-in-year: the tilt on early test scores and streaming would have run against you before you learned to read.";
+        if(ra.quartile==="oldest") return "Oldest-in-year: the early-attainment tilt would have run mildly in your favour.";
+        return "You sit in the "+ra.quartile+" of your school cohort for early-attainment effects.";
+      case "schizo":
+        if(season==="winter"||season==="spring") return "A "+season+" birth in the "+(hemi==="N"?"Northern":"Southern")+" Hemisphere sits on the slightly higher-risk side of this small seasonal gradient.";
+        return "A "+season+" birth sits on the lower-risk side of this small seasonal gradient.";
+      case "ms":
+        if(season==="spring") return "A spring birth is where the disputed month-of-birth excess appears; your latitude matters more than your month.";
+        return "Your latitude matters more here than your birth month; a "+season+" birth is not on the disputed high side.";
+      case "t1d":
+        if(season==="spring") return "A spring birth is where the small excess, where it appears at all, tends to show.";
+        return "A "+season+" birth is not on the raised side of this small, inconsistent effect.";
+      case "myopia":
+        if(season==="summer") return "A summer birth is the higher-prevalence side in the one large study behind this.";
+        return "A "+season+" birth is not the higher-prevalence side in the study behind this.";
+      case "phewas":
+        return "Your birth month, "+MONTHS_LONG[m-1]+", is one row in this map of small, scattered associations.";
+      default:
+        return "";
+    }
+  }
+
+  /* ------------------------------------------------------------------
+     CHART RENDERER  —  inline SVG, near-identical to a real natal wheel,
+     houses replaced by the five evidence domains.
+  ------------------------------------------------------------------ */
+  var DOMAINS = ["SCHOOLING","SELECTION","SEASON","EXPOSURE","LATITUDE"];
+  var DOMAIN_COLORS = {
+    SCHOOLING:"#6fd6c8", SELECTION:"#d9c48c", SEASON:"#9d8be0",
+    EXPOSURE:"#e8748f", LATITUDE:"#7fd7a3"
+  };
+
+  function glyph(id, x, y, color){
+    // small planet-like glyphs (inline paths), one per finding node
+    var g = '<g transform="translate('+x.toFixed(2)+','+y.toFixed(2)+')">';
+    g += '<circle r="12" fill="#0b0d1a" stroke="'+color+'" stroke-width="1.4"/>';
+    // simple sigil: use first two letters styling via tiny marks
+    g += '<circle r="3.2" fill="'+color+'"/>';
+    g += '<circle r="7.5" fill="none" stroke="'+color+'" stroke-width="0.8" opacity="0.6"/>';
+    g += '</g>';
+    return g;
+  }
+
+  function renderChart(ctx){
+    var C = 400, cx = 400, cy = 400;
+    var rOuter = 388, rZodInner = 320, rDomOuter = 316, rDomInner = 214, rHub = 210;
+    var svg = '';
+    svg += '<svg viewBox="0 0 800 800" role="img" aria-label="A circular natal chart. The twelve houses of astrology are replaced by five evidence domains: schooling, selection, season, exposure and latitude. Your birth month is marked.">';
+
+    // defs
+    svg += '<defs>';
+    svg += '<radialGradient id="bgGrad" cx="50%" cy="42%" r="65%">';
+    svg += '<stop offset="0%" stop-color="#151935"/><stop offset="70%" stop-color="#0f1226"/><stop offset="100%" stop-color="#090b16"/>';
+    svg += '</radialGradient>';
+    svg += '</defs>';
+
+    // backdrop disc
+    svg += '<circle cx="400" cy="400" r="392" fill="url(#bgGrad)" stroke="'+"#d9c48c"+'" stroke-opacity="0.4" stroke-width="1.4"/>';
+
+    // faint star field (deterministic)
+    var stars = '';
+    for(var s=0;s<70;s++){
+      var sr = 40 + seeded(ctx.seed + s*3.1)*340;
+      var sa = seeded(ctx.seed*1.7 + s*5.3)*360;
+      var p = polar(cx,cy,sr,sa);
+      var rad = 0.4 + seeded(ctx.seed + s*7.7)*1.3;
+      stars += '<circle cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="'+rad.toFixed(2)+'" fill="#efe7d3" opacity="'+(0.15+seeded(s*2.2)*0.5).toFixed(2)+'"/>';
+    }
+    svg += '<g>'+stars+'</g>';
+
+    // ---- rotating outer zodiac ring: 12 months ----
+    var ring = '<g class="spin">';
+    ring += '<circle cx="400" cy="400" r="'+rOuter+'" fill="none" stroke="#d9c48c" stroke-opacity="0.5" stroke-width="1"/>';
+    ring += '<circle cx="400" cy="400" r="'+rZodInner+'" fill="none" stroke="#d9c48c" stroke-opacity="0.5" stroke-width="1"/>';
+    for(var mo=0; mo<12; mo++){
+      var a0 = mo*30, a1 = mo*30+30;
+      // spoke
+      var sp = polar(cx,cy,rOuter,a0);
+      var spi = polar(cx,cy,rZodInner,a0);
+      ring += '<line x1="'+spi.x.toFixed(1)+'" y1="'+spi.y.toFixed(1)+'" x2="'+sp.x.toFixed(1)+'" y2="'+sp.y.toFixed(1)+'" stroke="#d9c48c" stroke-opacity="0.35" stroke-width="0.8"/>';
+      // month label at mid-angle
+      var mid = a0+15;
+      var lp = polar(cx,cy,(rOuter+rZodInner)/2, mid);
+      var isBirth = (mo === ctx.month-1);
+      var col = isBirth ? "#0b0d1a" : "#efe7d3";
+      if(isBirth){
+        // highlight the birth-month sector
+        ring += '<path d="'+sectorPath(cx,cy,rZodInner,rOuter,a0,a1)+'" fill="#d9c48c" opacity="0.92"/>';
+      }
+      ring += '<text x="'+lp.x.toFixed(1)+'" y="'+lp.y.toFixed(1)+'" fill="'+col+'" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="'+(isBirth?"600":"400")+'" text-anchor="middle" dominant-baseline="central" transform="rotate('+mid+' '+lp.x.toFixed(1)+' '+lp.y.toFixed(1)+')">'+MONTHS[mo].toUpperCase()+'</text>';
+      // degree ticks
+      for(var t=0;t<6;t++){
+        var ta = a0 + t*5;
+        var t1 = polar(cx,cy,rZodInner,ta), t2 = polar(cx,cy,rZodInner+ (t===0?10:5), ta);
+        ring += '<line x1="'+t1.x.toFixed(1)+'" y1="'+t1.y.toFixed(1)+'" x2="'+t2.x.toFixed(1)+'" y2="'+t2.y.toFixed(1)+'" stroke="#d9c48c" stroke-opacity="0.3" stroke-width="0.6"/>';
+      }
+    }
+    ring += '</g>';
+    svg += ring;
+
+    // ---- middle ring: five evidence domains (the "houses") ----
+    svg += '<circle cx="400" cy="400" r="'+rDomOuter+'" fill="none" stroke="#d9c48c" stroke-opacity="0.3" stroke-width="1"/>';
+    svg += '<circle cx="400" cy="400" r="'+rDomInner+'" fill="none" stroke="#d9c48c" stroke-opacity="0.3" stroke-width="1"/>';
+    // path defs for curved labels
+    var per = 360/5;
+    // rotate the domain wheel by a birth-seeded offset so every chart differs
+    var domOffset = (ctx.doy/366)*360;
+    var textPaths = '<defs>';
+    var domBody = '';
+    for(var d=0; d<5; d++){
+      var da0 = d*per + domOffset, da1 = (d+1)*per + domOffset;
+      var dcol = DOMAIN_COLORS[DOMAINS[d]];
+      domBody += '<path d="'+sectorPath(cx,cy,rDomInner,rDomOuter,da0,da1)+'" fill="'+dcol+'" opacity="0.10"/>';
+      // divider spoke
+      var d1 = polar(cx,cy,rDomInner,da0), d2 = polar(cx,cy,rDomOuter,da0);
+      domBody += '<line x1="'+d1.x.toFixed(1)+'" y1="'+d1.y.toFixed(1)+'" x2="'+d2.x.toFixed(1)+'" y2="'+d2.y.toFixed(1)+'" stroke="'+dcol+'" stroke-opacity="0.5" stroke-width="1"/>';
+      // curved label
+      var lr = (rDomInner+rDomOuter)/2 + 2;
+      var mid2 = (da0+da1)/2;
+      // keep text upright-ish: if on lower half, draw path reversed
+      var pid = "dompath"+d;
+      var reversed = (mid2 % 360 > 90 && mid2 % 360 < 270);
+      var pStart = reversed ? da1-2 : da0+2;
+      var pEnd = reversed ? da0+2 : da1-2;
+      textPaths += '<path id="'+pid+'" d="'+arcPath(cx,cy,lr, Math.min(pStart,pEnd), Math.max(pStart,pEnd))+'" fill="none"/>';
+      domBody += '<text fill="'+dcol+'" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="600" letter-spacing="3">'
+              + '<textPath href="#'+pid+'" startOffset="50%" text-anchor="middle">'+DOMAINS[d]+'</textPath></text>';
+    }
+    textPaths += '</defs>';
+    svg += textPaths + domBody;
+
+    // ---- hub: aspect web between finding nodes ----
+    svg += '<circle cx="400" cy="400" r="'+rHub+'" fill="#0b0d1a" fill-opacity="0.55" stroke="#d9c48c" stroke-opacity="0.35" stroke-width="1"/>';
+
+    // place a node per finding on the hub perimeter, at a seeded angle
+    var nodes = [];
+    for(var f=0; f<FINDINGS.length; f++){
+      var ang = (seeded(ctx.seed + f*13.37)*360 + ctx.doy) % 360;
+      var np = polar(cx,cy, rHub-6, ang);
+      nodes.push({ p:np, color: DOMAIN_COLORS[FINDINGS[f].domain] || "#d9c48c", ang:ang });
+    }
+    // aspect lines: connect nodes whose angular separation is near classic aspects
+    var aspects = '';
+    var aspectPalette = ["#6fd6c8","#e8748f","#9d8be0"];
+    for(var i=0;i<nodes.length;i++){
+      for(var j=i+1;j<nodes.length;j++){
+        var sep = Math.abs(nodes[i].ang - nodes[j].ang);
+        sep = Math.min(sep, 360-sep);
+        var near = [60,90,120,180].some(function(x){ return Math.abs(sep-x) < 9; });
+        if(near){
+          var ci = (i+j) % aspectPalette.length;
+          aspects += '<line x1="'+nodes[i].p.x.toFixed(1)+'" y1="'+nodes[i].p.y.toFixed(1)+'" x2="'+nodes[j].p.x.toFixed(1)+'" y2="'+nodes[j].p.y.toFixed(1)+'" stroke="'+aspectPalette[ci]+'" stroke-opacity="0.5" stroke-width="1"/>';
+        }
+      }
+    }
+    svg += '<g>'+aspects+'</g>';
+    // draw nodes on top
+    for(var n=0;n<nodes.length;n++){
+      svg += glyph(FINDINGS[n].id, nodes[n].p.x, nodes[n].p.y, nodes[n].color);
+    }
+
+    // ---- the "Sun": birth position marker on the outer ring ----
+    var sunAng = (ctx.doy/(isLeap(ctx.year)?366:365))*360;
+    var sunOuter = polar(cx,cy,rOuter+0, sunAng);
+    var sunInner = polar(cx,cy,rHub, sunAng);
+    svg += '<line x1="'+sunInner.x.toFixed(1)+'" y1="'+sunInner.y.toFixed(1)+'" x2="'+sunOuter.x.toFixed(1)+'" y2="'+sunOuter.y.toFixed(1)+'" stroke="#d9c48c" stroke-opacity="0.7" stroke-width="1" stroke-dasharray="4 4"/>';
+    var sunP = polar(cx,cy,(rDomInner+rDomOuter)/2, sunAng);
+    svg += '<g transform="translate('+sunP.x.toFixed(1)+','+sunP.y.toFixed(1)+')">';
+    svg += '<circle r="15" fill="#0b0d1a" stroke="#d9c48c" stroke-width="1.6"/>';
+    svg += '<circle r="6" fill="#d9c48c"/>';
+    // sun rays
+    for(var rr=0; rr<8; rr++){
+      var raRad = rr*45*Math.PI/180;
+      svg += '<line x1="'+(Math.cos(raRad)*9).toFixed(1)+'" y1="'+(Math.sin(raRad)*9).toFixed(1)+'" x2="'+(Math.cos(raRad)*13).toFixed(1)+'" y2="'+(Math.sin(raRad)*13).toFixed(1)+'" stroke="#d9c48c" stroke-width="1.2"/>';
+    }
+    svg += '</g>';
+
+    // centre mark
+    svg += '<circle cx="400" cy="400" r="3" fill="#d9c48c"/>';
+    svg += '<circle cx="400" cy="400" r="40" fill="none" stroke="#d9c48c" stroke-opacity="0.2" stroke-width="0.8"/>';
+
+    svg += '</svg>';
+    return svg;
+  }
+
+  // annular sector path (between rInner and rOuter, from a0 to a1 degrees)
+  function sectorPath(cx,cy,rInner,rOuter,a0,a1){
+    var o0 = polar(cx,cy,rOuter,a0), o1 = polar(cx,cy,rOuter,a1);
+    var i1 = polar(cx,cy,rInner,a1), i0 = polar(cx,cy,rInner,a0);
+    var large = (a1-a0) <= 180 ? 0 : 1;
+    return "M "+o0.x.toFixed(2)+" "+o0.y.toFixed(2)+
+           " A "+rOuter+" "+rOuter+" 0 "+large+" 1 "+o1.x.toFixed(2)+" "+o1.y.toFixed(2)+
+           " L "+i1.x.toFixed(2)+" "+i1.y.toFixed(2)+
+           " A "+rInner+" "+rInner+" 0 "+large+" 0 "+i0.x.toFixed(2)+" "+i0.y.toFixed(2)+" Z";
+  }
+
+  /* ------------------------------------------------------------------
+     CARD RENDERING
+  ------------------------------------------------------------------ */
+  function cardHTML(f, ctx){
+    var personal = personalize(f.id, ctx);
+    var h = '<article class="card">';
+    h += '<div class="card-top"><span class="domain">'+esc(f.domain)+'</span>';
+    h += '<span class="conf '+f.confidence+'">'+f.confidence+'</span></div>';
+    h += '<h3>'+esc(f.title)+'</h3>';
+    if(personal) h += '<div class="personal">'+esc(personal)+'</div>';
+    h += '<p class="plain">'+esc(f.plain)+'</p>';
+    h += '<div class="metrics">';
+    h += '<div class="metric" style="grid-column:1/-1"><div class="k">Absolute risk, with base rate</div>'
+       + '<div class="v risk">'+esc(f.base)+' <span class="arrow">&rarr;</span> '+esc(f.after)+'</div></div>';
+    h += '<div class="metric"><div class="k">Effect size</div><div class="v">'+esc(f.effect)+'</div></div>';
+    h += '<div class="metric"><div class="k">Sample</div><div class="v">'+esc(f.sample)+'</div></div>';
+    h += '</div>';
+    h += '<div class="basenote">'+esc(f.basenote)+'</div>';
+    h += '<div class="src">Source: '+esc(f.cite)+' &mdash; <a href="'+esc(f.url)+'" target="_blank" rel="noopener noreferrer">open citation &nearr;</a></div>';
+    h += '</article>';
+    return h;
+  }
+
+  function renderBiblio(){
+    var el = document.getElementById("biblio");
+    var out = "";
+    FINDINGS.forEach(function(f){
+      out += '<div class="ref"><span class="tag">'+esc(f.domain)+' &middot; '+f.confidence+'</span><br>'+esc(f.cite)+' &mdash; <a href="'+esc(f.url)+'" target="_blank" rel="noopener noreferrer">link</a></div>';
+    });
+    EXTRA_REFS.forEach(function(r){
+      out += '<div class="ref"><span class="tag">'+esc(r.tag)+'</span><br>'+esc(r.text)+' &mdash; <a href="'+esc(r.url)+'" target="_blank" rel="noopener noreferrer">link</a></div>';
+    });
+    el.innerHTML = out;
+  }
+
+  /* ------------------------------------------------------------------
+     MAIN
+  ------------------------------------------------------------------ */
+  var form = document.getElementById("caster");
+  var err = document.getElementById("err");
+  var result = document.getElementById("result");
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    err.textContent = "";
+    var val = document.getElementById("dob").value;
+    if(!val){ err.textContent = "Please enter a date of birth."; return; }
+    var parts = val.split("-");
+    var year = parseInt(parts[0],10), month = parseInt(parts[1],10), day = parseInt(parts[2],10);
+    var d = new Date(year, month-1, day);
+    if(isNaN(d.getTime()) || d > new Date()){ err.textContent = "Please enter a valid past date."; return; }
+
+    var hemi = document.getElementById("hemi").value;
+    var country = document.getElementById("country").value;
+
+    var ctx = {
+      year:year, month:month, day:day,
+      doy: dayOfYear(d),
+      hemi:hemi, country:country,
+      season: seasonName(month, hemi),
+      rel: relativeAge(month, country),
+      seed: (year*10000 + month*100 + day) % 100000 + 1
+    };
+
+    // chart subheading
+    var sub = document.getElementById("chartSub");
+    sub.innerHTML = MONTHS_LONG[month-1]+" "+day+", "+year
+      + "<small>"+(hemi==="N"?"Northern":"Southern")+" hemisphere &middot; "+ctx.season+" birth &middot; "+ctx.rel.quartile+" of the school year under "+ctx.rel.label+"</small>";
+
+    // render chart
+    document.getElementById("chartStage").innerHTML = renderChart(ctx);
+
+    // render cards
+    var lead = "", disease = "";
+    FINDINGS.forEach(function(f){
+      if(f.lead) lead += cardHTML(f, ctx);
+      else disease += cardHTML(f, ctx);
+    });
+    document.getElementById("leadCards").innerHTML = lead;
+    document.getElementById("diseaseCards").innerHTML = disease;
+
+    result.classList.add("show");
+    // move focus / scroll to result
+    result.scrollIntoView({ behavior: (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) ? "auto" : "smooth", block:"start" });
+  });
+
+  // build bibliography once at load
+  renderBiblio();
+})();
+</script>
+
+</body>
+</html>

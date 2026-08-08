@@ -1,0 +1,704 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FOR RESEARCH USE ONLY — die-cut vinyl &amp; object certification</title>
+<meta name="description" content="A phrase the diagnostics industry uses to move a product without asking anyone's permission. Now die-cut vinyl, 25 to a sheet, $12. Certification of individual objects is free.">
+<meta name="theme-color" content="#141414">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://researchuseonly.com">
+<meta property="og:title" content="FOR RESEARCH USE ONLY">
+<meta property="og:description" content="Die-cut vinyl, 25 to a sheet, $12. Submit any object for research-use-only designation. Approval within one week. Free.">
+<meta property="og:site_name" content="FOR RESEARCH USE ONLY">
+<meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'%3E%3Crect width='1200' height='630' fill='%23141414'/%3E%3Crect x='60' y='230' width='1080' height='170' fill='none' stroke='%23ff5c1a' stroke-width='8'/%3E%3Ctext x='600' y='340' font-family='monospace' font-size='72' font-weight='700' fill='%23ff5c1a' text-anchor='middle'%3EFOR RESEARCH USE ONLY%3C/text%3E%3C/svg%3E">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FOR RESEARCH USE ONLY">
+<meta name="twitter:description" content="Die-cut vinyl, 25 to a sheet, $12. Submit any object for research-use-only designation. Free.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#141414;
+    --paper:#f4f1ea;
+    --paper-2:#eae5d9;
+    --line:#c9c2b2;
+    --line-dark:#141414;
+    --orange:#ff5c1a;
+    --orange-ink:#b23e0d;
+    --muted:#6b6355;
+    --white:#ffffff;
+    --radius:2px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit}
+  img{max-width:100%}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+  /* Top regulatory bar */
+  .topbar{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:"IBM Plex Mono",monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    border-bottom:3px solid var(--orange);
+  }
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:40px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+  .topbar a{color:var(--orange);text-decoration:none;border-bottom:1px solid transparent}
+  .topbar a:hover{border-bottom-color:var(--orange)}
+  .topbar .doc{color:#9a9284}
+
+  /* Hero */
+  header.hero{
+    background:var(--ink);
+    color:var(--paper);
+    padding:56px 0 64px;
+    border-bottom:3px solid var(--orange);
+  }
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+  .eyebrow{
+    font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--orange);margin:0 0 20px;
+  }
+  h1.title{
+    font-family:"IBM Plex Mono",monospace;
+    font-weight:700;
+    font-size:clamp(34px,6.2vw,60px);
+    line-height:1.02;
+    letter-spacing:-.01em;
+    margin:0 0 22px;
+    text-transform:uppercase;
+  }
+  .hero p.lede{font-size:clamp(16px,2.2vw,19px);color:#d8d2c4;max-width:34ch;margin:0 0 30px}
+  .buybox{
+    border:1px solid #3a362e;background:#1c1b17;border-radius:var(--radius);
+    padding:22px 22px 20px;max-width:360px;
+  }
+  .price-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:6px}
+  .price{font-family:"IBM Plex Mono",monospace;font-size:40px;font-weight:700;color:var(--paper)}
+  .sku{font-family:"IBM Plex Mono",monospace;font-size:12px;color:#8d8578;letter-spacing:.08em}
+  .buybox .desc{font-size:13px;color:#a8a091;margin:0 0 18px}
+  .btn{
+    display:inline-block;width:100%;text-align:center;cursor:pointer;
+    font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:14px;letter-spacing:.08em;
+    text-transform:uppercase;border:none;border-radius:var(--radius);
+    background:var(--orange);color:#1a0c04;padding:14px 18px;transition:filter .15s ease;
+  }
+  .btn:hover{filter:brightness(1.08)}
+  .btn.secondary{background:transparent;color:var(--paper);border:1px solid #4a463d}
+  .btn.secondary:hover{border-color:var(--orange);color:var(--orange);filter:none}
+  .buynote{font-family:"IBM Plex Mono",monospace;font-size:11px;color:#7d7568;margin:12px 0 0;letter-spacing:.03em}
+
+  /* Sticker sheet SVG frame */
+  .sheet-frame{position:relative}
+  .sheet-cap{
+    font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;color:#8d8578;margin:0 0 10px;display:flex;justify-content:space-between;
+  }
+  .sheet-svg{display:block;width:100%;height:auto;filter:drop-shadow(0 18px 30px rgba(0,0,0,.45))}
+
+  /* Section scaffolding */
+  section{padding:64px 0;border-bottom:1px solid var(--line)}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin:0 0 28px;flex-wrap:wrap}
+  .sec-num{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--orange-ink);letter-spacing:.1em}
+  h2{font-size:clamp(22px,3.4vw,30px);font-weight:700;margin:0;letter-spacing:-.01em}
+  .sec-sub{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-left:auto}
+
+  /* What it means */
+  .means{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+  .means p{font-size:16.5px;line-height:1.7;margin:0 0 16px}
+  .means p:last-child{margin-bottom:0}
+  .pullquote{
+    grid-column:1/-1;border-left:3px solid var(--orange);padding:6px 0 6px 22px;
+    font-family:"IBM Plex Mono",monospace;font-size:15px;color:var(--orange-ink);line-height:1.5;
+  }
+
+  /* Register */
+  .register-tools{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:18px}
+  .register-tools input[type=search]{
+    font-family:"IBM Plex Mono",monospace;font-size:13px;padding:9px 12px;border:1px solid var(--line);
+    background:var(--white);border-radius:var(--radius);min-width:220px;color:var(--ink);flex:1 1 220px;
+  }
+  .sortbtn{
+    font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.05em;text-transform:uppercase;
+    background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:9px 12px;cursor:pointer;color:var(--ink);
+  }
+  .sortbtn[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .reg-count{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);letter-spacing:.04em;margin-left:auto}
+  .reg-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--white)}
+  table.register{width:100%;border-collapse:collapse;font-size:14px;min-width:640px}
+  table.register thead th{
+    font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    text-align:left;color:var(--muted);padding:12px 16px;border-bottom:2px solid var(--line-dark);white-space:nowrap;
+  }
+  table.register td{padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+  table.register tr:last-child td{border-bottom:none}
+  table.register tbody tr:hover{background:var(--paper-2)}
+  .cert-no{font-family:"IBM Plex Mono",monospace;color:var(--orange-ink);white-space:nowrap;font-weight:500}
+  .obj-name{font-weight:600}
+  .obj-sub{color:var(--muted);font-size:13px}
+  .reg-date{font-family:"IBM Plex Mono",monospace;color:var(--muted);white-space:nowrap;font-size:13px}
+  .status-pill{
+    font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+    background:#e7f0e7;color:#2f6b34;padding:3px 8px;border-radius:20px;white-space:nowrap;border:1px solid #bcd6bd;
+  }
+
+  /* Submit form + certificate */
+  .submit-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+  form label{display:block;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+  form .field{margin-bottom:18px}
+  form input[type=text],form textarea,form select{
+    width:100%;font-family:"IBM Plex Sans",sans-serif;font-size:15px;padding:11px 12px;
+    border:1px solid var(--line);background:var(--white);border-radius:var(--radius);color:var(--ink);
+  }
+  form textarea{resize:vertical;min-height:84px}
+  form input:focus,form textarea:focus,form select:focus{outline:2px solid var(--orange);outline-offset:-1px;border-color:var(--orange)}
+  .form-note{font-size:12.5px;color:var(--muted);margin:0 0 18px}
+  .cert-panel{min-height:100%}
+  .cert-empty{
+    border:2px dashed var(--line);border-radius:var(--radius);padding:40px 28px;text-align:center;
+    color:var(--muted);font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:.03em;height:100%;
+    display:flex;align-items:center;justify-content:center;
+  }
+  /* Certificate card */
+  .certificate{
+    background:var(--white);border:2px solid var(--ink);border-radius:var(--radius);
+    padding:26px 26px 22px;position:relative;box-shadow:0 10px 26px rgba(20,20,20,.14);
+  }
+  .certificate::before{
+    content:"";position:absolute;inset:7px;border:1px solid var(--line);pointer-events:none;border-radius:1px;
+  }
+  .cert-inner{position:relative}
+  .cert-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:16px}
+  .cert-org{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);line-height:1.5}
+  .cert-org strong{display:block;color:var(--ink);font-size:12px;letter-spacing:.1em}
+  .cert-seal{
+    width:60px;height:60px;flex:none;border:2px solid var(--orange);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    font-family:"IBM Plex Mono",monospace;font-size:8px;letter-spacing:.06em;color:var(--orange-ink);line-height:1.25;
+    transform:rotate(-9deg);text-transform:uppercase;
+  }
+  .cert-h{font-family:"IBM Plex Mono",monospace;font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin:0 0 4px}
+  .cert-subh{font-size:13px;color:var(--muted);margin:0 0 18px}
+  .cert-objline{font-size:22px;font-weight:700;line-height:1.2;margin:0 0 4px;word-break:break-word}
+  .cert-desc{font-size:13.5px;color:var(--muted);margin:0 0 18px}
+  .cert-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;font-size:13px;margin-bottom:18px}
+  .cert-meta dt{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 2px}
+  .cert-meta dd{margin:0;font-family:"IBM Plex Mono",monospace;font-weight:500}
+  .cert-statement{font-size:12px;color:var(--muted);line-height:1.55;border-top:1px solid var(--line);padding-top:14px;margin:0 0 16px}
+  .cert-actions{display:flex;gap:10px;flex-wrap:wrap}
+  .cert-actions .btn{width:auto;flex:1 1 auto}
+  .btn.dark{background:var(--ink);color:var(--paper)}
+  .btn.dark:hover{filter:brightness(1.3)}
+
+  /* Buy grid */
+  .buy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .buy-card{border:1px solid var(--line);background:var(--white);border-radius:var(--radius);padding:24px;display:flex;flex-direction:column}
+  .buy-card h3{font-family:"IBM Plex Mono",monospace;font-size:16px;margin:0 0 4px;text-transform:uppercase;letter-spacing:.04em}
+  .buy-card .bsku{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);letter-spacing:.06em;margin:0 0 16px}
+  .buy-card .bprice{font-family:"IBM Plex Mono",monospace;font-size:32px;font-weight:700;margin:0 0 4px}
+  .buy-card .bunit{font-size:12.5px;color:var(--muted);margin:0 0 18px}
+  .buy-card ul{list-style:none;padding:0;margin:0 0 20px;font-size:13.5px;color:var(--muted)}
+  .buy-card li{padding:5px 0;border-bottom:1px solid var(--paper-2)}
+  .buy-card li::before{content:"— ";color:var(--orange-ink)}
+  .buy-card .btn{margin-top:auto}
+  .buy-card.feat{border:2px solid var(--ink)}
+  .feat-tag{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-ink);margin:0 0 8px}
+
+  /* Disclaimer */
+  .disclaimer{background:var(--ink);color:#cfc9bb;border-bottom:none}
+  .disclaimer .wrap{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start}
+  .disclaimer h2{color:var(--paper)}
+  .disclaimer p{font-size:14.5px;line-height:1.7;max-width:70ch;margin:0}
+  .warn-mark{
+    width:64px;height:64px;flex:none;border:3px solid var(--orange);border-radius:var(--radius);
+    display:flex;align-items:center;justify-content:center;font-family:"IBM Plex Mono",monospace;
+    font-size:34px;font-weight:700;color:var(--orange);
+  }
+
+  /* Footer */
+  footer{background:var(--ink);color:#9a9284;padding:40px 0;font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.04em}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+  footer a{color:var(--orange);text-decoration:none}
+  footer a:hover{text-decoration:underline}
+  .foot-lines{line-height:1.8}
+
+  /* Toast */
+  .toast{
+    position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(140%);
+    background:var(--ink);color:var(--paper);border:1px solid var(--orange);border-radius:var(--radius);
+    padding:14px 20px;font-family:"IBM Plex Mono",monospace;font-size:13px;max-width:90vw;text-align:center;
+    box-shadow:0 12px 30px rgba(0,0,0,.4);z-index:50;transition:transform .35s cubic-bezier(.2,.8,.2,1);
+  }
+  .toast.show{transform:translateX(-50%) translateY(0)}
+
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr;gap:40px}
+    .means{grid-template-columns:1fr;gap:20px}
+    .submit-grid{grid-template-columns:1fr;gap:32px}
+    .buy-grid{grid-template-columns:1fr}
+    .buybox{max-width:none}
+  }
+  @media (max-width:520px){
+    section{padding:48px 0}
+    .disclaimer .wrap{grid-template-columns:1fr}
+    .cert-meta{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    .toast{transition:none}
+  }
+</style>
+
+<!-- ============ TOP REGULATORY BAR ============ -->
+<div class="topbar">
+  <div class="wrap">
+    <span>FOR RESEARCH USE ONLY · Certification Authority</span>
+    <span class="doc">DOC B4 · REV 07 · <a href="/">↑ polygenik.com</a></span>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Standing product · Ships in one week</p>
+      <h1 class="title">For<br>Research<br>Use Only</h1>
+      <p class="lede">A phrase the diagnostics industry uses to move a product without asking anyone's permission. Now available in die-cut vinyl, 25 to a sheet.</p>
+
+      <div class="buybox">
+        <div class="price-row">
+          <span class="price">$12.00</span>
+          <span class="sku">SKU&nbsp;RUO-S25</span>
+        </div>
+        <p class="desc">Sheet of 25 die-cut vinyl stickers. Laboratory-grade adhesive. Weatherproof. Confers no regulatory status whatsoever.</p>
+        <button class="btn" data-buy="A sheet of 25 (SKU RUO-S25) — $12.00">Add sheet to cart — $12</button>
+        <button class="btn secondary" style="margin-top:10px" onclick="document.getElementById('register').scrollIntoView()">Certify an object — free</button>
+        <p class="buynote">Demo storefront. No payment is taken and nothing ships.</p>
+      </div>
+    </div>
+
+    <div class="sheet-frame">
+      <div class="sheet-cap"><span>SHEET RUO-S25</span><span>25 ct · die-cut</span></div>
+      <!-- Sticker sheet, pure inline SVG -->
+      <svg class="sheet-svg" viewBox="0 0 420 520" role="img" aria-label="A sheet of die-cut For Research Use Only vinyl stickers">
+        <defs>
+          <g id="ruoSticker">
+            <rect x="0" y="0" width="120" height="54" rx="6" fill="#ff5c1a"/>
+            <rect x="4" y="4" width="112" height="46" rx="4" fill="none" stroke="#1a0c04" stroke-width="1.6"/>
+            <text x="60" y="21" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="11" font-weight="700" fill="#1a0c04">FOR RESEARCH</text>
+            <text x="60" y="35" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="11" font-weight="700" fill="#1a0c04">USE ONLY</text>
+            <text x="60" y="46" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="5.4" letter-spacing="1.2" fill="#1a0c04">NOT FOR DIAGNOSTIC PROCEDURES</text>
+          </g>
+          <g id="ruoAlt">
+            <rect x="0" y="0" width="120" height="54" rx="27" fill="#141414"/>
+            <rect x="4" y="4" width="112" height="46" rx="23" fill="none" stroke="#ff5c1a" stroke-width="1.6"/>
+            <text x="60" y="25" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" font-weight="700" fill="#ff5c1a">RESEARCH</text>
+            <text x="60" y="39" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" font-weight="700" fill="#ff5c1a">USE ONLY</text>
+          </g>
+        </defs>
+
+        <!-- backing sheet -->
+        <rect x="0" y="0" width="420" height="520" rx="10" fill="#fbf9f4"/>
+        <rect x="0.75" y="0.75" width="418.5" height="518.5" rx="9" fill="none" stroke="#c9c2b2" stroke-width="1.5"/>
+        <!-- perforation guides -->
+        <line x1="210" y1="16" x2="210" y2="504" stroke="#e0dac9" stroke-width="1" stroke-dasharray="3 4"/>
+        <line x1="16" y1="150" x2="404" y2="150" stroke="#e0dac9" stroke-width="1" stroke-dasharray="3 4"/>
+        <line x1="16" y1="278" x2="404" y2="278" stroke="#e0dac9" stroke-width="1" stroke-dasharray="3 4"/>
+        <line x1="16" y1="406" x2="404" y2="406" stroke="#e0dac9" stroke-width="1" stroke-dasharray="3 4"/>
+
+        <text x="20" y="30" font-family="'IBM Plex Mono',monospace" font-size="8" letter-spacing="1.5" fill="#a79f8e">LOT 2026-Q3 · POLYGENIK CERTIFICATION AUTHORITY</text>
+
+        <!-- rows of stickers -->
+        <g transform="translate(28,44)"><use href="#ruoSticker"/></g>
+        <g transform="translate(272,44)"><use href="#ruoAlt"/></g>
+        <g transform="translate(28,172)"><use href="#ruoAlt"/></g>
+        <g transform="translate(272,172)"><use href="#ruoSticker"/></g>
+        <g transform="translate(28,300)"><use href="#ruoSticker"/></g>
+        <g transform="translate(272,300)"><use href="#ruoAlt"/></g>
+        <g transform="translate(28,428)"><use href="#ruoAlt"/></g>
+        <g transform="translate(272,428)"><use href="#ruoSticker"/></g>
+
+        <text x="400" y="500" text-anchor="end" font-family="'IBM Plex Mono',monospace" font-size="8" letter-spacing="1.5" fill="#a79f8e">25 CT · DIE-CUT VINYL · researchuseonly.com</text>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<!-- ============ WHAT IT MEANS ============ -->
+<section id="means">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">§ 01</span>
+      <h2>What it means</h2>
+      <span class="sec-sub">Reference · non-binding</span>
+    </div>
+    <div class="means">
+      <p>"For Research Use Only" is a real regulatory designation. In the United States it marks a class of laboratory product — reagents, instruments, assays — sold in the earliest stage of an investigational pipeline, and expressly not reviewed, cleared, or approved as an in-vitro diagnostic device. The label is a boundary: it declares that whatever the object does, it is not doing it to a patient, and that the manufacturer has therefore not been asked to prove that it works.</p>
+      <p>In practice the boundary is porous. A large volume of clinical testing runs on components that carry the RUO mark, because the mark lets a product reach the bench without the years and cost of diagnostic device review. The manufacturer often knows the likely end use, the buyer proceeds regardless, and the three words on the box distribute the resulting liability neatly onto whoever peeled the label off last. The phrase does very little to the object and a great deal to the paperwork.</p>
+      <p class="pullquote">It is, functionally, liability laundering: a legend that changes not what a thing is, but who is answerable for what it becomes.</p>
+      <p>We find this instructive, and portable. Applied to a reagent, the phrase is unremarkable. Applied to a banana, a marriage, or a sovereign nation, it does exactly the same work — it removes the object from the world of consequences and files it under "not our problem" — while making the mechanism impossible to overlook. The sticker is the argument. The certificate is the footnote.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE REGISTER ============ -->
+<section id="register">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">§ 02</span>
+      <h2>The Register</h2>
+      <span class="sec-sub" id="regHeadCount">Public record · newest first</span>
+    </div>
+    <p class="form-note" style="max-width:70ch;margin-top:-14px;margin-bottom:22px">A complete, numbered record of every object certified for research use only. Certification confers no property, right, or protection. It confers a number. All submissions are approved.</p>
+
+    <div class="register-tools">
+      <input type="search" id="regSearch" placeholder="Search objects, submitters, certificate no.…" aria-label="Search the register">
+      <button class="sortbtn" id="sortNew" aria-pressed="true">Newest</button>
+      <button class="sortbtn" id="sortOld" aria-pressed="false">Oldest</button>
+      <span class="reg-count" id="regCount"></span>
+    </div>
+
+    <div class="reg-scroll">
+      <table class="register">
+        <thead>
+          <tr>
+            <th style="width:150px">Certificate No.</th>
+            <th>Object</th>
+            <th>Submitted by</th>
+            <th style="width:120px">Date</th>
+            <th style="width:90px">Status</th>
+          </tr>
+        </thead>
+        <tbody id="regBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SUBMIT AN OBJECT ============ -->
+<section id="submit">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">§ 03</span>
+      <h2>Submit an object</h2>
+      <span class="sec-sub">Free · approval within one week</span>
+    </div>
+
+    <div class="submit-grid">
+      <div>
+        <p class="form-note">Name any object. It will be entered into the Register and issued a numbered certificate designating it for research use only. There is no review, because there is nothing to review. Approval is instantaneous, though our stated processing time remains one week for the sake of appearances.</p>
+        <form id="certForm" autocomplete="off" novalidate>
+          <div class="field">
+            <label for="objName">Object</label>
+            <input type="text" id="objName" name="objName" maxlength="80" placeholder="e.g. This banana" required>
+          </div>
+          <div class="field">
+            <label for="objDesc">Description of intended non-use (optional)</label>
+            <textarea id="objDesc" name="objDesc" maxlength="180" placeholder="What must this object never be used for?"></textarea>
+          </div>
+          <div class="field">
+            <label for="objClass">Designation class</label>
+            <select id="objClass" name="objClass">
+              <option>General research use only</option>
+              <option>Investigational — not for the world of consequences</option>
+              <option>Novelty specimen, unclassified</option>
+              <option>Sentimental reagent</option>
+              <option>Bulk / institutional</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="subName">Submitter name (as it appears on the record)</label>
+            <input type="text" id="subName" name="subName" maxlength="60" placeholder="e.g. A. Concerned Citizen" required>
+          </div>
+          <button class="btn" type="submit">Issue certificate</button>
+          <p class="buynote" style="color:var(--muted)">A photograph would normally accompany the submission. None is required, and none is stored — this certification exists entirely in your browser.</p>
+        </form>
+      </div>
+
+      <div class="cert-panel">
+        <div id="certOut" class="cert-empty">
+          Your certificate will appear here, numbered, the moment you issue it.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUY ============ -->
+<section id="buy">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">§ 04</span>
+      <h2>Buy stickers</h2>
+      <span class="sec-sub">Die-cut vinyl · demo storefront</span>
+    </div>
+    <div class="buy-grid">
+      <div class="buy-card">
+        <p class="bsku">SKU RUO-S25</p>
+        <h3>Sheet of 25</h3>
+        <p class="bprice">$12</p>
+        <p class="bunit">$0.48 per unit</p>
+        <ul>
+          <li>25 die-cut stickers</li>
+          <li>Two label formats</li>
+          <li>Weatherproof adhesive</li>
+          <li>Ships in one week</li>
+        </ul>
+        <button class="btn" data-buy="A sheet of 25 (SKU RUO-S25) — $12.00">Add to cart</button>
+      </div>
+
+      <div class="buy-card feat">
+        <p class="feat-tag">Most certified</p>
+        <p class="bsku">SKU RUO-S100</p>
+        <h3>Sheet of 100</h3>
+        <p class="bprice">$36</p>
+        <p class="bunit">$0.36 per unit</p>
+        <ul>
+          <li>100 die-cut stickers</li>
+          <li>Four label formats</li>
+          <li>Lab-grade backing</li>
+          <li>Free certificate voucher</li>
+        </ul>
+        <button class="btn" data-buy="A sheet of 100 (SKU RUO-S100) — $36.00">Add to cart</button>
+      </div>
+
+      <div class="buy-card">
+        <p class="bsku">SKU RUO-R1K</p>
+        <h3>Roll of 1,000</h3>
+        <p class="bprice">$240</p>
+        <p class="bunit">$0.24 per unit · institutional</p>
+        <ul>
+          <li>1,000 on a dispenser roll</li>
+          <li>Purchase orders accepted</li>
+          <li>Bulk lot numbering</li>
+          <li>Volume misuse disclaimer</li>
+        </ul>
+        <button class="btn" data-buy="A roll of 1,000 (SKU RUO-R1K) — $240.00">Add to cart</button>
+      </div>
+    </div>
+    <p class="buynote" style="color:var(--muted);text-align:center;margin-top:24px">A free sheet ships with every other order in the Polygenik shop, forever.</p>
+  </div>
+</section>
+
+<!-- ============ DISCLAIMER ============ -->
+<section class="disclaimer">
+  <div class="wrap">
+    <div class="warn-mark" aria-hidden="true">!</div>
+    <div>
+      <div class="sec-head" style="margin-bottom:14px"><h2>Misuse disclaimer</h2></div>
+      <p>The sticker is a novelty. It confers no regulatory status, approval, clearance, certification, or protection of any kind, and the certificate issued through this site is decorative rather than official. It must not be applied to any product, reagent, instrument, or specimen that is offered, sold, or used for clinical, diagnostic, or therapeutic purposes. Doing so may mislead a patient, a clinician, or a regulator, and is precisely the confusion this project is about — not an instruction to reproduce it. If a real object in a real laboratory needs a real research-use designation, obtain it from a real manufacturer.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-lines">
+      <div><a href="/">A POLYGENIK property</a></div>
+      <div style="color:#6f6759;margin-top:6px">researchuseonly.com · Certification Authority · DOC B4</div>
+    </div>
+    <div style="text-align:right;color:#6f6759;line-height:1.8">
+      <div><a href="/">← polygenik.com</a></div>
+      <div>Not for diagnostic procedures.</div>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- Seed register data (newest first) ---------- */
+  var seed = [
+    {n:2847, obj:"This banana",              sub:"D. Okonkwo",            date:"2026-08-06", desc:"Not to be ripened under clinical supervision."},
+    {n:2846, obj:"My cousin's wedding",      sub:"P. Alvarez",           date:"2026-08-05", desc:"The marriage, not the reception."},
+    {n:2845, obj:"The Republic of San Serriffe", sub:"Ministry of the Interior", date:"2026-08-04", desc:"Sovereignty designated investigational."},
+    {n:2844, obj:"A two-week resignation letter", sub:"J. Fenwick",       date:"2026-08-03", desc:"For internal circulation only."},
+    {n:2843, obj:"The office kombucha SCOBY", sub:"Floor 08 Kitchen Cmte.", date:"2026-08-01", desc:"Do not deploy in a diagnostic assay."},
+    {n:2842, obj:"My New Year's resolution", sub:"R. Mbeki",             date:"2026-07-30", desc:"Efficacy unproven; results not reproducible."},
+    {n:2841, obj:"A 2011 Honda Civic",       sub:"T. Nakamura",          date:"2026-07-28", desc:"Vehicle sold as-is, for research use only."},
+    {n:2840, obj:"The concept of a five-year plan", sub:"K. Sørensen",   date:"2026-07-27", desc:"Non-binding, non-clinical, non-arrival."},
+    {n:2839, obj:"This sourdough starter",   sub:"L. Whitfield",         date:"2026-07-24", desc:"Named 'Clive.' Not for human diagnosis."},
+    {n:2838, obj:"An apology I have not yet made", sub:"Anonymous",       date:"2026-07-22", desc:"Held pending further research."},
+    {n:2837, obj:"The company mission statement", sub:"Corp. Comms.",     date:"2026-07-20", desc:"Aspirational; not a therapeutic claim."},
+    {n:2836, obj:"My houseplant, Gerald",    sub:"E. Castellano",        date:"2026-07-18", desc:"Photosynthesis is investigational."},
+    {n:2835, obj:"A verbal contract",        sub:"H. Delacroix",         date:"2026-07-15", desc:"Enforceable only for research purposes."},
+    {n:2834, obj:"The last slice of pizza",  sub:"Lab Meeting, Tue.",    date:"2026-07-14", desc:"Communal specimen; do not diagnose."},
+    {n:2833, obj:"My gym membership",        sub:"S. Petrov",            date:"2026-07-11", desc:"Renewed automatically, used research-only."},
+    {n:2832, obj:"The moon",                 sub:"Amateur Astronomer's Guild", date:"2026-07-09", desc:"Tidal effects not clinically validated."}
+  ];
+
+  var order = "new"; // or "old"
+  var query = "";
+  var body = document.getElementById("regBody");
+  var countEl = document.getElementById("regCount");
+
+  function fmtCert(n){ return "RUO-2026-" + String(n).padStart(5,"0"); }
+  function fmtDate(iso){
+    var p = iso.split("-");
+    var mo = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    return p[2] + " " + mo[parseInt(p[1],10)-1] + " " + p[0];
+  }
+  function esc(s){ return String(s).replace(/[&<>"']/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+  }); }
+
+  function render(){
+    var rows = seed.slice();
+    rows.sort(function(a,b){ return order==="new" ? b.n-a.n : a.n-b.n; });
+    if(query){
+      var q = query.toLowerCase();
+      rows = rows.filter(function(r){
+        return (r.obj+" "+r.sub+" "+fmtCert(r.n)).toLowerCase().indexOf(q) > -1;
+      });
+    }
+    body.innerHTML = rows.map(function(r){
+      return '<tr>'+
+        '<td class="cert-no">'+fmtCert(r.n)+'</td>'+
+        '<td><div class="obj-name">'+esc(r.obj)+'</div>'+(r.desc?'<div class="obj-sub">'+esc(r.desc)+'</div>':'')+'</td>'+
+        '<td>'+esc(r.sub)+'</td>'+
+        '<td class="reg-date">'+fmtDate(r.date)+'</td>'+
+        '<td><span class="status-pill">Certified</span></td>'+
+      '</tr>';
+    }).join("");
+    countEl.textContent = rows.length + " of " + seed.length + " objects";
+  }
+
+  document.getElementById("regSearch").addEventListener("input", function(e){
+    query = e.target.value.trim(); render();
+  });
+  var sN = document.getElementById("sortNew"), sO = document.getElementById("sortOld");
+  sN.addEventListener("click", function(){ order="new"; sN.setAttribute("aria-pressed","true"); sO.setAttribute("aria-pressed","false"); render(); });
+  sO.addEventListener("click", function(){ order="old"; sO.setAttribute("aria-pressed","true"); sN.setAttribute("aria-pressed","false"); render(); });
+  render();
+
+  /* ---------- Toast ---------- */
+  var toastEl = document.getElementById("toast"), toastT;
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    clearTimeout(toastT);
+    toastT = setTimeout(function(){ toastEl.classList.remove("show"); }, 4200);
+  }
+
+  /* ---------- Demo cart ---------- */
+  document.querySelectorAll("[data-buy]").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      toast(btn.getAttribute("data-buy") + " was added to a cart that does not exist. This is a demonstration; no payment is taken and nothing will ship.");
+    });
+  });
+
+  /* ---------- Certificate issuance ---------- */
+  var form = document.getElementById("certForm");
+  var out = document.getElementById("certOut");
+  var nextN = seed[0].n + 1;
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var obj = document.getElementById("objName").value.trim();
+    var sub = document.getElementById("subName").value.trim();
+    var desc = document.getElementById("objDesc").value.trim();
+    var cls = document.getElementById("objClass").value;
+    if(!obj || !sub){
+      toast("An object and a submitter name are required. Everything else, we invent.");
+      return;
+    }
+
+    var n = nextN++;
+    var certNo = fmtCert(n);
+    var today = new Date();
+    var iso = today.toISOString().slice(0,10);
+    var dateStr = fmtDate(iso);
+    var issued = today.toISOString().slice(0,19).replace("T"," ") + " UTC";
+
+    // Add to the top of the register
+    seed.unshift({n:n, obj:obj, sub:sub, date:iso, desc:desc});
+    render();
+
+    // Render certificate card
+    out.className = "";
+    out.innerHTML =
+      '<div class="certificate"><div class="cert-inner">'+
+        '<div class="cert-top">'+
+          '<div class="cert-org"><strong>Polygenik Certification Authority</strong>researchuseonly.com · Document B4</div>'+
+          '<div class="cert-seal">Certified · No Status Conferred</div>'+
+        '</div>'+
+        '<p class="cert-h">Certificate of Research Use Only</p>'+
+        '<p class="cert-subh">This is to certify that the object named below has been designated, in perpetuity, for research use only.</p>'+
+        '<p class="cert-objline">'+esc(obj)+'</p>'+
+        (desc? '<p class="cert-desc">Intended non-use: '+esc(desc)+'</p>' : '<p class="cert-desc">No conditions of non-use were specified.</p>')+
+        '<dl class="cert-meta">'+
+          '<div><dt>Certificate No.</dt><dd style="color:var(--orange-ink)">'+certNo+'</dd></div>'+
+          '<div><dt>Date Certified</dt><dd>'+dateStr+'</dd></div>'+
+          '<div><dt>Submitted By</dt><dd style="font-family:\'IBM Plex Sans\',sans-serif;font-weight:600">'+esc(sub)+'</dd></div>'+
+          '<div><dt>Designation Class</dt><dd style="font-family:\'IBM Plex Sans\',sans-serif;font-weight:500;font-size:12px">'+esc(cls)+'</dd></div>'+
+        '</dl>'+
+        '<p class="cert-statement">This certificate confers no regulatory status, approval, clearance, or protection of any kind. The object above must not be offered or used for any clinical, diagnostic, or therapeutic purpose. Issued automatically and without review by the Polygenik Certification Authority.</p>'+
+        '<div class="cert-actions">'+
+          '<button class="btn dark" id="dlCert">Download certificate (.txt)</button>'+
+          '<button class="btn secondary" id="anotherCert" style="color:var(--ink);border-color:var(--line)">Certify another</button>'+
+        '</div>'+
+      '</div></div>';
+
+    // Build downloadable text certificate as a data: URI
+    var txt =
+"================================================================\n"+
+"        POLYGENIK CERTIFICATION AUTHORITY\n"+
+"        researchuseonly.com  ·  Document B4\n"+
+"================================================================\n\n"+
+"           CERTIFICATE OF RESEARCH USE ONLY\n\n"+
+"This is to certify that the object named below has been\n"+
+"designated, in perpetuity, for research use only.\n\n"+
+"  OBJECT............: "+obj+"\n"+
+"  INTENDED NON-USE..: "+(desc||"Not specified")+"\n"+
+"  DESIGNATION CLASS.: "+cls+"\n"+
+"  CERTIFICATE NO....: "+certNo+"\n"+
+"  DATE CERTIFIED....: "+dateStr+"\n"+
+"  SUBMITTED BY......: "+sub+"\n"+
+"  ISSUED (SYSTEM)...: "+issued+"\n\n"+
+"----------------------------------------------------------------\n"+
+"This certificate confers no regulatory status, approval,\n"+
+"clearance, or protection of any kind. The object above must\n"+
+"not be offered or used for any clinical, diagnostic, or\n"+
+"therapeutic purpose. Issued automatically and without review.\n"+
+"================================================================\n";
+
+    var href = "data:text/plain;charset=utf-8," + encodeURIComponent(txt);
+    var fname = certNo + ".txt";
+
+    document.getElementById("dlCert").addEventListener("click", function(){
+      var a = document.createElement("a");
+      a.href = href; a.download = fname;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    });
+    document.getElementById("anotherCert").addEventListener("click", function(){
+      form.reset();
+      document.getElementById("objName").focus();
+    });
+
+    toast("Certificate " + certNo + " issued and entered into the Register. Approval was, as promised, instantaneous.");
+    out.scrollIntoView({behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block:"nearest"});
+  });
+})();
+</script>

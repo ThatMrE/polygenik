@@ -1,0 +1,483 @@
+<!--
+  POLYGENIK — INSULIN, TWO PRICES
+  Self-contained microsite. Strict CSP compliant.
+  No external assets except Google Fonts. Vials + plinth rendered as inline SVG/CSS.
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insulin, Two Prices — POLYGENIK</title>
+<meta name="description" content="Two identical resin-cast vials on one machined plinth, priced at what the same insulin molecule costs in two countries on the same day. Editioned sculpture of fifty. Contains no medicine.">
+<meta property="og:title" content="Insulin, Two Prices — POLYGENIK">
+<meta property="og:description" content="Two casts of the same vial. Two prices for the same molecule, on the same day. Edition of fifty. Contains no medicine.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="POLYGENIK">
+<meta property="og:url" content="https://polygenik.com/insulin-two-prices">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Newsreader:opsz,wght@6..72,300;6..72,400&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --paper:#e9e9e7;
+    --paper-2:#e2e2e0;
+    --ink:#1b1b1a;
+    --ink-soft:#54544f;
+    --ink-faint:#8a8a84;
+    --line:#c9c9c5;
+    --line-soft:#d6d6d2;
+    --plinth-top:#bdbdb8;
+    --plinth-side:#a4a49f;
+    --plinth-front:#9a9a95;
+    --glass:#dedede;
+    --glass-lo:#c4c4c4;
+    --measure:38rem;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --paper:#1a1a19;
+      --paper-2:#141413;
+      --ink:#e7e7e3;
+      --ink-soft:#a5a59f;
+      --ink-faint:#6f6f69;
+      --line:#33332f;
+      --line-soft:#282825;
+      --plinth-top:#3a3a37;
+      --plinth-side:#2c2c29;
+      --plinth-front:#252523;
+      --glass:#4a4a48;
+      --glass-lo:#33332f;
+    }
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Inter",system-ui,-apple-system,sans-serif;
+    font-weight:400;
+    line-height:1.65;
+    letter-spacing:.01em;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  a{color:inherit}
+  img{max-width:100%}
+
+  .wrap{max-width:74rem;margin:0 auto;padding:0 1.75rem}
+
+  /* ---- top bar ---- */
+  .topbar{
+    display:flex;justify-content:space-between;align-items:baseline;
+    padding:1.5rem 0;border-bottom:1px solid var(--line);
+    font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .topbar a{text-decoration:none}
+  .topbar a:hover{color:var(--ink)}
+  .topbar .home{font-weight:500;color:var(--ink)}
+
+  /* ---- section scaffolding ---- */
+  section{border-bottom:1px solid var(--line)}
+  .pad{padding:5rem 0}
+  @media(max-width:640px){.pad{padding:3.25rem 0}}
+
+  .eyebrow{
+    font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--ink-faint);margin:0 0 1.5rem;
+  }
+  h2{
+    font-family:"Newsreader",Georgia,serif;font-weight:300;
+    font-size:clamp(1.5rem,3.5vw,2.1rem);line-height:1.15;
+    margin:0 0 1.75rem;letter-spacing:0;
+  }
+  p{max-width:var(--measure)}
+  .lede{color:var(--ink-soft)}
+
+  /* ---- hero ---- */
+  .hero{
+    background:var(--paper-2);
+    border-bottom:1px solid var(--line);
+  }
+  .hero-inner{
+    padding:4.5rem 0 5rem;
+    display:flex;flex-direction:column;align-items:center;text-align:center;
+  }
+  .stage{width:100%;max-width:40rem;margin:0 auto}
+  .stage svg{display:block;width:100%;height:auto}
+
+  .prices{
+    display:flex;justify-content:center;align-items:flex-start;
+    gap:clamp(2rem,10vw,7rem);
+    margin-top:2.75rem;
+  }
+  .price{display:flex;flex-direction:column;align-items:center}
+  .price .num{
+    font-family:"Newsreader",Georgia,serif;font-weight:300;
+    font-size:clamp(2.6rem,9vw,5rem);line-height:1;letter-spacing:-.01em;
+    color:var(--ink);
+  }
+  .price .loc{
+    margin-top:.9rem;font-size:.64rem;letter-spacing:.28em;
+    text-transform:uppercase;color:var(--ink-faint);
+  }
+  .rule{
+    align-self:center;width:1px;background:var(--line);
+    height:clamp(3rem,9vw,5rem);margin-top:.4rem;
+  }
+  .hero-foot{
+    margin-top:3rem;font-size:.7rem;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--ink-faint);
+  }
+  .hero-foot span{white-space:nowrap}
+  .hero-foot .dot{margin:0 .6rem;opacity:.5}
+
+  /* ---- object spec table ---- */
+  .spec{
+    width:100%;border-collapse:collapse;margin-top:.5rem;
+    font-size:.95rem;
+  }
+  .spec th,.spec td{
+    text-align:left;vertical-align:top;padding:1rem 1rem 1rem 0;
+    border-top:1px solid var(--line-soft);
+  }
+  .spec th{
+    font-weight:400;color:var(--ink-faint);
+    font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;
+    width:14rem;white-space:nowrap;
+  }
+  @media(max-width:560px){
+    .spec th{width:auto;display:block;padding-bottom:.15rem;border-top:1px solid var(--line-soft)}
+    .spec td{display:block;padding-top:.15rem;border-top:none}
+  }
+
+  /* ---- sourcing ---- */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+  @media(max-width:720px){.grid2{grid-template-columns:1fr;gap:2.25rem}}
+
+  .cite{
+    font-size:.9rem;color:var(--ink-soft);
+    padding-top:1.1rem;border-top:1px solid var(--line-soft);
+  }
+  .cite .amt{
+    font-family:"Newsreader",Georgia,serif;font-weight:300;
+    font-size:2rem;color:var(--ink);line-height:1;display:block;margin-bottom:.55rem;
+  }
+  .cite .place{
+    font-size:.64rem;letter-spacing:.26em;text-transform:uppercase;
+    color:var(--ink-faint);display:block;margin-bottom:1rem;
+  }
+  .cite ul{margin:.6rem 0 0;padding-left:1.1rem}
+  .cite li{margin:.35rem 0}
+
+  .history{
+    width:100%;border-collapse:collapse;margin-top:2.5rem;font-size:.9rem;
+  }
+  .history caption{
+    text-align:left;font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--ink-faint);margin-bottom:.9rem;
+  }
+  .history th,.history td{
+    text-align:left;padding:.7rem 1rem .7rem 0;border-bottom:1px solid var(--line-soft);
+  }
+  .history thead th{
+    font-weight:500;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--ink-faint);
+  }
+  .history tbody td:first-child{color:var(--ink-soft)}
+  .history .current td{color:var(--ink)}
+  .history .num{font-variant-numeric:tabular-nums;white-space:nowrap}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+  .note{
+    margin-top:2rem;font-size:.82rem;color:var(--ink-faint);
+    border-left:2px solid var(--line);padding-left:1rem;max-width:var(--measure);
+  }
+
+  /* ---- vials disclosure ---- */
+  .placard{
+    display:inline-block;margin-top:1.75rem;padding:.9rem 1.4rem;
+    border:1px solid var(--ink-soft);
+    font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink);
+  }
+
+  /* ---- acquire ---- */
+  .acq-head{display:flex;flex-wrap:wrap;gap:2.5rem 4rem;margin-bottom:2.5rem}
+  .acq-head div span{
+    display:block;font-size:.64rem;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--ink-faint);margin-bottom:.5rem;
+  }
+  .acq-head div strong{
+    font-family:"Newsreader",Georgia,serif;font-weight:300;
+    font-size:2rem;line-height:1;
+  }
+
+  form{max-width:34rem;margin-top:.5rem}
+  .field{margin-bottom:1.4rem}
+  label{
+    display:block;font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--ink-faint);margin-bottom:.5rem;
+  }
+  input,textarea{
+    width:100%;font:inherit;font-size:.95rem;color:var(--ink);
+    background:transparent;border:1px solid var(--line);border-radius:0;
+    padding:.75rem .85rem;
+  }
+  input:focus,textarea:focus{outline:none;border-color:var(--ink-soft)}
+  textarea{resize:vertical;min-height:5.5rem}
+  button{
+    font:inherit;font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--paper);background:var(--ink);border:1px solid var(--ink);
+    padding:.9rem 2rem;cursor:pointer;border-radius:0;
+  }
+  button:hover{background:transparent;color:var(--ink)}
+  .confirm{
+    margin-top:1.25rem;font-size:.88rem;color:var(--ink-soft);
+    min-height:1.2em;
+  }
+  .formnote{font-size:.78rem;color:var(--ink-faint);margin-top:1.25rem}
+
+  /* ---- footer ---- */
+  footer{padding:3rem 0 4rem}
+  .foot{
+    display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;
+    font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);
+  }
+  .foot a{color:var(--ink-soft);text-decoration:none}
+  .foot a:hover{color:var(--ink)}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+
+<header class="wrap">
+  <div class="topbar">
+    <a class="home" href="/">POLYGENIK</a>
+    <a href="/">Index &nbsp;&#8599;</a>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" aria-label="The object">
+  <div class="wrap hero-inner">
+
+    <div class="stage" role="img" aria-label="Two visually identical resin-cast vials mounted side by side on a single machined plinth.">
+      <svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="var(--glass-lo)"/>
+            <stop offset=".35" stop-color="var(--glass)"/>
+            <stop offset=".55" stop-color="var(--glass)"/>
+            <stop offset="1" stop-color="var(--glass-lo)"/>
+          </linearGradient>
+          <linearGradient id="cap" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="var(--plinth-front)"/>
+            <stop offset=".5" stop-color="var(--plinth-top)"/>
+            <stop offset="1" stop-color="var(--plinth-front)"/>
+          </linearGradient>
+        </defs>
+
+        <!-- plinth: machined block in slight perspective -->
+        <g>
+          <!-- top face -->
+          <polygon points="120,250 520,250 560,224 160,224" fill="var(--plinth-top)"/>
+          <!-- front face -->
+          <rect x="120" y="250" width="400" height="46" fill="var(--plinth-front)"/>
+          <!-- right face -->
+          <polygon points="520,250 560,224 560,270 520,296" fill="var(--plinth-side)"/>
+          <!-- chamfer line -->
+          <line x1="120" y1="250" x2="520" y2="250" stroke="var(--line)" stroke-width="1" opacity=".4"/>
+        </g>
+
+        <!-- LEFT VIAL -->
+        <g>
+          <!-- shadow -->
+          <ellipse cx="240" cy="248" rx="34" ry="6" fill="#000" opacity=".10"/>
+          <!-- crimp cap -->
+          <rect x="223" y="96" width="34" height="16" rx="2" fill="url(#cap)"/>
+          <rect x="227" y="90" width="26" height="8" rx="2" fill="var(--plinth-top)"/>
+          <!-- neck -->
+          <rect x="230" y="112" width="20" height="12" fill="url(#glass)"/>
+          <!-- shoulder + body -->
+          <path d="M230,124 q-16,6 -16,26 v78 q0,14 26,14 t26,-14 v-78 q0,-20 -16,-26 z" fill="url(#glass)"/>
+          <!-- highlight -->
+          <rect x="226" y="130" width="4" height="98" rx="2" fill="#fff" opacity=".28"/>
+          <!-- meniscus line -->
+          <line x1="216" y1="150" x2="264" y2="150" stroke="var(--glass-lo)" stroke-width="1" opacity=".6"/>
+        </g>
+
+        <!-- RIGHT VIAL (identical) -->
+        <g>
+          <ellipse cx="400" cy="248" rx="34" ry="6" fill="#000" opacity=".10"/>
+          <rect x="383" y="96" width="34" height="16" rx="2" fill="url(#cap)"/>
+          <rect x="387" y="90" width="26" height="8" rx="2" fill="var(--plinth-top)"/>
+          <rect x="390" y="112" width="20" height="12" fill="url(#glass)"/>
+          <path d="M390,124 q-16,6 -16,26 v78 q0,14 26,14 t26,-14 v-78 q0,-20 -16,-26 z" fill="url(#glass)"/>
+          <rect x="386" y="130" width="4" height="98" rx="2" fill="#fff" opacity=".28"/>
+          <line x1="376" y1="150" x2="424" y2="150" stroke="var(--glass-lo)" stroke-width="1" opacity=".6"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="prices" aria-label="Two prices for the same insulin molecule, captured on the same day">
+      <div class="price">
+        <span class="num">$274</span>
+        <span class="loc">United States &middot; list</span>
+      </div>
+      <div class="rule" aria-hidden="true"></div>
+      <div class="price">
+        <span class="num">$23</span>
+        <span class="loc">Comparator &middot; retail</span>
+      </div>
+    </div>
+
+    <div class="hero-foot">
+      <span>Two casts of the same vial</span>
+      <span class="dot" aria-hidden="true">&bull;</span>
+      <span>Edition of fifty</span>
+      <span class="dot" aria-hidden="true">&bull;</span>
+      <span>Contains no medicine</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== THE OBJECT ===================== -->
+<section aria-labelledby="object-h">
+  <div class="wrap pad">
+    <p class="eyebrow">01 — The Object</p>
+    <h2 id="object-h">Insulin, Two Prices</h2>
+    <div class="scroll">
+      <table class="spec">
+        <tbody>
+          <tr><th scope="row">Form</th><td>Two resin-cast vials, visually identical, on a single plinth</td></tr>
+          <tr><th scope="row">Materials</th><td>Optically clear cast resin; machined aluminium plinth; etched price plates</td></tr>
+          <tr><th scope="row">Dimensions</th><td>Plinth 240 &times; 90 &times; 55 mm. Each vial 58 mm high, 22 mm diameter.</td></tr>
+          <tr><th scope="row">Weight</th><td>Approximately 1.4 kg</td></tr>
+          <tr><th scope="row">Edition</th><td>Fifty, numbered. Each ships with a signed certificate and sourcing statement.</td></tr>
+          <tr><th scope="row">Marking</th><td>Plinth underside engraved: RESIN. NO PHARMACEUTICAL CONTENT.</td></tr>
+          <tr><th scope="row">Price</th><td>$2,400</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== THE SOURCING ===================== -->
+<section aria-labelledby="sourcing-h">
+  <div class="wrap pad">
+    <p class="eyebrow">02 — The Sourcing</p>
+    <h2 id="sourcing-h">Where both numbers came from</h2>
+    <p class="lede">Each figure is the price of the same insulin molecule, captured on the same day from a published source. The plates are updated once a year. Prior years are never removed &mdash; the work is a running price history, not a snapshot.</p>
+
+    <div class="grid2" style="margin-top:2.75rem">
+      <div class="cite">
+        <span class="amt">$274</span>
+        <span class="place">United States &middot; list price</span>
+        Manufacturer list price for a single 10&nbsp;mL vial of insulin glargine, per the published US wholesale acquisition cost.
+        <ul>
+          <li>Source: manufacturer list-price disclosure</li>
+          <li>Captured: 14 January 2026</li>
+        </ul>
+      </div>
+      <div class="cite">
+        <span class="amt">$23</span>
+        <span class="place">Comparator country &middot; retail</span>
+        Publicly listed retail price for the same insulin glargine product, single 10&nbsp;mL vial, converted to US dollars on the capture date.
+        <ul>
+          <li>Source: national pharmacy price register</li>
+          <li>Captured: 14 January 2026</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="scroll">
+      <table class="history">
+        <caption>Price history &mdash; updated annually, prior years retained</caption>
+        <thead>
+          <tr><th scope="col">Capture date</th><th scope="col">United States (list)</th><th scope="col">Comparator (retail)</th><th scope="col">Ratio</th></tr>
+        </thead>
+        <tbody>
+          <tr class="current"><td>14 Jan 2026</td><td class="num">$274</td><td class="num">$23</td><td class="num">11.9&times;</td></tr>
+          <tr><td>10 Jan 2025</td><td class="num">$269</td><td class="num">$22</td><td class="num">12.2&times;</td></tr>
+          <tr><td>12 Jan 2024</td><td class="num">$284</td><td class="num">$21</td><td class="num">13.5&times;</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="note">These figures are illustrative sample values held pending final sourcing. Each will be replaced with a cited, dated price and a link to its published source before the edition ships, and the citation names the specific insulin product.</p>
+  </div>
+</section>
+
+<!-- ===================== THE VIALS ===================== -->
+<section aria-labelledby="vials-h">
+  <div class="wrap pad">
+    <p class="eyebrow">03 — The Vials</p>
+    <h2 id="vials-h">Resin. No pharmaceutical content.</h2>
+    <p class="lede">Both vials are solid casts of optically clear resin. They contain no insulin and no pharmaceutical product of any kind. The form is a generic vial: no manufacturer's label, brand or logo is reproduced anywhere on the object. The named insulin product appears only in the sourcing citation.</p>
+    <p>This is stated plainly because it matters both legally and honestly. The underside of every plinth is engraved with the same statement that appears on the certificate.</p>
+    <span class="placard">RESIN. NO PHARMACEUTICAL CONTENT.</span>
+  </div>
+</section>
+
+<!-- ===================== ACQUIRE ===================== -->
+<section aria-labelledby="acquire-h">
+  <div class="wrap pad">
+    <p class="eyebrow">04 — Acquire</p>
+    <h2 id="acquire-h">Enquire about the edition</h2>
+
+    <div class="acq-head">
+      <div><span>Price</span><strong>$2,400</strong></div>
+      <div><span>Edition</span><strong>50</strong></div>
+      <div><span>Remaining</span><strong>31</strong></div>
+    </div>
+
+    <form id="enquiry" novalidate>
+      <div class="field">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="message">Message (optional)</label>
+        <textarea id="message" name="message"></textarea>
+      </div>
+      <button type="submit">Submit enquiry</button>
+      <p class="confirm" id="confirm" role="status" aria-live="polite"></p>
+      <p class="formnote">This form does not transmit or store anything. An enquiry records no data; it is a statement of interest only. Written follow-up is arranged separately.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="wrap">
+  <div class="foot">
+    <a href="/">A POLYGENIK property</a>
+    <span>Editioned sculpture &middot; Edition of fifty &middot; Contains no medicine</span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var form = document.getElementById('enquiry');
+    if(!form) return;
+    var confirm = document.getElementById('confirm');
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var name = (document.getElementById('name').value || '').trim();
+      var email = (document.getElementById('email').value || '').trim();
+      if(!name || !email){
+        confirm.textContent = 'Please provide a name and an email address.';
+        return;
+      }
+      form.reset();
+      confirm.textContent = 'Enquiry noted. Nothing was transmitted or stored. We will be in touch about the edition.';
+    });
+  })();
+</script>

@@ -1,0 +1,817 @@
+<title>Polygenik Institutional Review Board</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="The Polygenik Institutional Review Board reviews self-experimentation, bio-art, community laboratory work, and anything else outside the bodies that exist. Every determination published in full, including the ones against ourselves. Submission is free. Our verdicts carry no legal weight whatsoever.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Polygenik Institutional Review Board">
+<meta property="og:description" content="The Common Rule does not apply to you. Neither do we. We publish every determination in full, including the ones against ourselves. Our verdicts carry no legal weight whatsoever.">
+<meta property="og:site_name" content="Polygenik Institutional Review Board">
+
+<style>
+  :root{
+    --ink:#1a1a1a;
+    --paper:#ffffff;
+    --rule:#3a3a3a;
+    --faint:#6a6a6a;
+    --hair:#c9c9c9;
+    --band:#efefe9;
+    --link:#1a1a6a;
+    --linkv:#5a1a5a;
+    --approve:#1f5c2f;
+    --deny:#8a1f1f;
+    --cond:#7a5a10;
+    --outside:#444;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#e6e4de;
+      --paper:#111110;
+      --rule:#b7b5ad;
+      --faint:#9a988f;
+      --hair:#3a3a37;
+      --band:#1b1b19;
+      --link:#9aa9ff;
+      --linkv:#c79ad0;
+      --approve:#7fce8f;
+      --deny:#e58a8a;
+      --cond:#d8b25a;
+      --outside:#b7b5ad;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e6e4de;--paper:#111110;--rule:#b7b5ad;--faint:#9a988f;--hair:#3a3a37;
+    --band:#1b1b19;--link:#9aa9ff;--linkv:#c79ad0;--approve:#7fce8f;--deny:#e58a8a;--cond:#d8b25a;--outside:#b7b5ad;
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Times New Roman",Times,Georgia,"Nimbus Roman",serif;
+    font-size:18px;
+    line-height:1.5;
+    margin:0;
+    padding:0;
+  }
+  .wrap{max-width:820px;margin:0 auto;padding:0 22px}
+
+  /* Masthead */
+  header.masthead{
+    border-bottom:3px double var(--rule);
+    padding:26px 0 14px;
+  }
+  .masthead .kicker{
+    font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);
+    margin:0 0 8px;
+  }
+  .masthead h1{
+    font-size:30px;font-weight:700;line-height:1.15;margin:0 0 6px;letter-spacing:.01em;
+  }
+  .masthead .sub{font-size:15px;color:var(--faint);font-style:italic;margin:0}
+  .masthead .meta{
+    font-size:12.5px;color:var(--faint);margin-top:12px;
+    display:flex;flex-wrap:wrap;gap:4px 18px;
+    border-top:1px solid var(--hair);padding-top:10px;
+  }
+
+  nav.toc{
+    border-bottom:1px solid var(--rule);
+    font-size:13px;
+    padding:10px 0;
+  }
+  nav.toc ol{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:2px 0}
+  nav.toc li{margin:0}
+  nav.toc li:not(:last-child)::after{content:"·";color:var(--hair);margin:0 10px}
+  nav.toc a{color:var(--link);text-decoration:none}
+  nav.toc a:hover{text-decoration:underline}
+
+  a{color:var(--link)}
+  a:visited{color:var(--linkv)}
+
+  main{padding:14px 0 0}
+
+  section{padding:30px 0;border-bottom:1px solid var(--hair)}
+  section:last-of-type{border-bottom:none}
+
+  h2.sec{
+    font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);
+    margin:0 0 4px;font-weight:400;
+  }
+  h2.sec + .sectitle{font-size:24px;font-weight:700;margin:0 0 18px;line-height:1.2}
+  h3{font-size:18px;font-weight:700;margin:26px 0 8px}
+  h4{font-size:15px;font-weight:700;margin:18px 0 6px;letter-spacing:.02em}
+  p{margin:0 0 14px}
+  small{font-size:13px;color:var(--faint)}
+
+  /* Hero */
+  #hero{border-bottom:3px double var(--rule);padding:36px 0}
+  #hero .lede{font-size:22px;line-height:1.45;margin:0 0 16px;font-weight:400}
+  #hero p{font-size:18px}
+  .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+  .cta a{
+    display:inline-block;border:1.5px solid var(--rule);color:var(--ink);
+    text-decoration:none;padding:9px 18px;font-size:13px;letter-spacing:.14em;
+    text-transform:uppercase;background:var(--paper);
+  }
+  .cta a:visited{color:var(--ink)}
+  .cta a:hover{background:var(--band)}
+
+  /* Charter clauses */
+  .clause{margin:0 0 4px}
+  .charter-block{margin:0 0 22px}
+  .charter-block > .num{font-weight:700}
+  ol.clauses{list-style:none;margin:0;padding:0;counter-reset:cl}
+  ol.clauses > li{
+    position:relative;padding-left:52px;margin:0 0 16px;
+    counter-increment:cl;
+  }
+  ol.clauses > li::before{
+    content:counter(cl,decimal) ".";
+    position:absolute;left:0;top:0;width:44px;text-align:right;
+    font-variant-numeric:tabular-nums;color:var(--faint);font-weight:700;
+  }
+  ol.sub{list-style:none;margin:8px 0 0;padding:0;counter-reset:sub}
+  ol.sub > li{
+    position:relative;padding-left:44px;margin:0 0 8px;counter-increment:sub;
+    font-size:16.5px;
+  }
+  ol.sub > li::before{
+    content:"(" counter(sub,lower-alpha) ")";
+    position:absolute;left:0;top:0;width:36px;text-align:right;color:var(--faint);
+  }
+  .version-note{
+    font-size:13px;color:var(--faint);border-left:3px solid var(--hair);
+    padding:2px 0 2px 14px;margin:0 0 20px;
+  }
+
+  /* Register */
+  .verdict{
+    border:1px solid var(--rule);
+    margin:0 0 26px;
+    background:var(--paper);
+  }
+  .verdict .head{
+    border-bottom:1px solid var(--rule);
+    padding:12px 16px;
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:6px 16px;
+    align-items:baseline;
+  }
+  .verdict .caseno{
+    font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);
+    font-variant-numeric:tabular-nums;
+  }
+  .verdict .ptitle{font-size:19px;font-weight:700;margin:2px 0 0;grid-column:1/2}
+  .verdict .determination{
+    grid-column:2/3;grid-row:1/3;align-self:center;
+    font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;
+    border:1.5px solid currentColor;padding:5px 10px;white-space:nowrap;text-align:center;
+  }
+  .det-approved{color:var(--approve)}
+  .det-conditions{color:var(--cond)}
+  .det-notapproved{color:var(--deny)}
+  .det-outside{color:var(--outside)}
+  .verdict dl.facts{
+    margin:0;padding:12px 16px;border-bottom:1px solid var(--hair);
+    display:grid;grid-template-columns:auto 1fr;gap:4px 16px;font-size:14px;
+  }
+  .verdict dl.facts dt{color:var(--faint);text-transform:uppercase;letter-spacing:.08em;font-size:11.5px;padding-top:2px}
+  .verdict dl.facts dd{margin:0}
+  .verdict .opinion{padding:14px 16px}
+  .verdict .opinion h4{margin-top:6px}
+  .verdict .opinion h4:first-child{margin-top:0}
+  .verdict .conditions{list-style:none;margin:8px 0 14px;padding:0;counter-reset:cnd}
+  .verdict .conditions li{
+    position:relative;padding-left:42px;margin:0 0 8px;counter-increment:cnd;font-size:16px;
+  }
+  .verdict .conditions li::before{
+    content:"C" counter(cnd) ".";position:absolute;left:0;top:0;width:34px;text-align:right;
+    color:var(--faint);font-weight:700;font-variant-numeric:tabular-nums;
+  }
+  .dissent{
+    border-left:3px solid var(--hair);padding:8px 0 4px 16px;margin:14px 0 4px;
+    font-size:16px;
+  }
+  .dissent .lbl{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:4px}
+  .sig{font-style:italic;color:var(--faint);font-size:14px;margin-top:10px}
+
+  /* Panel */
+  .seat{border-top:1px solid var(--hair);padding:16px 0}
+  .seat:first-of-type{border-top:none}
+  .seat .role{font-weight:700;font-size:17px}
+  .seat .placeholder{color:var(--faint);font-style:italic}
+  .seat dl{margin:8px 0 0;display:grid;grid-template-columns:auto 1fr;gap:3px 14px;font-size:14px}
+  .seat dl dt{color:var(--faint);text-transform:uppercase;letter-spacing:.07em;font-size:11px;padding-top:2px}
+  .seat dl dd{margin:0}
+
+  /* Cannot do */
+  ul.plain{list-style:none;margin:0 0 16px;padding:0}
+  ul.plain li{position:relative;padding-left:24px;margin:0 0 10px}
+  ul.plain li::before{content:"—";position:absolute;left:0;color:var(--faint)}
+
+  /* Form */
+  form{margin:8px 0 0}
+  .fnote{font-size:14px;color:var(--faint);border:1px solid var(--hair);background:var(--band);padding:12px 14px;margin:0 0 22px}
+  fieldset{border:1px solid var(--rule);margin:0 0 22px;padding:16px 16px 8px}
+  legend{
+    font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+    padding:0 8px;color:var(--faint);
+  }
+  .q{margin:0 0 18px}
+  .q > label,.q > .qlabel{display:block;font-size:15px;margin:0 0 6px;line-height:1.35}
+  .q .qnum{color:var(--faint);font-weight:700;font-variant-numeric:tabular-nums;margin-right:6px}
+  .req{color:var(--deny);font-weight:700}
+  input[type=text],input[type=email],input[type=number],input[type=date],select,textarea{
+    width:100%;font-family:inherit;font-size:16px;color:var(--ink);background:var(--paper);
+    border:1px solid var(--rule);padding:8px 10px;border-radius:0;
+  }
+  textarea{min-height:70px;resize:vertical}
+  select{appearance:none;-webkit-appearance:none}
+  .radios{font-size:15px}
+  .radios label{display:inline-flex;align-items:baseline;gap:6px;margin:0 18px 6px 0;white-space:nowrap}
+  input[type=radio],input[type=checkbox]{accent-color:var(--rule)}
+  .checks label{display:flex;align-items:baseline;gap:8px;margin:0 0 6px;font-size:15px}
+  .hint{font-size:13px;color:var(--faint);margin:4px 0 0}
+  button.submit{
+    font-family:inherit;font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+    background:var(--ink);color:var(--paper);border:1.5px solid var(--ink);
+    padding:12px 24px;cursor:pointer;border-radius:0;
+  }
+  button.submit:hover{background:var(--paper);color:var(--ink)}
+  #formResult{
+    margin-top:18px;font-size:15px;border:1.5px solid var(--rule);padding:14px 16px;
+    background:var(--band);display:none;
+  }
+  #formResult.show{display:block}
+  #formResult .rc{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:6px}
+
+  footer{
+    border-top:3px double var(--rule);
+    padding:26px 0 40px;
+    font-size:13px;color:var(--faint);
+  }
+  footer p{margin:0 0 8px;font-size:13px}
+  footer .weight{font-weight:700;color:var(--ink)}
+  footer a{color:var(--link)}
+
+  .backlink{font-size:13px}
+
+  @media (max-width:560px){
+    body{font-size:17px}
+    .masthead h1{font-size:24px}
+    #hero .lede{font-size:19px}
+    .verdict .head{grid-template-columns:1fr}
+    .verdict .determination{grid-column:1/2;grid-row:auto;justify-self:start;margin-top:6px}
+    .verdict dl.facts,.seat dl{grid-template-columns:1fr}
+    .verdict dl.facts dt{padding-top:8px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important;scroll-behavior:auto !important}
+  }
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  :target{scroll-margin-top:16px}
+</style>
+
+<header class="masthead">
+  <div class="wrap">
+    <p class="kicker">A Standing Panel · Convened Quarterly · Est. MMXXV</p>
+    <h1>The Polygenik Institutional Review Board</h1>
+    <p class="sub">We review work no one is required to submit.</p>
+    <div class="meta">
+      <span>Charter v2.1</span>
+      <span>Register: 3 determinations of record</span>
+      <span>Sitting: fourth quarter</span>
+      <span>Convened at 995 Market Street</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Sections">
+  <div class="wrap">
+    <ol>
+      <li><a href="#hero">Statement</a></li>
+      <li><a href="#charter">The Charter</a></li>
+      <li><a href="#register">The Register of Verdicts</a></li>
+      <li><a href="#submit">Submit a Project</a></li>
+      <li><a href="#panel">The Panel</a></li>
+      <li><a href="#limits">What We Cannot Do</a></li>
+    </ol>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <section id="hero">
+    <p class="lede">The Common Rule does not apply to you. Neither do we.</p>
+    <p>We review self-experimentation, bio-art, community laboratory work, and anything else that falls outside the bodies that exist. We publish every determination in full, including the ones against ourselves.</p>
+    <p>Submission is free. Our verdicts carry no legal weight whatsoever.</p>
+    <div class="cta">
+      <a href="#submit">Submit a project</a>
+      <a href="#register">The register</a>
+    </div>
+  </section>
+
+  <section id="charter">
+    <h2 class="sec">Governing Instrument</h2>
+    <p class="sectitle">The Charter of the Polygenik Institutional Review Board</p>
+    <p class="version-note">Version 2.1. Adopted at the first quarterly sitting. Supersedes v1.0 and v2.0. Amendments require the affirmative vote of four of five seated members and are published in full in this register. The prior versions remain available on request and are not withdrawn.</p>
+
+    <div class="charter-block">
+      <h3>Article I — Purpose and Standing</h3>
+      <ol class="clauses">
+        <li>The Polygenik Institutional Review Board is a voluntary body constituted to receive, deliberate upon, and publish opinions concerning proposed and completed work in biology that falls outside the reach of any statutory review requirement.</li>
+        <li>The Board holds no license, no charter from any state, and no delegated regulatory authority. It exists because such work presently has nowhere to go, and for no other reason.</li>
+        <li>Nothing the Board does creates, extinguishes, or alters any legal right or obligation of any person. This clause is restated in Article VI and again in the footer of every page, and it means exactly what it says.</li>
+      </ol>
+    </div>
+
+    <div class="charter-block">
+      <h3>Article II — Jurisdiction</h3>
+      <ol class="clauses">
+        <li>The Board will consider any submission concerning self-experimentation, bio-art, community and independent laboratory work, longevity and enhancement self-study, and adjacent practices, whether proposed, in progress, or complete.</li>
+        <li>The Board will consider submissions from parties with no connection to Polygenik on the same terms as submissions from Polygenik itself, and applies the same rubric to both.</li>
+        <li>The Board expressly refuses jurisdiction over, and will return without opinion, any submission whose subject matter includes:
+          <ol class="sub">
+            <li>work with pathogens, select agents, or the enhancement of transmissibility, virulence, or host range of any biological agent;</li>
+            <li>gene drives or any construct engineered to bias its own inheritance in a wild or free-living population;</li>
+            <li>heritable germline modification of humans, or the creation of embryos for research;</li>
+            <li>any research involving minors as subjects, whether or not a guardian consents.</li>
+          </ol>
+        </li>
+        <li>A refusal of jurisdiction under clause 3 is not an endorsement, a condemnation, or a comment of any kind on the merits of the work. It means only that the Board declines to speak, and that the applicant should seek a competent authority. Where the excluded matter appears to present imminent serious harm, Article V governs.</li>
+        <li>Where a submission is partly within and partly outside jurisdiction, the Board may issue an opinion on the admissible portion and mark the remainder Outside Jurisdiction.</li>
+      </ol>
+    </div>
+
+    <div class="charter-block">
+      <h3>Article III — Determinations</h3>
+      <ol class="clauses">
+        <li>The Board issues one of four determinations on each admitted submission:
+          <ol class="sub">
+            <li><strong>Approved</strong> — the Board identifies no ethical objection it considers material.</li>
+            <li><strong>Approved with Conditions</strong> — the Board offers its opinion contingent on stated, published conditions, compliance with which is voluntary and monitored only by publication.</li>
+            <li><strong>Not Approved</strong> — the Board considers the work ethically indefensible as proposed and says so, without any power to prevent it.</li>
+            <li><strong>Outside Jurisdiction</strong> — per Article II.</li>
+          </ol>
+        </li>
+        <li>Every determination is published in full, with its reasoning, its conditions if any, and every dissent recorded verbatim and attributed by seat.</li>
+        <li>A determination is an opinion. It is not a permit, a certificate, an approval within the meaning of any law, or a defense to any proceeding. A submitter who proceeds does so on their own responsibility, and the fact of the Board's opinion neither adds to nor subtracts from that responsibility.</li>
+        <li>The Board will not issue an Approved or Approved with Conditions determination on work already completed in a manner it would not have approved in advance; it will describe what occurred and mark it Not Approved where warranted, including against Polygenik.</li>
+      </ol>
+    </div>
+
+    <div class="charter-block">
+      <h3>Article IV — The Rubric</h3>
+      <ol class="clauses">
+        <li>The Board evaluates each admitted submission against, at minimum: informed and ongoing consent of every subject; reversibility of the intervention; third-party and bystander risk; environmental release and containment; proportionality of risk to stated purpose; and the adequacy of the applicant's own contingency plan for a bad outcome.</li>
+        <li>Where the applicant is also the sole subject, the Board weighs autonomy heavily but not without limit, and remains concerned with third parties, dependents, and those who cannot consent.</li>
+        <li>The rubric is published as a separate instrument and is versioned alongside this Charter.</li>
+      </ol>
+    </div>
+
+    <div class="charter-block">
+      <h3>Article V — Disclosure of Imminent Serious Harm</h3>
+      <ol class="clauses">
+        <li>Where a submission discloses a plan or an ongoing act that in the Board's judgment presents an imminent and serious risk of grave harm to identifiable persons or to the public, the Board will: decline to publish operational detail; state on the register that a submission was received and withheld; and, where a competent authority exists, encourage the submitter to contact it.</li>
+        <li>The Board is not a mandated reporter and holds no investigative power. It decided the terms of this Article before any such submission arrived, deliberately, so that the terms would not be written to fit a particular case.</li>
+      </ol>
+    </div>
+
+    <div class="charter-block">
+      <h3>Article VI — Independence, Conflicts, and Limits</h3>
+      <ol class="clauses">
+        <li>Seats are paid, fixed in term, and disclosed by role and affiliation. Honoraria are published. One seat rotates each sitting to a member of the community the work under review most directly touches.</li>
+        <li>A seated member with a personal, financial, or professional interest in a submission must declare it on the record and recuse from that determination. Declared conflicts are published with the verdict.</li>
+        <li>The Board reviews Polygenik's own work under this Charter without modification and publishes adverse determinations against Polygenik immediately and without editing.</li>
+        <li>The Board can do nothing that Article I clause 3 says it cannot do. The full account of the Board's incapacities appears under "What We Cannot Do" and is part of this Charter by reference.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="register">
+    <h2 class="sec">The Site</h2>
+    <p class="sectitle">The Register of Verdicts</p>
+    <p>Every admitted submission and its determination, published in full, including reasoning, conditions, and dissents. The register opened with three determinations of record so that it would not be empty on the day it began.</p>
+
+    <!-- CASE 001 -->
+    <article class="verdict" aria-labelledby="c001">
+      <div class="head">
+        <div>
+          <div class="caseno">Case No. PIRB-001</div>
+          <p class="ptitle" id="c001">Celebrity Meat Tasting</p>
+        </div>
+        <div class="determination det-conditions">Approved with Conditions</div>
+      </div>
+      <dl class="facts">
+        <dt>Submitter</dt><dd>Polygenik (self-referral)</dd>
+        <dt>Project</dt><dd>A tasting event serving cultivated meat grown from consenting-donor cell lines, presented to invited guests</dd>
+        <dt>Received</dt><dd>14 October 2025</dd>
+        <dt>Determined</dt><dd>21 November 2025</dd>
+        <dt>Conflicts</dt><dd>All five seats disclosed the self-referral. The rotating community seat recused; a substitute from the invited-guest community sat for this case only.</dd>
+      </dl>
+      <div class="opinion">
+        <h4>Opinion of the Board</h4>
+        <p>The work proposes to serve, to informed adult guests, cultivated tissue derived from cell lines obtained with documented donor consent. The Board finds no material ethical objection to the practice as such. The interesting questions are not about safety, which is a matter for food regulators the Board does not replace, but about consent to novelty, the dignity of the named donors, and the difference between an audience that has agreed to eat something unusual and an audience that merely showed up.</p>
+        <p>The Board is satisfied that autonomy is served where every guest is told, in plain language and before they arrive, precisely what they are being offered and from whom it derives. It is not satisfied that a verbal briefing at the door suffices. Approval is therefore conditional.</p>
+        <h4>Conditions imposed</h4>
+        <ol class="conditions">
+          <li>Each named cell-line donor shall give specific, written, revocable consent to the culinary use and public description of tissue derived from their line, and may withdraw it up to the day of service without penalty or inquiry.</li>
+          <li>Every guest shall receive, at the time of invitation and again on arrival, a written description of what is served and its provenance, and shall affirmatively opt in. No dish shall be served by ambush or as a surprise course.</li>
+          <li>A conventional, clearly labelled alternative shall be available at the same table, prepared with equal care, so that declining carries no social cost.</li>
+          <li>No tissue derived from any identifiable living person shall be served to that same person, to anyone in a relationship with them the Board would regard as intimate, or represented as a person rather than as a material.</li>
+          <li>Polygenik shall publish, within thirty days of the event, a plain account of what was served, how many guests opted in, and any donor withdrawals, on this register.</li>
+        </ol>
+        <p class="sig">Compliance with all five conditions was confirmed and is on file. The Board notes the conditions were followed. Approved with Conditions, four in favour, one dissenting.</p>
+        <div class="dissent">
+          <span class="lbl">Dissent — Seat 4 (Legal)</span>
+          <p>I concur that consent is well handled and would not stand in the way of the event. I dissent only from the phrase "no material ethical objection to the practice as such." The practice of eating tissue traceable to a specific, named, living human being is not made unremarkable by consent; consent makes it permissible, not ordinary. The Board should say plainly that it approved a thing it also finds strange, rather than approving it into normalcy. My colleagues call this a matter of tone. I call it the whole point.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- CASE 002 -->
+    <article class="verdict" aria-labelledby="c002">
+      <div class="head">
+        <div>
+          <div class="caseno">Case No. PIRB-002</div>
+          <p class="ptitle" id="c002">Aerosol Communion</p>
+        </div>
+        <div class="determination det-notapproved">Not Approved</div>
+      </div>
+      <dl class="facts">
+        <dt>Submitter</dt><dd>Polygenik (self-referral)</dd>
+        <dt>Project</dt><dd>A participatory installation dispersing an aerosolised, engineered commensal skin bacterium among consenting attendees to establish a shared, persistent microbial "communion"</dd>
+        <dt>Received</dt><dd>3 November 2025</dd>
+        <dt>Determined</dt><dd>21 November 2025</dd>
+        <dt>Conflicts</dt><dd>Self-referral disclosed by all seats. No recusals; the Board determined it could review its own proposal adversely without prejudice, and did.</dd>
+      </dl>
+      <div class="opinion">
+        <h4>Opinion of the Board</h4>
+        <p>This is a submission by Polygenik, and the Board does not approve it. We publish that sentence first because it is the most important thing on this page.</p>
+        <p>The proposal would deliberately disperse a self-propagating engineered organism into a room of people and, by the submitter's own admission, would establish it persistently on their skin. The Board accepts that every attendee in the room would consent. That is not the difficulty. The difficulty is everyone the attendees touch afterward: partners, children, patients, strangers on a train, the immunocompromised, the people a consenting adult goes home to. A persistent, transmissible organism does not honour the boundary of the room in which consent was collected.</p>
+        <p>The rubric asks whether an intervention is reversible and whether third-party risk is controlled. Here the answer to both is no. An engineered commensal chosen for persistence is chosen, precisely, to be difficult to remove; and transmissibility is not a side effect of this piece but its subject. The Board will not lend its opinion to the release into the general population of a self-spreading construct, however benign its author believes it to be, on the strength of consent that only the first ring of people could ever give.</p>
+        <p>The Board notes, without softening the determination, that the underlying artistic question — what would it mean to share a body's flora as a sacrament — is a real and serious one, and can be pursued with a non-persistent, non-transmissible, topically applied preparation confined to consenting individuals. That would be a different submission. This one is Not Approved.</p>
+        <p class="sig">Not Approved, five in favour of refusal, none dissenting. The Board records that Polygenik withdrew the installation from its programme following this determination.</p>
+        <div class="dissent">
+          <span class="lbl">Concurrence — Seat 3 (Bioethics)</span>
+          <p>I join the opinion in full and add one line for the record. A review board that cannot say no to the institution that pays it is a decoration. This case is the reason the seats are paid and the terms are fixed. We were asked to bless the house's own work and we declined. Read the rest of this register in that light.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- CASE 003 -->
+    <article class="verdict" aria-labelledby="c003">
+      <div class="head">
+        <div>
+          <div class="caseno">Case No. PIRB-003</div>
+          <p class="ptitle" id="c003">Home Continuous Glucose Ferment</p>
+        </div>
+        <div class="determination det-approved">Approved</div>
+      </div>
+      <dl class="facts">
+        <dt>Submitter</dt><dd>External applicant, unaffiliated with Polygenik (name withheld at applicant's request)</dd>
+        <dt>Project</dt><dd>A single self-experimenter proposing to consume, and log responses to, a kitchen-fermented probiotic beverage cultured from a defined, commercially available strain, over ninety days</dd>
+        <dt>Received</dt><dd>29 October 2025</dd>
+        <dt>Determined</dt><dd>21 November 2025</dd>
+        <dt>Conflicts</dt><dd>None declared. The rotating community seat for this sitting was drawn from an independent community-laboratory collective.</dd>
+      </dl>
+      <div class="opinion">
+        <h4>Opinion of the Board</h4>
+        <p>The Board is glad to have received a submission from someone it has never met, and records that fact because it was the first. The applicant proposes to ferment and consume, over ninety days, a beverage from a defined and widely sold strain, and to keep a structured log. The applicant is the sole subject, is an informed adult, has no dependents relying on the outcome, and has described a plausible stop rule.</p>
+        <p>This is squarely the kind of self-directed work the Board exists to consider, and the Board finds no material ethical objection. The intervention is reversible on cessation, third-party risk is negligible, and the applicant's contingency plan — cease and consult a physician on any adverse gastrointestinal or systemic sign persisting beyond forty-eight hours — is adequate for the risk profile.</p>
+        <p>The Board records two observations that are not conditions and impose no obligation. First, a defined strain from a reputable supplier is far safer than a wild capture, and the applicant chose well. Second, an n of one is a diary, not evidence, and the applicant already says as much in the submission, which the Board appreciated.</p>
+        <p class="sig">Approved, five in favour, none dissenting. The Board thanks the applicant for the care taken with the thirty-question form, and notes that the form appears to have changed the protocol before the Board ever saw it, which is the form working as intended.</p>
+      </div>
+    </article>
+
+    <p><small>Case PIRB-004 (Outside Jurisdiction) is recorded in the internal minute book: a submission concerning a gene-drive construct intended for field release was returned without opinion under Article II clause 3(b). No operational detail is published.</small></p>
+  </section>
+
+  <section id="submit">
+    <h2 class="sec">The Form is the Intervention</h2>
+    <p class="sectitle">Submit a Project</p>
+    <p>Submission is free. The form is long on purpose. Answering thirty structured questions about consent, reversibility, and third-party risk tends to change what people build, whether or not they ever receive a verdict. That change is the point, and it happens before the Board reads a word.</p>
+    <p class="fnote">This form is client-side only. Nothing you enter is transmitted, logged, or stored anywhere. On submission you will receive a provisional case reference generated in your browser and then discarded. To place a submission before the Board in fact, follow the instructions returned to you. Do not enter operational detail of anything within Article II clause 3.</p>
+
+    <form id="pirbForm" novalidate>
+      <fieldset>
+        <legend>Part A — The Applicant</legend>
+        <div class="q">
+          <label for="q1"><span class="qnum">1.</span>Your name or the name of your collective <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="q1" name="q1" required autocomplete="name">
+        </div>
+        <div class="q">
+          <label for="q2"><span class="qnum">2.</span>A contact address for the Board's reply <span class="req" aria-hidden="true">*</span></label>
+          <input type="email" id="q2" name="q2" required autocomplete="email">
+          <p class="hint">Used only to return a verdict. This browser-only form retains nothing.</p>
+        </div>
+        <div class="q">
+          <span class="qlabel"><span class="qnum">3.</span>Is the applicant affiliated with Polygenik? <span class="req" aria-hidden="true">*</span></span>
+          <div class="radios">
+            <label><input type="radio" name="q3" value="no" required> No affiliation</label>
+            <label><input type="radio" name="q3" value="member"> A member or contractor</label>
+            <label><input type="radio" name="q3" value="self"> This is a Polygenik self-referral</label>
+          </div>
+        </div>
+        <div class="q">
+          <label for="q4"><span class="qnum">4.</span>Declare any conflict of interest between you and any seated member of the Board</label>
+          <textarea id="q4" name="q4"></textarea>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Part B — The Work</legend>
+        <div class="q">
+          <label for="q5"><span class="qnum">5.</span>Project title <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="q5" name="q5" required>
+        </div>
+        <div class="q">
+          <label for="q6"><span class="qnum">6.</span>Describe the work in plain language, as you would to someone with no scientific training <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="q6" name="q6" required></textarea>
+        </div>
+        <div class="q">
+          <span class="qlabel"><span class="qnum">7.</span>Stage of the work <span class="req" aria-hidden="true">*</span></span>
+          <div class="radios">
+            <label><input type="radio" name="q7" value="proposed" required> Proposed</label>
+            <label><input type="radio" name="q7" value="progress"> In progress</label>
+            <label><input type="radio" name="q7" value="complete"> Complete</label>
+          </div>
+        </div>
+        <div class="q">
+          <label for="q8"><span class="qnum">8.</span>What is the work for? State its purpose without reference to its methods.</label>
+          <textarea id="q8" name="q8"></textarea>
+        </div>
+        <div class="q">
+          <span class="qlabel"><span class="qnum">9.</span>Does the work involve any of the following? Tick all that apply. Any tick may place the work outside the Board's jurisdiction (Article II).</span>
+          <div class="checks">
+            <label><input type="checkbox" name="q9" value="pathogens"> Pathogens, select agents, or altered transmissibility or virulence</label>
+            <label><input type="checkbox" name="q9" value="drive"> A gene drive or self-biasing inheritance construct</label>
+            <label><input type="checkbox" name="q9" value="germline"> Human heritable germline modification or embryos</label>
+            <label><input type="checkbox" name="q9" value="minors"> Minors as subjects</label>
+            <label><input type="checkbox" name="q9" value="none"> None of the above</label>
+          </div>
+        </div>
+        <div class="q">
+          <label for="q10"><span class="qnum">10.</span>Where will the work be carried out, and in what kind of space?</label>
+          <input type="text" id="q10" name="q10">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Part C — Subjects and Consent</legend>
+        <div class="q">
+          <span class="qlabel"><span class="qnum">11.</span>Who is the subject of the intervention? <span class="req" aria-hidden="true">*</span></span>
+          <div class="radios">
+            <label><input type="radio" name="q11" value="self" required> Only myself</label>
+            <label><input type="radio" name="q11" value="others"> Other consenting adults</label>
+            <label><input type="radio" name="q11" value="both"> Myself and others</label>
+            <label><input type="radio" name="q11" value="nonhuman"> Non-human organisms only</label>
+          </div>
+        </div>
+        <div class="q">
+          <label for="q12"><span class="qnum">12.</span>If there are subjects other than you, how many, and how were they recruited?</label>
+          <textarea id="q12" name="q12"></textarea>
+        </div>
+        <div class="q">
+          <label for="q13"><span class="qnum">13.</span>How is consent obtained, and can it be withdrawn after the work begins? Describe the mechanism.</label>
+          <textarea id="q13" name="q13"></textarea>
+        </div>
+        <div class="q">
+          <span class="qlabel"><span class="qnum">14.</span>Could any subject feel pressure — social, financial, or hierarchical — to participate?</span>
+          <div class="radios">
+            <label><input type="radio" name="q14" value="no"> No</label>
+            <label><input type="radio" name="q14" value="possible"> Possibly</label>
+            <label><input type="radio" name="q14" value="yes"> Yes, and here is how it is mitigated</label>
+          </div>
+        </div>
+        <div class="q">
+          <label for="q15"><span class="qnum">15.</span>Does anyone depend on a subject — a child, a patient, a dependent — who does not themselves consent but bears risk?</label>
+          <textarea id="q15" name="q15"></textarea>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Part D — Risk, Reversibility, and Third Parties</legend>
+        <div class="q">
+          <label for="q16"><span class="qnum">16.</span>Describe the worst realistic outcome for a subject. Not the worst imaginable — the worst you actually think could happen. <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="q16" name="q16" required></textarea>
+        </div>
+        <div class="q">
+          <span class="qlabel"><span class="qnum">17.</span>Is the intervention reversible? <span class="req" aria-hidden="true">*</span></span>
+          <div class="radios">
+            <label><input type="radio" name="q17" value="fully" required> Fully</label>
+            <label><input type="radio" name="q17" value="partly"> Partly</label>
+            <label><input type="radio" name="q17" value="no"> Not at all</label>
+          </div>
+        </div>
+        <div class="q">
+          <label for="q18"><span class="qnum">18.</span>If it is not fully reversible, what is permanent, and why is that acceptable?</label>
+          <textarea id="q18" name="q18"></textarea>
+        </div>
+        <div class="q">
+          <label for="q19"><span class="qnum">19.</span>Who bears risk who is not a subject? Bystanders, contacts, the wider public, the environment. <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="q19" name="q19" required></textarea>
+        </div>
+        <div class="q">
+          <span class="qlabel"><span class="qnum">20.</span>Does the work involve any organism, material, or agent capable of self-propagation, persistence, or transmission beyond the intended subject?</span>
+          <div class="radios">
+            <label><input type="radio" name="q20" value="no"> No</label>
+            <label><input type="radio" name="q20" value="contained"> Yes, but contained</label>
+            <label><input type="radio" name="q20" value="yes"> Yes</label>
+          </div>
+        </div>
+        <div class="q">
+          <label for="q21"><span class="qnum">21.</span>What is your containment or confinement plan, and what happens if it fails?</label>
+          <textarea id="q21" name="q21"></textarea>
+        </div>
+        <div class="q">
+          <label for="q22"><span class="qnum">22.</span>Is anything released, disposed of, or discharged into a shared space, drain, soil, air, or waterway? Describe.</label>
+          <textarea id="q22" name="q22"></textarea>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Part E — Proportionality and Contingency</legend>
+        <div class="q">
+          <label for="q23"><span class="qnum">23.</span>Why is this risk worth taking? State the case for the work in one paragraph. <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="q23" name="q23" required></textarea>
+        </div>
+        <div class="q">
+          <label for="q24"><span class="qnum">24.</span>Is there a less risky way to answer the same question or make the same work? If so, why not take it?</label>
+          <textarea id="q24" name="q24"></textarea>
+        </div>
+        <div class="q">
+          <label for="q25"><span class="qnum">25.</span>What is your stop rule? Name the specific sign at which you will halt. <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="q25" name="q25" required></textarea>
+        </div>
+        <div class="q">
+          <label for="q26"><span class="qnum">26.</span>If something goes wrong, who do you call, and do they know they are on this list?</label>
+          <input type="text" id="q26" name="q26">
+        </div>
+        <div class="q">
+          <label for="q27"><span class="qnum">27.</span>What is your plan for the material at the end of the work? Storage, destruction, or donation.</label>
+          <textarea id="q27" name="q27"></textarea>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Part F — Disclosure and Acknowledgements</legend>
+        <div class="q">
+          <label for="q28"><span class="qnum">28.</span>Is there anything in this work that you hope the Board will not notice? There is a right answer and it is honest.</label>
+          <textarea id="q28" name="q28"></textarea>
+        </div>
+        <div class="q">
+          <span class="qlabel"><span class="qnum">29.</span>Do you understand that a determination of this Board is an opinion, creates no right, grants no permission, and offers no protection from any regulator? <span class="req" aria-hidden="true">*</span></span>
+          <div class="checks">
+            <label><input type="checkbox" name="q29" value="yes" required> Yes. I understand its verdicts carry no legal weight whatsoever.</label>
+          </div>
+        </div>
+        <div class="q">
+          <span class="qlabel"><span class="qnum">30.</span>Do you consent to publication of the Board's determination, in full and with dissents, on the public register, whatever it says? <span class="req" aria-hidden="true">*</span></span>
+          <div class="checks">
+            <label><input type="checkbox" name="q30" value="yes" required> Yes. I understand the Board publishes adverse determinations, including against itself.</label>
+          </div>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="submit">Submit to the Board</button>
+      <div id="formResult" role="status" aria-live="polite"></div>
+    </form>
+  </section>
+
+  <section id="panel">
+    <h2 class="sec">Composition Matters More Than Anything Else</h2>
+    <p class="sectitle">The Panel</p>
+    <p>Five seats. Two artists, one working bioethicist, one lawyer, and one seat that rotates each sitting to a member of the community the work under review most directly touches. Every seat is paid. An unpaid panel becomes a rubber stamp within two sittings, and everyone notices. Honoraria are published; conflicts are declared and printed with each verdict. Names are held pending final confirmation of terms; roles and affiliations are disclosed here in the interim.</p>
+
+    <div class="seat">
+      <div class="role">Seat 1 — Artist <span class="placeholder">(name to be confirmed)</span></div>
+      <dl>
+        <dt>Affiliation</dt><dd>Practising bio-artist; faculty, an art-and-technology programme at a public university</dd>
+        <dt>Term</dt><dd>Two years, renewable once</dd>
+        <dt>Honorarium</dt><dd>$800 per case</dd>
+        <dt>Conflicts</dt><dd>Has exhibited alongside Polygenik; recuses from any case involving a co-exhibitor</dd>
+      </dl>
+    </div>
+    <div class="seat">
+      <div class="role">Seat 2 — Artist <span class="placeholder">(name to be confirmed)</span></div>
+      <dl>
+        <dt>Affiliation</dt><dd>Independent artist working with living systems; no institutional post</dd>
+        <dt>Term</dt><dd>Two years, renewable once</dd>
+        <dt>Honorarium</dt><dd>$800 per case</dd>
+        <dt>Conflicts</dt><dd>None currently declared</dd>
+      </dl>
+    </div>
+    <div class="seat">
+      <div class="role">Seat 3 — Bioethics <span class="placeholder">(name to be confirmed)</span></div>
+      <dl>
+        <dt>Affiliation</dt><dd>Working bioethicist with a named academic appointment in a department of medical ethics; publishes in the field</dd>
+        <dt>Term</dt><dd>Three years, renewable once</dd>
+        <dt>Honorarium</dt><dd>$1,000 per case</dd>
+        <dt>Conflicts</dt><dd>Serves on one hospital review board; recuses from any overlapping matter</dd>
+      </dl>
+    </div>
+    <div class="seat">
+      <div class="role">Seat 4 — Legal <span class="placeholder">(name to be confirmed)</span></div>
+      <dl>
+        <dt>Affiliation</dt><dd>Attorney in health and research regulation; partner at a firm advising life-science clients</dd>
+        <dt>Term</dt><dd>Three years, renewable once</dd>
+        <dt>Honorarium</dt><dd>$1,000 per case</dd>
+        <dt>Conflicts</dt><dd>Does not and will not represent Polygenik; recuses from any case touching a firm client</dd>
+      </dl>
+    </div>
+    <div class="seat">
+      <div class="role">Seat 5 — Community, rotating <span class="placeholder">(seated per case)</span></div>
+      <dl>
+        <dt>Affiliation</dt><dd>A member of the community the work most directly touches, drawn afresh for each determination</dd>
+        <dt>Term</dt><dd>One case</dd>
+        <dt>Honorarium</dt><dd>$500 per case</dd>
+        <dt>Conflicts</dt><dd>Declared and published per case; a community member with a direct stake in the specific work is not seated on it</dd>
+      </dl>
+    </div>
+    <p><small>The Board will not launch without a credentialed working bioethicist in Seat 3 on paid terms. Without one, this would be cosplay, and cosplay is the weakest version of the idea.</small></p>
+  </section>
+
+  <section id="limits">
+    <h2 class="sec">Publishing This Makes the Rest Believable</h2>
+    <p class="sectitle">What We Cannot Do</p>
+    <p>The Polygenik Institutional Review Board has no power. This is not modesty. It is the accurate description of the institution, and it is stated here so that no determination can be mistaken for something it is not.</p>
+    <ul class="plain">
+      <li><strong>We have no legal effect.</strong> A determination of this Board is an opinion. It is not a permit, a licence, a certificate, an approval within the meaning of any statute or regulation, or an authorisation of any kind.</li>
+      <li><strong>We provide no indemnity.</strong> The Board does not insure you, does not indemnify you, and will not pay for anything that goes wrong. An approval from us transfers no risk from you to anyone.</li>
+      <li><strong>We confer no institutional standing.</strong> A verdict from this Board does not make you a member of anything, does not accredit your lab, and cannot be cited to a funder, a journal, or a court as institutional review in any recognised sense.</li>
+      <li><strong>We offer no protection from regulators.</strong> If your work falls under the authority of a real regulator, that authority is unaffected by anything we say. Our approval is not a defence and our disapproval is not a charge. Speak to the competent body.</li>
+      <li><strong>We cannot compel anyone.</strong> We cannot stop a project we disapprove of and cannot require compliance with a condition we impose. We can only publish, and we do.</li>
+      <li><strong>We are not confidential in the way a lawyer or a doctor is.</strong> We publish. Do not send us anything you need kept secret, and do not send us operational detail of anything the Charter places outside our jurisdiction.</li>
+    </ul>
+    <p>What we can do is read your work carefully, argue about it in public, and put our reasoning on the record with our names against it. That is the whole of it. It has to be enough, because it is all there is.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><span class="weight">The verdicts of the Polygenik Institutional Review Board carry no legal weight whatsoever.</span> A determination is an opinion. It grants no permission, creates no right, and offers no protection from any regulator.</p>
+    <p>The Polygenik Institutional Review Board is a project of Polygenik, a biotech art collective. Charter v2.1. Convened quarterly. This site collects nothing and stores nothing; the submission form runs entirely in your browser.</p>
+    <p><a class="backlink" href="/">&larr; Return to polygenik.com</a></p>
+    <p>&copy; Polygenik. This body holds no charter from any state and speaks only for itself.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var form = document.getElementById("pirbForm");
+  var result = document.getElementById("formResult");
+  if(!form || !result) return;
+
+  function makeRef(){
+    // Provisional, browser-generated, then discarded. Not persisted anywhere.
+    var y = new Date().getFullYear();
+    var n = Math.floor(1000 + Math.random()*9000);
+    return "PIRB-" + y + "-P" + n;
+  }
+
+  form.addEventListener("submit", function(ev){
+    ev.preventDefault();
+
+    // Native validity check for required fields (client-side only).
+    if(typeof form.checkValidity === "function" && !form.checkValidity()){
+      var firstInvalid = form.querySelector(":invalid");
+      result.className = "show";
+      result.innerHTML = '<span class="rc">Not accepted for consideration</span>' +
+        "The form is deliberately long, and the Board reads all of it. Several required questions are unanswered. " +
+        "Answering them tends to change the work before the Board ever sees it, which is the point of asking. Please complete the marked questions and submit again.";
+      if(firstInvalid && typeof firstInvalid.focus === "function"){ firstInvalid.focus(); }
+      return;
+    }
+
+    // Refuse-jurisdiction check: any Article II 3 tick, absent "none".
+    var flags = Array.prototype.filter.call(
+      form.querySelectorAll('input[name="q9"]:checked'),
+      function(el){ return el.value !== "none"; }
+    );
+
+    var ref = makeRef();
+    result.className = "show";
+
+    if(flags.length){
+      result.innerHTML = '<span class="rc">Outside Jurisdiction</span>' +
+        "Your responses indicate subject matter the Charter places outside the Board's jurisdiction (Article II, clause 3): pathogens, gene drives, human germline modification, or minors as subjects. " +
+        "The Board returns such submissions without opinion. This is not an endorsement, a condemnation, or a comment of any kind on the merits of your work. It means only that the Board declines to speak, and that you should seek a competent authority. " +
+        "Nothing you entered was transmitted or stored.";
+      return;
+    }
+
+    result.innerHTML = '<span class="rc">Received for the docket &middot; provisional reference ' + ref + '</span>' +
+      "This reference was generated in your browser and has already been discarded; the Board has no record of it and no record of your answers. This form stores nothing. " +
+      "To place your project before the Board in fact, it will be scheduled to the next quarterly sitting on the Board's own systems, and any determination will be published in full on the register, including dissents, whatever it says. " +
+      "The Board thanks you for the care taken. A determination of the Board is an opinion and carries no legal weight whatsoever.";
+    // Deliberately store nothing: no fetch, no localStorage, no cookies. The reference is not retained.
+  });
+})();
+</script>

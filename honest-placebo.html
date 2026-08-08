@@ -1,0 +1,557 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Honest Placebo — 30 Tablets | No Active Ingredient</title>
+<meta name="description" content="Honest Placebo. 30 tablets, single ingredient: microcrystalline cellulose. Contains no active ingredient, and says so. $39.00. Not a medicine, not a supplement, makes no claim to treat, cure or prevent any condition.">
+<meta property="og:title" content="Honest Placebo — 30 Tablets">
+<meta property="og:description" content="Contains no active ingredient. We are telling you that on purpose. $39.00. Not a medicine and not a supplement.">
+<meta property="og:type" content="product">
+<meta property="og:site_name" content="Honest Placebo">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1c2430;
+    --muted:#5b6472;
+    --line:#d9dee4;
+    --line-soft:#e9edf1;
+    --bg:#ffffff;
+    --panel:#f5f7f9;
+    --brand:#12579c;
+    --brand-dark:#0e4478;
+    --warn-bg:#fbf6ec;
+    --warn-line:#e4d3a8;
+    --warn-ink:#6a5518;
+    --max:1080px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Inter",Arial,Helvetica,sans-serif;
+    font-size:16px;
+    line-height:1.6;
+  }
+  a{color:var(--brand)}
+  h1,h2,h3{line-height:1.25;font-weight:600;color:var(--ink)}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+  /* Utility bar / header */
+  .topbar{background:var(--brand-dark);color:#fff;font-size:12.5px;letter-spacing:.02em}
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;min-height:34px;flex-wrap:wrap;gap:6px}
+  .topbar a{color:#cfe0f2;text-decoration:none}
+  .topbar a:hover{text-decoration:underline}
+
+  .masthead{border-bottom:1px solid var(--line);background:#fff}
+  .masthead .wrap{display:flex;align-items:center;justify-content:space-between;min-height:64px;gap:16px;flex-wrap:wrap}
+  .logo{display:flex;align-items:baseline;gap:10px;text-decoration:none;color:var(--ink)}
+  .logo .name{font-weight:700;font-size:18px;letter-spacing:.01em}
+  .logo .cat{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.14em}
+  nav.main{display:flex;gap:22px;font-size:14px}
+  nav.main a{color:var(--muted);text-decoration:none}
+  nav.main a:hover{color:var(--brand)}
+
+  /* Hero / product */
+  .product{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;padding:44px 0 40px;align-items:start}
+  .shot{background:#fff;border:1px solid var(--line-soft);border-radius:6px;padding:24px;display:flex;align-items:center;justify-content:center}
+  .shot svg{width:100%;height:auto;max-width:420px}
+  .breadcrumb{font-size:12.5px;color:var(--muted);margin:0 0 14px}
+  .breadcrumb a{color:var(--muted);text-decoration:none}
+  .breadcrumb a:hover{text-decoration:underline}
+  h1.title{font-size:30px;margin:0 0 4px}
+  .subtitle{color:var(--muted);margin:0 0 18px;font-size:14.5px}
+  .sku{font-size:12.5px;color:var(--muted);margin:0 0 18px}
+  .price{font-size:32px;font-weight:700;margin:6px 0 2px}
+  .price small{font-size:14px;font-weight:400;color:var(--muted)}
+  .stock{font-size:13px;color:#1a7a3c;margin:0 0 20px}
+  .buyrow{display:flex;gap:12px;align-items:stretch;flex-wrap:wrap}
+  .qty{display:flex;align-items:center;border:1px solid var(--line);border-radius:5px;overflow:hidden}
+  .qty button{border:0;background:var(--panel);width:38px;font-size:18px;cursor:pointer;color:var(--ink)}
+  .qty input{width:46px;border:0;text-align:center;font-size:15px;font-family:inherit}
+  .btn{
+    background:var(--brand);color:#fff;border:0;border-radius:5px;
+    padding:12px 26px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;
+  }
+  .btn:hover{background:var(--brand-dark)}
+  .btn.secondary{background:#fff;color:var(--brand);border:1px solid var(--brand)}
+  .cart-note{font-size:12.5px;color:var(--muted);margin:12px 0 0}
+  .disclaim-lead{border-top:1px solid var(--line-soft);margin-top:22px;padding-top:16px;font-size:13px;color:var(--muted)}
+
+  #cart-msg{
+    display:none;margin-top:14px;padding:12px 14px;border-radius:5px;
+    background:var(--panel);border:1px solid var(--line);font-size:13.5px;color:var(--ink)
+  }
+  #cart-msg.show{display:block}
+
+  /* Sections */
+  section.block{border-top:1px solid var(--line);padding:40px 0}
+  section.block h2{font-size:20px;margin:0 0 6px}
+  .kicker{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--brand);font-weight:600;margin:0 0 10px}
+  .lede{color:var(--muted);max-width:60ch}
+
+  table.spec{width:100%;border-collapse:collapse;margin:16px 0 0;font-size:14.5px}
+  table.spec th,table.spec td{text-align:left;padding:10px 12px;border:1px solid var(--line)}
+  table.spec th{background:var(--panel);font-weight:600;width:40%}
+  table.spec caption{caption-side:bottom;text-align:left;font-size:12px;color:var(--muted);padding-top:8px}
+
+  .study{border:1px solid var(--line);border-radius:6px;padding:18px 18px;margin:16px 0 0;background:#fff}
+  .study h3{font-size:15.5px;margin:0 0 6px}
+  .study p{margin:0 0 8px;font-size:14.5px}
+  .study .cite{font-size:12.5px;color:var(--muted);margin:0}
+  .study .effect{font-weight:600;color:var(--ink)}
+
+  ul.plain{padding-left:20px;margin:12px 0 0}
+  ul.plain li{margin:0 0 8px}
+
+  .notbox{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:20px 22px;margin-top:12px}
+  .notbox ul{margin:0;padding-left:20px}
+  .notbox li{margin:0 0 10px;font-weight:500}
+  .notbox li:last-child{margin-bottom:0}
+
+  .callout{background:var(--warn-bg);border:1px solid var(--warn-line);color:var(--warn-ink);border-radius:6px;padding:16px 18px;font-size:14px;margin-top:16px}
+
+  /* Leaflet */
+  .leaflet{
+    border:1px solid var(--ink);border-radius:2px;background:#fff;
+    margin-top:18px;font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+    font-size:12px;line-height:1.5;color:#1c2430;
+  }
+  .leaflet .lhead{background:var(--ink);color:#fff;padding:10px 16px;font-weight:500;letter-spacing:.02em;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+  .leaflet .lbody{padding:18px 16px}
+  .leaflet .cols{column-width:280px;column-gap:26px}
+  .leaflet h3{font-family:inherit;font-size:12px;font-weight:600;margin:14px 0 4px;text-transform:uppercase;letter-spacing:.04em;break-after:avoid}
+  .leaflet h3:first-child{margin-top:0}
+  .leaflet p,.leaflet li{font-size:11.5px;margin:0 0 7px}
+  .leaflet ul{padding-left:16px;margin:4px 0 8px}
+  .leaflet .meta{border:1px solid var(--line);padding:8px 10px;margin-bottom:10px}
+  .leaflet .meta div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dotted var(--line);padding:2px 0}
+  .leaflet .meta div:last-child{border-bottom:0}
+  .dl{margin-top:14px}
+
+  /* Price breakdown */
+  table.price-tbl{width:100%;border-collapse:collapse;margin-top:14px;font-size:14.5px}
+  table.price-tbl td,table.price-tbl th{padding:10px 12px;border-bottom:1px solid var(--line-soft);text-align:left}
+  table.price-tbl th{background:var(--panel);font-weight:600}
+  table.price-tbl td.num,table.price-tbl th.num{text-align:right;font-family:"IBM Plex Mono",monospace}
+  table.price-tbl tr.total td{border-top:2px solid var(--ink);font-weight:700}
+  .compare{margin-top:20px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:20px 22px}
+  .compare .big{font-size:15px}
+  .compare .big strong{font-size:16px}
+
+  footer{border-top:1px solid var(--line);background:var(--panel);padding:34px 0;font-size:13px;color:var(--muted)}
+  footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  footer a{color:var(--muted)}
+  footer .prop a{color:var(--brand);text-decoration:none;font-weight:500}
+  .finelaw{font-size:11.5px;color:var(--muted);line-height:1.6;margin-top:18px;max-width:78ch}
+
+  @media (max-width:760px){
+    .product{grid-template-columns:1fr;gap:28px;padding:30px 0}
+    nav.main{display:none}
+    h1.title{font-size:25px}
+    .price{font-size:28px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important}
+    html{scroll-behavior:auto}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    html{scroll-behavior:smooth}
+    .btn,nav.main a{transition:background .15s ease,color .15s ease}
+  }
+</style>
+
+<div class="topbar">
+  <div class="wrap">
+    <span>Lot HP-0001 · First edition · Sequentially numbered</span>
+    <span><a href="#leaflet">Patient Information Leaflet</a> · <a href="/">polygenik.com</a></span>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="logo" href="/">
+      <span class="name">HONEST PLACEBO</span>
+      <span class="cat">Oral Tablets</span>
+    </a>
+    <nav class="main">
+      <a href="#contains">Contents</a>
+      <a href="#evidence">Research</a>
+      <a href="#notwhat">What It Is Not</a>
+      <a href="#leaflet">Leaflet</a>
+      <a href="#price">Pricing</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- HERO -->
+  <div class="product">
+    <div class="shot" aria-label="Product image: a foil blister pack of thirty white tablets">
+      <!-- Blister pack rendered as inline SVG. No external image assets. -->
+      <svg viewBox="0 0 400 320" role="img" aria-labelledby="packtitle">
+        <title id="packtitle">Blister pack of thirty white round tablets</title>
+        <defs>
+          <radialGradient id="pill" cx="38%" cy="32%" r="75%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="70%" stop-color="#f2f2f0"/>
+            <stop offset="100%" stop-color="#dcdcd6"/>
+          </radialGradient>
+          <linearGradient id="foil" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#eef1f4"/>
+            <stop offset="50%" stop-color="#e2e6ea"/>
+            <stop offset="100%" stop-color="#d3d8dd"/>
+          </linearGradient>
+        </defs>
+        <rect x="20" y="18" width="360" height="284" rx="10" fill="url(#foil)" stroke="#c4cad0"/>
+        <!-- header print on foil -->
+        <text x="40" y="46" font-family="IBM Plex Mono, monospace" font-size="12" fill="#3a4450" letter-spacing="1">HONEST PLACEBO</text>
+        <text x="40" y="62" font-family="IBM Plex Mono, monospace" font-size="8.5" fill="#7a828c">NO ACTIVE INGREDIENT · MICROCRYSTALLINE CELLULOSE</text>
+        <line x1="40" y1="70" x2="360" y2="70" stroke="#cdd3d9"/>
+        <!-- 5 x 6 grid of pills -->
+        <g>
+          <!-- rows -->
+          <!-- generated positions -->
+          <!-- row1 -->
+          <g>
+            <circle cx="70" cy="108" r="22" fill="url(#pill)" stroke="#cfcfc9"/>
+            <circle cx="128" cy="108" r="22" fill="url(#pill)" stroke="#cfcfc9"/>
+            <circle cx="186" cy="108" r="22" fill="url(#pill)" stroke="#cfcfc9"/>
+            <circle cx="244" cy="108" r="22" fill="url(#pill)" stroke="#cfcfc9"/>
+            <circle cx="302" cy="108" r="22" fill="url(#pill)" stroke="#cfcfc9"/>
+          </g>
+          <g>
+            <circle cx="70" cy="168" r="22" fill="url(#pill)" stroke="#cfcfc9"/>
+            <circle cx="128" cy="168" r="22" fill="url(#pill)" stroke="#cfcfc9"/>
+            <circle cx="186" cy="168" r="22" fill="url(#pill)" stroke="#cfcfc9"/>
+            <circle cx="244" cy="168" r="22" fill="url(#pill)" stroke="#cfcfc9"/>
+            <circle cx="302" cy="168" r="22" fill="url(#pill)" stroke="#cfcfc9"/>
+          </g>
+          <g>
+            <circle cx="70" cy="228" r="22" fill="url(#pill)" stroke="#cfcfc9"/>
+            <circle cx="128" cy="228" r="22" fill="url(#pill)" stroke="#cfcfc9"/>
+            <circle cx="186" cy="228" r="22" fill="url(#pill)" stroke="#cfcfc9"/>
+            <circle cx="244" cy="228" r="22" fill="url(#pill)" stroke="#cfcfc9"/>
+            <circle cx="302" cy="228" r="22" fill="url(#pill)" stroke="#cfcfc9"/>
+          </g>
+          <!-- score line on each pill -->
+          <g stroke="#d7d7d1" stroke-width="1">
+            <line x1="70" y1="90" x2="70" y2="126"/><line x1="128" y1="90" x2="128" y2="126"/><line x1="186" y1="90" x2="186" y2="126"/><line x1="244" y1="90" x2="244" y2="126"/><line x1="302" y1="90" x2="302" y2="126"/>
+            <line x1="70" y1="150" x2="70" y2="186"/><line x1="128" y1="150" x2="128" y2="186"/><line x1="186" y1="150" x2="186" y2="186"/><line x1="244" y1="150" x2="244" y2="186"/><line x1="302" y1="150" x2="302" y2="186"/>
+            <line x1="70" y1="210" x2="70" y2="246"/><line x1="128" y1="210" x2="128" y2="246"/><line x1="186" y1="210" x2="186" y2="246"/><line x1="244" y1="210" x2="244" y2="246"/><line x1="302" y1="210" x2="302" y2="246"/>
+          </g>
+        </g>
+        <text x="40" y="284" font-family="IBM Plex Mono, monospace" font-size="8.5" fill="#7a828c">15 of 30 tablets shown · LOT HP-0001 · EXP 08/2028</text>
+      </svg>
+    </div>
+
+    <div class="buy">
+      <p class="breadcrumb"><a href="/">Home</a> / Oral Tablets / Honest Placebo</p>
+      <h1 class="title">Honest Placebo</h1>
+      <p class="subtitle">30 film-free uncoated tablets. Contains no active ingredient. We are telling you that on purpose.</p>
+      <p class="sku mono">SKU HP-30 · NDC not assigned · Single ingredient</p>
+
+      <p class="price">$39.00 <small>/ pack of 30</small></p>
+      <p class="stock">In stock. First edition, sequentially numbered.</p>
+
+      <form id="cart-form">
+        <div class="buyrow">
+          <div class="qty" aria-label="Quantity">
+            <button type="button" id="minus" aria-label="Decrease quantity">−</button>
+            <input id="qty" name="qty" type="text" inputmode="numeric" value="1" aria-label="Quantity">
+            <button type="button" id="plus" aria-label="Increase quantity">+</button>
+          </div>
+          <button class="btn" type="submit">Add to cart</button>
+        </div>
+        <p class="cart-note">In controlled trials, patients told they were receiving an inert pill still reported clinically meaningful improvement. We find that more interesting than a secret.</p>
+        <div id="cart-msg" role="status" aria-live="polite"></div>
+      </form>
+
+      <p class="disclaim-lead"><strong>Not a medicine. Not a supplement.</strong> Makes no claim to treat, cure or prevent any condition. See <a href="#notwhat">What It Is Not</a>.</p>
+    </div>
+  </div>
+
+  <!-- WHAT IT CONTAINS -->
+  <section class="block" id="contains">
+    <p class="kicker">Composition</p>
+    <h2>What It Contains</h2>
+    <p class="lede">A short, honest list. There is one ingredient, and this is it.</p>
+    <table class="spec">
+      <tbody>
+        <tr><th scope="row">Active ingredient</th><td>None. Zero. This product contains no pharmacologically active substance.</td></tr>
+        <tr><th scope="row">Sole ingredient</th><td>Microcrystalline cellulose (a common pharmaceutical filler, derived from purified wood pulp)</td></tr>
+        <tr><th scope="row">Tablet weight</th><td>300 mg, uncoated, scored</td></tr>
+        <tr><th scope="row">Tablets per pack</th><td>30</td></tr>
+        <tr><th scope="row">Allergens</th><td>None known. Contains no gluten, lactose, soy, nuts, or dyes.</td></tr>
+        <tr><th scope="row">Form</th><td>White round oral tablet</td></tr>
+      </tbody>
+      <caption>Microcrystalline cellulose is inert. It is the same excipient used as bulking agent in a large share of tablets already in your cabinet. Here it is the whole tablet.</caption>
+    </table>
+  </section>
+
+  <!-- DOES IT WORK -->
+  <section class="block" id="evidence">
+    <p class="kicker">The literature</p>
+    <h2>Does It Work</h2>
+    <p class="lede">The following summarizes published research on <em>open-label placebo</em> — the general finding that people can respond to an inert pill even when they are told, plainly, that it is inert. These are third-party research findings about the placebo effect in general. They are not claims about this product, and this product has not been studied.</p>
+
+    <div class="study">
+      <h3>Irritable bowel syndrome (the foundational trial)</h3>
+      <p>In a randomized controlled trial, 80 patients with IBS were assigned either to an openly labeled placebo pill (described to them as "placebo pills made of an inert substance") or to a no-treatment control. After three weeks, <span class="effect">59% of the open-label placebo group reported adequate symptom relief, compared with 35% of the no-treatment group</span> — a difference the authors described as clinically meaningful.</p>
+      <p class="cite mono">Kaptchuk TJ, Friedlander E, Kelley JM, et al. "Placebos without Deception: A Randomized Controlled Trial in Irritable Bowel Syndrome." PLoS ONE, 2010; 5(12):e15591.</p>
+    </div>
+
+    <div class="study">
+      <h3>Chronic low back pain</h3>
+      <p>In a later trial, 97 adults with chronic low back pain were randomized to their usual treatment alone, or to usual treatment plus an openly labeled placebo. After three weeks, <span class="effect">the open-label placebo group reported roughly a 30% reduction in pain intensity and in pain-related disability</span>, while the usual-treatment-only group showed little change.</p>
+      <p class="cite mono">Carvalho C, Caetano JM, Cunha L, et al. "Open-label placebo treatment in chronic low back pain: a randomized controlled trial." PAIN, 2016; 157(12):2766–2772.</p>
+    </div>
+
+    <div class="study">
+      <h3>Cancer-related fatigue</h3>
+      <p>Among 74 cancer survivors with persistent fatigue, those given an openly labeled placebo for three weeks reported <span class="effect">meaningfully greater improvement in fatigue and in fatigue-related quality of life</span> than those receiving usual care, with the improvement partially sustained three weeks after the pills stopped.</p>
+      <p class="cite mono">Hoenemeyer TW, Kaptchuk TJ, Mehta TS, Fontaine KR. "Open-Label Placebo Treatment for Cancer-Related Fatigue: A Randomized-Controlled Clinical Trial." Scientific Reports, 2018; 8:2784.</p>
+    </div>
+
+    <div class="study">
+      <h3>Allergic rhinitis (seasonal allergy symptoms)</h3>
+      <p>In a randomized study of patients with seasonal allergic rhinitis, an openly labeled placebo taken over two weeks was associated with <span class="effect">a modest but measurable improvement in self-reported symptom burden</span> relative to no additional treatment.</p>
+      <p class="cite mono">Schaefer M, Sahin T, Berstecher B. "Why do open-label placebos work? A randomized controlled trial of an open-label placebo induction with and without extended information about the placebo effect in allergic rhinitis." PLoS ONE, 2018; 13(3):e0192758.</p>
+    </div>
+
+    <div class="callout">
+      <strong>Read the numbers carefully.</strong> These are small trials of specific conditions, mostly measuring self-reported symptoms over a few weeks. "Works about a third of the time" is a loose paraphrase, not a promise. The honest summary is: an inert pill, given openly, produced a real and measurable average effect in these studies — smaller than an effective drug, larger than nothing, and not universal. What that would mean for any individual person, taking this particular tablet, for any particular reason, is unknown and unstudied.
+    </div>
+  </section>
+
+  <!-- WHAT IT IS NOT -->
+  <section class="block" id="notwhat">
+    <p class="kicker">Plainly</p>
+    <h2>What It Is Not</h2>
+    <div class="notbox">
+      <ul>
+        <li>This is <strong>not a medicine</strong> and is not approved by any regulatory agency.</li>
+        <li>This is <strong>not a dietary supplement</strong>, a vitamin, or a nutraceutical.</li>
+        <li>This is <strong>not a treatment</strong> for any disease, disorder, symptom, or condition — physical or mental.</li>
+        <li>It makes <strong>no claim to treat, cure, prevent, diagnose, or relieve</strong> anything.</li>
+        <li><strong>Do not stop, reduce, or replace</strong> any medication you have been prescribed. Do not use this in place of care you need.</li>
+        <li>There is <strong>no recommended dose</strong> and no therapeutic regimen. It is not intended for the management of any condition.</li>
+        <li>If you are unwell, or wondering whether this is right for you, <strong>talk to your doctor.</strong> That is the only medical advice on this page.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- LEAFLET -->
+  <section class="block" id="leaflet">
+    <p class="kicker">Package insert</p>
+    <h2>The Leaflet</h2>
+    <p class="lede">Every pack includes a full Patient Information Leaflet, reproduced below in its printed format. Every word of it is true. You can also download it.</p>
+
+    <div class="leaflet" id="leaflet-doc">
+      <div class="lhead">
+        <span>PATIENT INFORMATION LEAFLET</span>
+        <span>HONEST PLACEBO · 300 mg tablets</span>
+      </div>
+      <div class="lbody">
+        <div class="meta">
+          <div><span>Product</span><span>Honest Placebo, uncoated oral tablet</span></div>
+          <div><span>Sole ingredient</span><span>Microcrystalline cellulose 300 mg</span></div>
+          <div><span>Active ingredient</span><span>None</span></div>
+          <div><span>Pack size</span><span>30 tablets</span></div>
+          <div><span>Lot</span><span>HP-0001</span></div>
+          <div><span>Expiry</span><span>08/2028</span></div>
+          <div><span>Marketed by</span><span>Polygenik, San Francisco, CA</span></div>
+        </div>
+        <div class="cols">
+          <h3>1. What this product is</h3>
+          <p>Honest Placebo is an inert tablet. Its only ingredient is microcrystalline cellulose, a purified plant fiber used as a filler in ordinary tablets. It contains no drug and no active substance of any kind. It is sold as an object of interest and honesty, not as a health product.</p>
+
+          <h3>2. What it is not</h3>
+          <p>It is not a medicine, a supplement, or a treatment. It is not approved by the FDA or any other authority. It makes no claim to treat, cure, prevent, or diagnose any condition. It should never be used in place of medical care.</p>
+
+          <h3>3. Before you take it</h3>
+          <p>Do not use this product to manage symptoms, to replace a prescribed medicine, or to delay seeking care. If you have a medical condition, are pregnant or breastfeeding, or are giving anything to a child, speak with a qualified clinician first. When in doubt, do not take it.</p>
+
+          <h3>4. About the placebo research</h3>
+          <p>Published studies report that some people improve on an inert pill even when told it is inert (see, among others, Kaptchuk et al., 2010, in irritable bowel syndrome, with later work in chronic low back pain, cancer-related fatigue, and allergic rhinitis). These are general research findings about the placebo effect. They are not statements about this product, which has not itself been tested.</p>
+
+          <h3>5. How it is taken</h3>
+          <p>There is no dose and no schedule, because there is nothing to dose. Any tablet contains 300 mg of cellulose and nothing more. This leaflet does not recommend taking it for any purpose.</p>
+
+          <h3>6. Possible effects</h3>
+          <p>As an inert tablet, no pharmacological effect is expected. Microcrystalline cellulose is generally regarded as safe and is passed largely undigested. Rarely, any tablet may cause mild digestive discomfort. Stop use and seek advice if you feel unwell. As with anything swallowed, do not exceed comfort and do not give to anyone at risk of choking.</p>
+
+          <h3>7. Storage</h3>
+          <p>Store below 25°C, dry, in the original blister. Keep out of the sight and reach of children. Do not use after the expiry date printed on the pack. Dispose of responsibly.</p>
+
+          <h3>8. Honesty statement</h3>
+          <p>The purpose of this leaflet is to tell you exactly what you are holding: nothing, described accurately. If any part of this document ever implies a health benefit from this product, that implication is unintended and incorrect.</p>
+
+          <h3>9. Marketed by</h3>
+          <p>Polygenik, San Francisco, California. A Polygenik property. Questions: see polygenik.com. Leaflet revision 1, first edition.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="dl"><a id="leaflet-dl" class="btn secondary" download="honest-placebo-leaflet.txt" href="#">Download the leaflet</a></p>
+  </section>
+
+  <!-- THE PRICE -->
+  <section class="block" id="price">
+    <p class="kicker">Pricing</p>
+    <h2>The Price</h2>
+    <p class="lede">The active ingredient is nothing, so nothing is what you pay for it. Everything in the price is packaging, handling, and margin. Here is the whole $39.00, itemized.</p>
+
+    <table class="price-tbl">
+      <thead>
+        <tr><th scope="col">Line item</th><th scope="col" class="num">Per pack</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Active ingredient</td><td class="num">$0.00</td></tr>
+        <tr><td>30 tablets, microcrystalline cellulose, pressed</td><td class="num">$0.62</td></tr>
+        <tr><td>Blister foil, carton, and printed leaflet</td><td class="num">$2.18</td></tr>
+        <tr><td>Pick, pack, and shipping</td><td class="num">$6.40</td></tr>
+        <tr><td>Payment processing and platform fees</td><td class="num">$1.80</td></tr>
+        <tr><td>Margin</td><td class="num">$28.00</td></tr>
+        <tr class="total"><td>Total</td><td class="num">$39.00</td></tr>
+      </tbody>
+    </table>
+
+    <div class="compare">
+      <p class="big">For comparison: a two-pack of a leading branded epinephrine auto-injector (EpiPen) has carried a US list price of roughly <strong>$650–$730</strong> — for a device whose active drug, epinephrine, costs on the order of a dollar. The gap between what a pharmaceutical costs to make and what it is priced at has never been mainly about the molecule. It is packaging, distribution, patent maintenance, and the maintenance of your expectations.</p>
+      <p class="big" style="margin-bottom:0">We charge $39.00 for an honest version of the same idea, minus the molecule, and we show you the whole receipt.</p>
+    </div>
+    <p class="finelaw">List-price figures above are approximate and illustrative, drawn from publicly reported US list prices, and vary by year, pharmacy, insurer, and manufacturer program; the price actually paid by a patient may differ substantially. Cited independently of the manufacturer, purely as a point of comparison.</p>
+  </section>
+
+  <p class="finelaw">The research described on this page concerns the placebo effect in general and is presented as third-party scientific literature. Nothing on this page is a claim that this product treats, cures, prevents, or affects any condition, and nothing here is medical advice. This product is not evaluated or approved by the U.S. Food and Drug Administration. Consult a qualified healthcare professional about any health question. Do not discontinue prescribed treatment.</p>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="prop">
+      <a href="/">A POLYGENIK property</a><br>
+      <span>San Francisco, California · polygenik.com</span>
+    </div>
+    <div>
+      <a href="/">Return to polygenik.com</a><br>
+      <span>Honest Placebo · Lot HP-0001 · First edition</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    "use strict";
+    // Quantity stepper
+    var qty = document.getElementById('qty');
+    var plus = document.getElementById('plus');
+    var minus = document.getElementById('minus');
+    function clamp(){
+      var n = parseInt(qty.value, 10);
+      if (isNaN(n) || n < 1) n = 1;
+      if (n > 99) n = 99;
+      qty.value = n;
+      return n;
+    }
+    plus.addEventListener('click', function(){ qty.value = clamp() + 1; clamp(); });
+    minus.addEventListener('click', function(){ qty.value = clamp() - 1; clamp(); });
+    qty.addEventListener('change', clamp);
+
+    // Add-to-cart demo. Stores nothing. Confirms deadpan.
+    var form = document.getElementById('cart-form');
+    var msg = document.getElementById('cart-msg');
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var n = clamp();
+      var packs = n === 1 ? '1 pack' : n + ' packs';
+      var tablets = n * 30;
+      var total = (n * 39).toFixed(2);
+      msg.textContent = 'Added ' + packs + ' (' + tablets + ' tablets, $' + total + '). This is a demonstration cart. No order is placed, no payment is taken, and nothing is stored. The tablets, we remind you, also contain nothing.';
+      msg.className = 'show';
+    });
+
+    // Build the downloadable leaflet as a data: URI at runtime (no network, self-contained).
+    var leaflet = [
+      "PATIENT INFORMATION LEAFLET",
+      "HONEST PLACEBO -- 300 mg uncoated oral tablets",
+      "==================================================",
+      "",
+      "Product:          Honest Placebo, uncoated oral tablet",
+      "Sole ingredient:  Microcrystalline cellulose 300 mg",
+      "Active ingredient: None",
+      "Pack size:        30 tablets",
+      "Lot:              HP-0001      Expiry: 08/2028",
+      "Marketed by:      Polygenik, San Francisco, CA",
+      "",
+      "1. WHAT THIS PRODUCT IS",
+      "Honest Placebo is an inert tablet. Its only ingredient is",
+      "microcrystalline cellulose, a purified plant fiber used as a",
+      "filler in ordinary tablets. It contains no drug and no active",
+      "substance of any kind. It is sold as an object of interest and",
+      "honesty, not as a health product.",
+      "",
+      "2. WHAT IT IS NOT",
+      "It is not a medicine, a supplement, or a treatment. It is not",
+      "approved by the FDA or any other authority. It makes no claim to",
+      "treat, cure, prevent, or diagnose any condition. It should never",
+      "be used in place of medical care.",
+      "",
+      "3. BEFORE YOU TAKE IT",
+      "Do not use this product to manage symptoms, to replace a",
+      "prescribed medicine, or to delay seeking care. If you have a",
+      "medical condition, are pregnant or breastfeeding, or are giving",
+      "anything to a child, speak with a qualified clinician first.",
+      "When in doubt, do not take it.",
+      "",
+      "4. ABOUT THE PLACEBO RESEARCH",
+      "Published studies report that some people improve on an inert",
+      "pill even when told it is inert (see, among others, Kaptchuk et",
+      "al., 2010, in irritable bowel syndrome, with later work in",
+      "chronic low back pain, cancer-related fatigue, and allergic",
+      "rhinitis). These are general research findings about the placebo",
+      "effect. They are not statements about this product, which has",
+      "not itself been tested.",
+      "",
+      "5. HOW IT IS TAKEN",
+      "There is no dose and no schedule, because there is nothing to",
+      "dose. Any tablet contains 300 mg of cellulose and nothing more.",
+      "This leaflet does not recommend taking it for any purpose.",
+      "",
+      "6. POSSIBLE EFFECTS",
+      "As an inert tablet, no pharmacological effect is expected.",
+      "Microcrystalline cellulose is generally regarded as safe and is",
+      "passed largely undigested. Rarely, any tablet may cause mild",
+      "digestive discomfort. Stop use and seek advice if you feel",
+      "unwell. Do not give to anyone at risk of choking.",
+      "",
+      "7. STORAGE",
+      "Store below 25C, dry, in the original blister. Keep out of the",
+      "sight and reach of children. Do not use after the expiry date.",
+      "Dispose of responsibly.",
+      "",
+      "8. HONESTY STATEMENT",
+      "The purpose of this leaflet is to tell you exactly what you are",
+      "holding: nothing, described accurately. If any part of this",
+      "document ever implies a health benefit from this product, that",
+      "implication is unintended and incorrect.",
+      "",
+      "9. MARKETED BY",
+      "Polygenik, San Francisco, California. A Polygenik property.",
+      "Questions: see polygenik.com. Leaflet revision 1, first edition.",
+      "",
+      "REFERENCES",
+      "- Kaptchuk TJ, et al. PLoS ONE 2010;5(12):e15591.",
+      "- Carvalho C, et al. PAIN 2016;157(12):2766-2772.",
+      "- Hoenemeyer TW, et al. Sci Rep 2018;8:2784.",
+      "- Schaefer M, et al. PLoS ONE 2018;13(3):e0192758.",
+      ""
+    ].join("\n");
+    var dl = document.getElementById('leaflet-dl');
+    dl.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(leaflet));
+  })();
+</script>

@@ -1,0 +1,678 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forever Doesn't Allow — a game about racing an approval pathway</title>
+<meta name="description" content="A free, text-forward clickthrough game about trying to reach a therapy that exists while a prognosis runs down. Every click spends time. There is no winning ending. Built with Aileron Games for Polygenik.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Forever Doesn't Allow">
+<meta property="og:description" content="The therapy exists. It is a flight away, and the company that makes it has not returned your doctor's call. Every click costs time. There is no winning ending. A Polygenik property, built with Aileron Games.">
+<meta property="og:site_name" content="Polygenik">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Forever Doesn't Allow">
+<meta name="twitter:description" content="A game about racing a drug-approval pathway while dying. There is no winning ending. We checked.">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+  :root{
+    --bg:#0c0d0f;
+    --panel:#131519;
+    --panel-2:#181b21;
+    --ink:#e7e6e2;
+    --ink-dim:#a6a49d;
+    --ink-faint:#6f6d67;
+    --line:#2a2d34;
+    --accent:#c7b58a;      /* institutional brass, not cheerful */
+    --alarm:#c25b4e;       /* only for the clock at the end */
+    --focus:#7fa6c9;
+    --maxw:44rem;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;
+    font-size:clamp(1.02rem,0.6rem + 1.1vw,1.18rem);
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+  a{color:var(--accent)}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 1.2rem}
+
+  /* top bar */
+  .topbar{
+    border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,#101216,#0c0d0f);
+  }
+  .topbar .wrap{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;padding-top:.9rem;padding-bottom:.9rem;flex-wrap:wrap}
+  .brand{font-family:"IBM Plex Mono",monospace;font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint)}
+  .brand b{color:var(--ink-dim);font-weight:600}
+  nav.top{display:flex;gap:1.1rem;flex-wrap:wrap}
+  nav.top a{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);text-decoration:none;cursor:pointer}
+  nav.top a:hover{color:var(--ink)}
+
+  main{padding:2.2rem 0 1rem}
+  .screen{display:none}
+  .screen.active{display:block;animation:fade .5s ease both}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+
+  h1{font-size:clamp(2rem,1rem + 4.4vw,3.3rem);line-height:1.05;font-weight:600;letter-spacing:-.01em;margin:.2rem 0 1rem}
+  h2{font-size:clamp(1.4rem,1rem + 1.6vw,1.9rem);font-weight:600;letter-spacing:-.005em;margin:2.2rem 0 .8rem}
+  h3{font-family:"IBM Plex Mono",monospace;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:2rem 0 .5rem;font-weight:600}
+  p{margin:0 0 1.05rem}
+  .lead{font-size:1.12em;color:var(--ink)}
+  .dim{color:var(--ink-dim)}
+  .faint{color:var(--ink-faint)}
+  hr{border:none;border-top:1px solid var(--line);margin:2rem 0}
+
+  /* buttons / choices */
+  .btn{
+    display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;
+    background:transparent;color:var(--ink);border:1px solid var(--accent);
+    padding:.75rem 1.15rem;cursor:pointer;text-decoration:none;transition:background .18s,color .18s;
+  }
+  .btn:hover{background:var(--accent);color:#0c0d0f}
+  .btn.plain{border-color:var(--line);color:var(--ink-dim)}
+  .btn.plain:hover{background:var(--panel-2);color:var(--ink)}
+
+  .choices{display:flex;flex-direction:column;gap:.7rem;margin:1.6rem 0 .5rem}
+  .choice{
+    text-align:left;width:100%;background:var(--panel);border:1px solid var(--line);
+    color:var(--ink);font-family:"Newsreader",serif;font-size:1rem;line-height:1.4;
+    padding:.95rem 1.05rem;cursor:pointer;transition:border-color .18s,background .18s;
+    display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  }
+  .choice:hover{border-color:var(--accent);background:var(--panel-2)}
+  .choice .cost{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.06em;color:var(--ink-faint);white-space:nowrap}
+
+  /* clock */
+  .clockbar{position:sticky;top:0;z-index:5;background:rgba(12,13,15,.94);backdrop-filter:blur(4px);border-bottom:1px solid var(--line)}
+  .clockbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.6rem 1.2rem}
+  .clocklabel{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint)}
+  .clockval{font-family:"IBM Plex Mono",monospace;font-size:1.25rem;font-weight:600;letter-spacing:.02em;color:var(--ink);font-variant-numeric:tabular-nums}
+  .clockval.low{color:var(--alarm)}
+  .track{height:3px;background:var(--line);position:relative;overflow:hidden}
+  .track > i{position:absolute;left:0;top:0;bottom:0;background:var(--accent);transition:width .5s linear}
+  .track > i.low{background:var(--alarm)}
+  .never{font-family:"IBM Plex Mono",monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)}
+
+  /* cards / panels */
+  .notice{border:1px solid var(--line);background:var(--panel);padding:1.1rem 1.2rem;margin:1.6rem 0}
+  .notice h3{margin-top:0}
+  .diags{display:grid;gap:.8rem;margin:1.4rem 0}
+  .diag{text-align:left;background:var(--panel);border:1px solid var(--line);color:var(--ink);cursor:pointer;padding:1.05rem 1.15rem;transition:border-color .18s,background .18s}
+  .diag:hover{border-color:var(--accent);background:var(--panel-2)}
+  .diag .dname{font-weight:600;font-size:1.14rem}
+  .diag .dmeta{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.06em;color:var(--ink-faint);margin-top:.25rem}
+  .diag .ddesc{color:var(--ink-dim);font-size:.98rem;margin-top:.5rem}
+
+  .endcard{border:1px solid var(--accent);background:var(--panel);padding:1.6rem 1.4rem;margin:1.6rem 0}
+  .endcard h3{margin-top:0;color:var(--accent)}
+  .timeline{list-style:none;margin:1rem 0;padding:0}
+  .timeline li{display:flex;gap:1rem;padding:.5rem 0;border-top:1px solid var(--line)}
+  .timeline li:first-child{border-top:none}
+  .timeline .when{font-family:"IBM Plex Mono",monospace;font-size:.76rem;color:var(--accent);white-space:nowrap;min-width:6.5rem;padding-top:.15rem}
+  .cite{font-size:.9rem;color:var(--ink-faint);border-top:1px solid var(--line);margin-top:1rem;padding-top:.9rem}
+  .toll{font-size:1.06rem;color:var(--ink)}
+
+  dl.sources{margin:1rem 0}
+  dl.sources dt{font-weight:600;margin-top:1.3rem}
+  dl.sources dd{margin:.3rem 0 0;color:var(--ink-dim)}
+  dl.sources dd .ref{font-family:"IBM Plex Mono",monospace;font-size:.8rem;color:var(--ink-faint);display:block;margin-top:.25rem}
+
+  .reform{border-left:2px solid var(--line);padding:.2rem 0 .2rem 1.1rem;margin:1.4rem 0}
+  .reform .prop{font-weight:600}
+  .reform .counter{color:var(--ink-dim);margin-top:.4rem}
+  .reform .counter b{color:var(--accent);font-weight:600;font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:.2rem}
+
+  footer{border-top:1px solid var(--line);margin-top:3rem;padding:2rem 0 3rem;color:var(--ink-faint)}
+  footer .wrap{display:flex;flex-direction:column;gap:.5rem}
+  footer .credits{font-size:.92rem;line-height:1.7}
+  footer .fine{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.08em;color:var(--ink-faint);text-transform:uppercase;margin-top:.6rem}
+
+  @media (prefers-reduced-motion: reduce){
+    .screen.active{animation:none}
+    .track > i{transition:none}
+    *{scroll-behavior:auto}
+  }
+</style>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">A <b>POLYGENIK</b> property &nbsp;·&nbsp; built with <b>Aileron&nbsp;Games</b></div>
+    <nav class="top" aria-label="Sections">
+      <a data-go="title" role="button" tabindex="0">Play</a>
+      <a data-go="sources" role="button" tabindex="0">Sources</a>
+      <a data-go="fix" role="button" tabindex="0">What would fix this</a>
+      <a href="/">Polygenik</a>
+    </nav>
+  </div>
+</header>
+
+<!-- clock bar (only meaningful during play; hidden otherwise) -->
+<div class="clockbar" id="clockbar" hidden aria-live="off">
+  <div class="wrap">
+    <span class="clocklabel">Time remaining</span>
+    <span class="clockval mono" id="clockval">—</span>
+    <span class="never">Never pausable</span>
+  </div>
+  <div class="track"><i id="clocktrack" style="width:100%"></i></div>
+</div>
+
+<main>
+
+  <!-- ============ TITLE ============ -->
+  <section class="screen active" id="screen-title">
+    <div class="wrap">
+      <p class="mono faint" style="letter-spacing:.2em;font-size:.72rem;text-transform:uppercase;margin-bottom:.6rem">Forever Doesn't Allow</p>
+      <h1>The therapy exists.<br>You are running out of time to reach it.</h1>
+      <p class="lead">You have a diagnosis and a number of months. A therapy that might help is real — it is in a trial a flight away, or waiting behind a company that has not returned your doctor's call. Every click below spends time. Time is the only thing here that cannot be recovered.</p>
+      <p class="dim">This is a short, text-only game. There is no winning ending. We checked, and so did the people it is about.</p>
+
+      <div class="notice" role="note">
+        <h3>Content notice</h3>
+        <p class="dim" style="margin-bottom:0">This game is about serious illness, terminal prognosis, and dying inside a bureaucratic system. It is deliberately unwinnable. The frustration is aimed entirely at the process — the rules, the queues, the incentives — and never at patients or at the fact of being ill. If that is not something you want to sit with right now, that is a completely reasonable choice. You can read the <a data-go="sources" role="button" tabindex="0">Sources</a> or <a data-go="fix" role="button" tabindex="0">What Would Fix This</a> pages instead, which contain no game.</p>
+      </div>
+
+      <h3>Choose a diagnosis</h3>
+      <p class="dim">Each is a different real approval pathway, with different real obstacles taken from the regulations and from published accounts.</p>
+      <div class="diags" id="diaglist"></div>
+
+      <p class="faint" style="font-size:.9rem">Real patient-advocate playtesting is required before this is released publicly. This is a build for review, not a finished release.</p>
+    </div>
+  </section>
+
+  <!-- ============ GAME ============ -->
+  <section class="screen" id="screen-game">
+    <div class="wrap">
+      <p class="mono faint" id="game-diag" style="letter-spacing:.14em;font-size:.72rem;text-transform:uppercase;margin-bottom:1rem"></p>
+      <div id="node-text"></div>
+      <div class="choices" id="node-choices"></div>
+    </div>
+  </section>
+
+  <!-- ============ END ============ -->
+  <section class="screen" id="screen-end">
+    <div class="wrap">
+      <p class="lead" id="end-death" style="color:var(--ink-dim)"></p>
+      <p class="dim">No score. No retry prompt. One card.</p>
+      <div class="endcard" id="end-card"></div>
+      <p class="faint" style="font-size:.92rem">The obstacles in the game you just played are documented on the <a data-go="sources" role="button" tabindex="0">Sources</a> page. Fair proposals for changing them — including the arguments for why the system is careful — are on <a data-go="fix" role="button" tabindex="0">What Would Fix This</a>.</p>
+      <p style="margin-top:1.4rem"><button class="btn plain" data-go="title">Return to the title</button></p>
+    </div>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="screen" id="screen-sources">
+    <div class="wrap">
+      <h1>Sources</h1>
+      <p class="lead">Every obstacle in the game is drawn from a real regulation, guidance document, or published account. Nothing here is invented for effect. Where the game simplifies, the simplification is in the patient's favor — the real pathways are slower.</p>
+
+      <dl class="sources">
+        <dt>Expanded access requires the manufacturer's agreement</dt>
+        <dd>The FDA authorizes the large majority of expanded-access (compassionate use) requests it receives. But authorization is not supply: the company that makes an investigational drug must agree to provide it, and the FDA cannot compel a company to do so. A manufacturer may decline, and declining is not a violation.
+          <span class="ref">21 CFR Part 312, Subpart I — Expanded Access to Investigational Drugs for Treatment Use. FDA, "Expanded Access" program guidance.</span></dd>
+
+        <dt>Single-patient IND still needs a supplier</dt>
+        <dd>An individual-patient expanded-access IND is real and can clear the FDA quickly. It authorizes a physician to administer the drug — but it does not produce the drug. Without a manufacturer willing to ship it, the paperwork closes the loop back on the previous obstacle.
+          <span class="ref">21 CFR 312.310 — Individual patients, including for emergency use.</span></dd>
+
+        <dt>Right to Try changed the door, not the supply</dt>
+        <dd>The federal Right to Try Act removes the FDA from certain requests for eligible patients. It does not obligate a manufacturer to provide the therapy. The company still has to agree, and still does not have to.
+          <span class="ref">Right to Try Act of 2018, Public Law 115-176 (21 U.S.C. 360bbb-0a).</span></dd>
+
+        <dt>Eligibility scissors</dt>
+        <dd>Trials define who may enter through inclusion and exclusion criteria, and often through a performance-status measure (for example, ECOG or a disease-specific functional scale). Disease progression can move a patient across both lines at once: sick enough to meet the disease criteria, too unwell to meet the performance criteria. To the protocol this is not a contradiction.
+          <span class="ref">ICH E6(R2) Good Clinical Practice; ECOG performance status; individual trial protocols on ClinicalTrials.gov.</span></dd>
+
+        <dt>The control arm</dt>
+        <dd>Randomized controlled trials assign some enrolled patients to a placebo or to standard of care. Patients do not choose their arm and are typically not unblinded until the trial concludes. This design is how the field learns whether a therapy works; it also means enrolling can mean spending remaining time on the arm that is not the therapy.
+          <span class="ref">ICH E10 — Choice of Control Group in Clinical Trials; FDA guidance on placebo controls.</span></dd>
+
+        <dt>Insurance geometry</dt>
+        <dd>Federal law requires most plans to cover the routine patient costs of qualifying clinical trials. It does not cover the investigational item itself, and often does not cover travel, lodging, or every scan and complication that participation adds. The therapy can be free while being a subject is not.
+          <span class="ref">Patient Protection and Affordable Care Act §2709 (42 U.S.C. 300gg-8) — coverage of routine patient costs in approved clinical trials.</span></dd>
+
+        <dt>Institutional time versus patient time</dt>
+        <dd>Site IRB review, clinical-trial agreement negotiation, and clinical holds run on institutional calendars measured in weeks and months. A prognosis runs on the same units, and does not wait in the same queue.
+          <span class="ref">21 CFR 312.42 — Clinical holds and requests for modification; 45 CFR 46 — IRB review.</span></dd>
+
+        <dt>Accelerated approval, then withdrawal</dt>
+        <dd>Accelerated approval lets the FDA approve a therapy for a serious condition on a surrogate endpoint reasonably likely to predict benefit, on the condition that a confirmatory trial verifies it. When the confirmatory trial reads out negative, the approval can be withdrawn — sometimes years after the surrogate answer, always after the people who needed the real answer needed it.
+          <span class="ref">21 CFR Part 314, Subpart H; FDA Accelerated Approval Program; confirmatory-trial requirements strengthened by FDORA 2022.</span></dd>
+
+        <dt>Geography</dt>
+        <dd>A trial may enroll at one site, or a handful. For a patient far from all of them, participation means repeated travel on the protocol's schedule, for the protocol's duration — often for many weeks.
+          <span class="ref">Site listings on ClinicalTrials.gov; single- and limited-site enrollment in early-phase protocols.</span></dd>
+      </dl>
+
+      <p style="margin-top:2rem"><button class="btn plain" data-go="title">Back to the game</button></p>
+    </div>
+  </section>
+
+  <!-- ============ WHAT WOULD FIX THIS ============ -->
+  <section class="screen" id="screen-fix">
+    <div class="wrap">
+      <h1>What would fix this</h1>
+      <p class="lead">These are real reform proposals, argued fairly, each with the strongest counterargument for why the current system is careful. The system is not cautious by accident; it is cautious because the alternatives have their own graves. Being fair about that makes the case land harder, not softer.</p>
+
+      <div class="reform">
+        <p class="prop">Publish expanded-access decisions and the reasons for them.</p>
+        <p class="counter"><b>The counterargument</b>Transparency could deter small manufacturers with almost no supply from ever engaging, and could expose patient details. A company forced to explain every refusal in public may respond by never opening a program at all — which helps no one.</p>
+      </div>
+
+      <div class="reform">
+        <p class="prop">Ring-fence a share of investigational supply for expanded access, or fund the extra manufacturing.</p>
+        <p class="counter"><b>The counterargument</b>Investigational supply is genuinely scarce, especially for cell and gene therapies. Diverting doses to individual use can slow the pivotal trial — the trial that is the only path to the therapy reaching everyone. A dose given compassionately is sometimes a dose taken from the answer.</p>
+      </div>
+
+      <div class="reform">
+        <p class="prop">Make it clear that outcomes in single-patient use will not, on their own, sink a program.</p>
+        <p class="counter"><b>The counterargument</b>The FDA already reviews such data carefully rather than mechanically. And a safety signal is a safety signal: a rule that lets companies disregard bad outcomes in compassionate use would be dangerous to the next patient. The fear of the data is partly real and cannot simply be legislated away.</p>
+      </div>
+
+      <div class="reform">
+        <p class="prop">Use adaptive and response-adaptive trial designs to shrink or shorten placebo arms.</p>
+        <p class="counter"><b>The counterargument</b>Smaller control arms and adaptive stopping can reduce statistical certainty and raise the odds of approving something that does not work — which produces its own, larger harm across everyone who then takes it. The placebo arm exists because false hope, at scale, also kills.</p>
+      </div>
+
+      <div class="reform">
+        <p class="prop">Cover the real cost of participation: travel, lodging, and trial-associated care.</p>
+        <p class="counter"><b>The counterargument</b>This is among the least contested proposals and is being piloted. But it costs money, and it does not fix the harder problems of supply or eligibility. It widens the door without moving the wall behind it.</p>
+      </div>
+
+      <div class="reform">
+        <p class="prop">Standardize and accelerate ethics review with a single reviewing IRB.</p>
+        <p class="counter"><b>The counterargument</b>Central review already exists for many federally funded multisite studies. Local review can catch local context a distant board misses, and speed traded for oversight is exactly the trade that produced the abuses IRBs were built to prevent.</p>
+      </div>
+
+      <div class="reform">
+        <p class="prop">Enforce confirmatory-trial deadlines for accelerated approval, with withdrawal when they lapse.</p>
+        <p class="counter"><b>The counterargument</b>Recent law (FDORA, 2022) already tightened this. But withdrawing a therapy that some patients believe is helping them is wrenching, and surrogate endpoints are sometimes right. Faster withdrawal protects future patients at a visible cost to present ones — which is the same shape as the problem it is trying to solve.</p>
+      </div>
+
+      <p class="dim" style="margin-top:2rem">None of these is free, and none of them is nothing. The honest position is that the system is a set of trades between the patient in front of you and the patients you cannot see yet. This game is about the ones in front of you, because they are the ones the trades are usually made against.</p>
+
+      <p style="margin-top:2rem"><button class="btn plain" data-go="title">Back to the game</button></p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="credits">
+      <strong>Forever Doesn't Allow.</strong> A <a href="/">POLYGENIK</a> property, built with Aileron Games.<br>
+      Game design and text: Aileron Games. Research, regulatory sourcing, and editorial direction: Polygenik.<br>
+      Patient-advocate playtesting is required before public release; advocate reviewers will be credited here by name.
+    </div>
+    <div class="fine">Not medical, legal, or regulatory advice. A work of documentary fiction. &nbsp;·&nbsp; <a href="/">Return to Polygenik</a></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- diagnoses: real pathways ---------- */
+  var DIAGS = {
+    als: {
+      name: "ALS (amyotrophic lateral sclerosis)",
+      months: 11,
+      opening: "The diagnosis is ALS. Your doctor gives you a number and does not enjoy giving it: about eleven months. There is an investigational therapy in a Phase II trial. It exists. It is four hundred miles away, and the company that makes it has not returned your doctor's call.",
+      trialType: "A Phase II trial",
+      travel: "four hundred miles away",
+      city: "another state",
+      cadence: "weekly",
+      duration: "eighteen weeks",
+      control: "the current standard of care",
+      set_aside: "the modifications your home will need",
+      screen: "The Phase II protocol has an entry window measured on a functional rating scale. Right now you score just inside the door. But the screening queue is six weeks, and ALS does not wait in queues.",
+      end: {
+        therapy: "Relyvrio (AMX0035)",
+        timeline: [
+          ["2020", "CENTAUR, a Phase 2 trial, reports a modest benefit in ALS."],
+          ["Sep 29, 2022", "The FDA approves Relyvrio, over an unusual second advisory-committee vote."],
+          ["Mar 2024", "PHOENIX, the confirmatory Phase 3 trial, fails to show benefit."],
+          ["Apr 4, 2024", "The manufacturer voluntarily withdraws the drug from the market."]
+        ],
+        toll: "ALS is fatal in a median of two to five years from symptom onset. In the United States roughly 5,000 people are diagnosed each year, and a comparable number die each year. Across the years of trials and the eighteen months the drug was sold, the disease paused for none of them.",
+        cite: "FDA approval of Relyvrio, September 2022; Amylyx Pharmaceuticals, market-withdrawal announcement, April 4, 2024."
+      }
+    },
+    breast: {
+      name: "Metastatic HER2-negative breast cancer",
+      months: 18,
+      opening: "The cancer is metastatic and HER2-negative. The number is softer and worse for it: perhaps eighteen months, perhaps more, perhaps less. There is a therapy that has just been approved on the strength of a scan-based endpoint. Your oncologist is hopeful and careful in equal measure.",
+      trialType: "A randomized, placebo-controlled Phase III trial",
+      travel: "at a cancer center two hundred miles away",
+      city: "the nearest cancer center",
+      cadence: "every three weeks",
+      duration: "as long as it works",
+      control: "a placebo added to your standard chemotherapy",
+      set_aside: "your daughter's last year of school",
+      screen: "The trial has a performance-status requirement and a list of prior treatments that disqualify you. You have already had one of them. Whether it counts is a question for a committee that meets on its own schedule.",
+      end: {
+        therapy: "Bevacizumab (Avastin) for metastatic breast cancer",
+        timeline: [
+          ["Feb 2008", "The FDA grants accelerated approval, based on progression-free survival."],
+          ["2010–2011", "Confirmatory trials show no overall-survival benefit, and real added risks."],
+          ["Nov 18, 2011", "The FDA Commissioner revokes the breast-cancer indication."]
+        ],
+        toll: "Metastatic breast cancer takes more than 40,000 lives a year in the United States. Accelerated approval bought a surrogate endpoint quickly. The confirmatory answer — that it did not extend life — arrived three years later, which for the people who needed it was on the wrong side of their own calendar.",
+        cite: "FDA Commissioner's Decision on bevacizumab (Avastin) in metastatic breast cancer, November 18, 2011."
+      }
+    },
+    pancreatic: {
+      name: "Metastatic pancreatic cancer",
+      months: 6,
+      opening: "The cancer is in the pancreas and it has spread. The number is the shortest one in this game because that is the truth of it: about six months. There is a maintenance therapy that made headlines — but only for patients who carry a particular inherited mutation, and most do not.",
+      trialType: "A Phase III maintenance trial, limited to carriers of a germline BRCA mutation",
+      travel: "at the one academic center running it",
+      city: "the academic center",
+      cadence: "every two weeks",
+      duration: "for as long as you qualify",
+      control: "a placebo",
+      set_aside: "the trip you kept saying you would take",
+      screen: "First you have to qualify by genetics. Only about one pancreatic cancer in twenty carries the mutation the trial requires. The test itself, and the counseling around it, take weeks you are counting in single digits.",
+      end: {
+        therapy: "Olaparib (Lynparza) maintenance for BRCA-mutated pancreatic cancer",
+        timeline: [
+          ["—", "Only about 5 to 7 percent of pancreatic cancers carry a germline BRCA mutation; the rest were never eligible."],
+          ["2019", "The POLO Phase 3 trial reports longer progression-free survival for that small group."],
+          ["Dec 27, 2019", "The FDA approves olaparib as maintenance for eligible patients."],
+          ["later", "Final analysis shows overall survival was not significantly improved."]
+        ],
+        toll: "Pancreatic cancer kills roughly 50,000 people a year in the United States, most within a year of diagnosis. The approval that made news applied to a few of them. Everyone else read it as a headline about a door they could not walk through.",
+        cite: "Golan et al., POLO trial, New England Journal of Medicine, 2019; FDA approval of olaparib for pancreatic cancer, December 27, 2019."
+      }
+    }
+  };
+
+  /* ---------- shared node graph ---------- */
+  /* text may contain tokens: {trialType} {travel} {city} {cadence} {duration} {control} {set_aside} {disease} */
+  var NODES = {
+    start: {
+      text: function(d){ return "<p class='lead'>"+d.opening+"</p>"+
+        "<p>The clock above began the moment you were told. It does not stop while you read, or sleep, or wait on hold. That is not a flaw in the game. It is the one thing the game refuses to soften.</p>"; },
+      choices: [
+        { label:"Ask your doctor what actually exists for this.", weeks:1, to:"options" }
+      ]
+    },
+    options: {
+      text: "<p>There are two doors, your doctor explains, and both of them are narrow. You can try to get into a clinical trial. Or you can try to get the therapy directly, outside a trial, through what the regulations call expanded access.</p>",
+      choices: [
+        { label:"Look for a clinical trial.", weeks:1, to:"trial" },
+        { label:"Ask about expanded access, outside a trial.", weeks:2, to:"expanded" }
+      ]
+    },
+    trial: {
+      text: function(d){ return "<p>{trialType} is enrolling. That is the good news, and your doctor delivers it like good news. The nearest site that will take new patients is {travel}.</p>"; },
+      choices: [
+        { label:"Book the screening visit there.", weeks:2, to:"screen" },
+        { label:"Ask whether there is anywhere closer.", weeks:1, to:"geography" }
+      ]
+    },
+    geography: {
+      text: "<p>There isn't. The protocol runs out of {city}, and it needs you there {cadence}, {duration}. The trial's schedule is fixed. Yours is the one expected to bend.</p>",
+      choices: [
+        { label:"Commit to the travel anyway.", weeks:3, to:"screen" },
+        { label:"Turn back to expanded access instead.", weeks:1, to:"expanded" }
+      ]
+    },
+    screen: {
+      text: "<p>{screen}</p>",
+      choices: [
+        { label:"Wait for the screening slot.", weeks:6, to:"scissors" },
+        { label:"Push, call daily, ask for anything sooner.", weeks:2, to:"insurance" }
+      ]
+    },
+    scissors: {
+      text: "<p>By the time the slot opens, the disease has moved. You now meet the entry criteria easily — you are sick enough. You no longer meet the performance criteria — you are too sick. To the protocol this is not a paradox. It is just the two lines, and you crossed both of them while waiting between them.</p>",
+      choices: [
+        { label:"Appeal the exclusion in writing.", weeks:3, to:"control" },
+        { label:"Give up on the trial and try expanded access.", weeks:1, to:"expanded" }
+      ]
+    },
+    control: {
+      text: "<p>There is a version of this where you get in. It is randomized. Some enrolled patients receive the therapy. Some receive {control}. You do not choose which, and you will not be told which you got until the trial ends — which is after the number above ends. This is how the field learns whether the therapy works. It is also how the field spends your remaining time.</p>",
+      choices: [
+        { label:"Enroll and accept the coin flip.", weeks:4, to:"insurance" },
+        { label:"Decline the placebo risk.", weeks:1, to:"expanded" }
+      ]
+    },
+    insurance: {
+      text: "<p>Your insurer covers standard of care. It does not clearly cover the scans, the visits, and the complications that come with being a trial subject. The therapy itself might be free; being a subject is not. The money you set aside for {set_aside} starts going to travel and co-pays instead.</p>",
+      choices: [
+        { label:"Spend it. What else is it for now.", weeks:2, to:"expanded" },
+        { label:"Stop and count what is left.", weeks:1, to:"stall" }
+      ]
+    },
+    expanded: {
+      text: "<p>Expanded access is real, and it is in the regulations: 21 CFR 312, Subpart I. The FDA authorizes most of the requests it receives. But the rule turns on a single sentence — the company that makes the therapy has to agree to provide it. The FDA cannot make them. Your doctor's office has now called four times.</p>",
+      choices: [
+        { label:"Have your doctor call the manufacturer again.", weeks:2, to:"mfr" },
+        { label:"File a single-patient IND yourself.", weeks:2, to:"single_ind" },
+        { label:"Invoke Right to Try.", weeks:2, to:"rtt" }
+      ]
+    },
+    mfr: {
+      text: "<p>Medical affairs is polite, and not villains. A compassionate-use case that goes badly can become a data point that complicates their pivotal trial — the trial that is how the therapy reaches everyone, eventually. “Eventually” is a word priced in institutional time. They decline, on the record, and mean it kindly. The refusal is not a violation. It is a right they hold and you do not.</p>",
+      choices: [
+        { label:"Ask them to reconsider, formally, in writing.", weeks:3, to:"single_ind" },
+        { label:"Invoke Right to Try instead.", weeks:2, to:"rtt" }
+      ]
+    },
+    single_ind: {
+      text: "<p>A single-patient IND is real, and the FDA can clear one in under a week. You do the paperwork. It authorizes a physician to give you the therapy. It does not produce the therapy. An IND to administer the drug still needs a manufacturer willing to ship the drug — and you have already met that manufacturer. You have solved the form and are standing exactly where you started, holding the form and the refusal.</p>",
+      choices: [
+        { label:"Call the manufacturer one more time.", weeks:2, to:"mfr" },
+        { label:"Sit with where this loop leads.", weeks:2, to:"stall" }
+      ]
+    },
+    rtt: {
+      text: "<p>The federal Right to Try Act was signed in 2018. It removes the FDA from the request entirely. It does not add a supplier. The company still has to agree to provide the therapy, and still doesn't have to. The law changed which door you knock on. It did not open one.</p>",
+      choices: [
+        { label:"Go back and try the manufacturer again.", weeks:2, to:"mfr" },
+        { label:"Sit with that.", weeks:2, to:"stall" }
+      ]
+    },
+    stall: {
+      text: "<p>You do the arithmetic that institutions never have to do at your speed. Weeks against a scale. Flights against a bank balance. A coin flip against a calendar. None of the offices you are waiting on are doing this arithmetic tonight. Only you are.</p>",
+      choices: [
+        { label:"Start again from the top. There must be a path.", weeks:2, to:"options" },
+        { label:"Stop searching for a while.", weeks:4, to:"rest" }
+      ]
+    },
+    rest: {
+      text: "<p>You stop searching. You spend a little of what is left on the people you have, instead of on the phone. The clock above does not slow for that. It was never going to. It is the only thing in this game that keeps its promises.</p>",
+      choices: [
+        { label:"Pick the search back up.", weeks:2, to:"options" },
+        { label:"Don't.", weeks:6, to:"rest" }
+      ]
+    }
+  };
+
+  /* ---------- state ---------- */
+  var state = { diag:null, weeksLeft:0, totalWeeks:0, node:null, timer:null, dead:false, lastTick:0 };
+  var TICK_MS = 7000;          /* real time: one week drains every 7s (institutional wait) */
+  var TICK_WEEKS = 1;
+
+  var screens = {
+    title: document.getElementById("screen-title"),
+    game: document.getElementById("screen-game"),
+    end: document.getElementById("screen-end"),
+    sources: document.getElementById("screen-sources"),
+    fix: document.getElementById("screen-fix")
+  };
+  var clockbar = document.getElementById("clockbar");
+  var clockval = document.getElementById("clockval");
+  var clocktrack = document.getElementById("clocktrack");
+
+  function show(name){
+    Object.keys(screens).forEach(function(k){ screens[k].classList.remove("active"); });
+    screens[name].classList.add("active");
+    var inGame = (name === "game");
+    clockbar.hidden = !inGame;
+    if(!inGame){ stopTimer(); }
+    window.scrollTo(0,0);
+    // focus for accessibility
+    var h = screens[name].querySelector("h1, .lead, #node-text");
+    if(h){ h.setAttribute("tabindex","-1"); try{ h.focus({preventScroll:true}); }catch(e){} }
+  }
+
+  function fmtClock(weeks){
+    if(weeks < 0) weeks = 0;
+    var m = Math.floor(weeks/4.345);
+    var w = Math.round(weeks - m*4.345);
+    if(w >= 4){ m += 1; w = 0; }
+    var parts = [];
+    parts.push(m + (m===1?" month":" months"));
+    parts.push(w + (w===1?" week":" weeks"));
+    return parts.join("  ");
+  }
+
+  function renderClock(){
+    clockval.textContent = fmtClock(state.weeksLeft);
+    var frac = Math.max(0, Math.min(1, state.weeksLeft/state.totalWeeks));
+    clocktrack.style.width = (frac*100).toFixed(2) + "%";
+    var low = state.weeksLeft <= state.totalWeeks*0.2;
+    clockval.classList.toggle("low", low);
+    clocktrack.classList.toggle("low", low);
+  }
+
+  function tick(){
+    if(state.dead) return;
+    var now = Date.now();
+    var elapsed = now - state.lastTick;
+    if(elapsed >= TICK_MS){
+      var steps = Math.floor(elapsed/TICK_MS);
+      state.lastTick += steps*TICK_MS;
+      state.weeksLeft -= steps*TICK_WEEKS;
+      if(state.weeksLeft <= 0){ state.weeksLeft = 0; renderClock(); die(); return; }
+      renderClock();
+    }
+  }
+
+  function startTimer(){
+    stopTimer();
+    state.lastTick = Date.now();
+    state.timer = setInterval(tick, 500);
+  }
+  function stopTimer(){ if(state.timer){ clearInterval(state.timer); state.timer=null; } }
+
+  function tpl(str, d){
+    return str.replace(/\{(\w+)\}/g, function(_,k){ return (k in d) ? d[k] : ("{"+k+"}"); });
+  }
+
+  function renderNode(id){
+    var d = state.diag;
+    var node = NODES[id];
+    state.node = id;
+    var txt = (typeof node.text === "function") ? node.text(d) : node.text;
+    txt = tpl(txt, d);
+    document.getElementById("node-text").innerHTML = txt;
+
+    var box = document.getElementById("node-choices");
+    box.innerHTML = "";
+    node.choices.forEach(function(c){
+      var b = document.createElement("button");
+      b.className = "choice";
+      b.type = "button";
+      var span = document.createElement("span");
+      span.textContent = c.label;
+      var cost = document.createElement("span");
+      cost.className = "cost";
+      cost.textContent = "−" + c.weeks + (c.weeks===1?" wk":" wks");
+      b.appendChild(span); b.appendChild(cost);
+      b.addEventListener("click", function(){ choose(c); });
+      box.appendChild(b);
+    });
+  }
+
+  function choose(c){
+    if(state.dead) return;
+    state.weeksLeft -= c.weeks;
+    renderClock();
+    if(state.weeksLeft <= 0){ state.weeksLeft = 0; renderClock(); die(); return; }
+    renderNode(c.to);
+  }
+
+  function die(){
+    if(state.dead) return;
+    state.dead = true;
+    stopTimer();
+    var d = state.diag;
+    document.getElementById("end-death").textContent =
+      "The clock reached zero while an office, somewhere, had your file in a queue. You die. Not in the story of the therapy — you never reached it — but in your own, which was the only one that was ever actually running.";
+
+    var e = d.end;
+    var html = "<h3>What actually happened, for a real therapy</h3>";
+    html += "<p style='font-weight:600;font-size:1.15rem;margin:.2rem 0 1rem'>"+e.therapy+"</p>";
+    html += "<ul class='timeline'>";
+    e.timeline.forEach(function(row){
+      html += "<li><span class='when mono'>"+row[0]+"</span><span>"+row[1]+"</span></li>";
+    });
+    html += "</ul>";
+    html += "<p class='toll'>"+e.toll+"</p>";
+    html += "<p class='cite'>"+e.cite+"</p>";
+    document.getElementById("end-card").innerHTML = html;
+
+    show("end");
+  }
+
+  function beginGame(key){
+    var d = DIAGS[key];
+    state.diag = d;
+    state.totalWeeks = Math.round(d.months*4.345);
+    state.weeksLeft = state.totalWeeks;
+    state.dead = false;
+    document.getElementById("game-diag").textContent = "Diagnosis — " + d.name;
+    renderClock();
+    renderNode("start");
+    show("game");
+    startTimer();
+  }
+
+  /* ---------- build diagnosis list ---------- */
+  var list = document.getElementById("diaglist");
+  var order = [
+    ["als", "Prognosis ≈ 11 months · Phase II trial, 400 miles away", "Expanded access, single-patient IND, Right to Try — and a manufacturer that does not have to say yes."],
+    ["breast", "Prognosis ≈ 18 months · randomized, placebo-controlled trial", "The control arm, insurance geometry, and an approval granted on a surrogate endpoint, then revoked."],
+    ["pancreatic", "Prognosis ≈ 6 months · trial limited to a genetic subgroup", "Eligibility scissors, geography, and a headline approval for a door most patients can't walk through."]
+  ];
+  order.forEach(function(row){
+    var key=row[0], d=DIAGS[key];
+    var b=document.createElement("button");
+    b.className="diag"; b.type="button";
+    b.innerHTML = "<div class='dname'>"+d.name+"</div><div class='dmeta mono'>"+row[1]+"</div><div class='ddesc'>"+row[2]+"</div>";
+    b.addEventListener("click", function(){ beginGame(key); });
+    list.appendChild(b);
+  });
+
+  /* ---------- nav ---------- */
+  function goto(name){
+    if(name==="title"){ stopTimer(); state.dead=false; show("title"); return; }
+    show(name);
+  }
+  document.addEventListener("click", function(ev){
+    var t = ev.target.closest("[data-go]");
+    if(!t) return;
+    ev.preventDefault();
+    goto(t.getAttribute("data-go"));
+  });
+  document.addEventListener("keydown", function(ev){
+    if(ev.key!=="Enter" && ev.key!==" ") return;
+    var t = ev.target.closest("[data-go]");
+    if(!t) return;
+    ev.preventDefault();
+    goto(t.getAttribute("data-go"));
+  });
+
+  show("title");
+})();
+</script>
