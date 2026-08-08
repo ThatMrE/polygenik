@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOC EST CORPUS — Communion — A POLYGENIK Property</title>
+<meta name="description" content="A wafer cultured from a consenting man's own cells, consecrated and offered, and the theological argument about whether that changes anything. One night. Twenty-four seats. Application only.">
+<meta name="theme-color" content="#000000">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hocestcorpus.com">
+<meta property="og:title" content="HOC EST CORPUS — Communion">
+<meta property="og:description" content="A wafer grown from a consenting man's cells, and a Jesuit to explain why that may or may not be a sacrament. Twenty-four seats. Application only.">
+<meta property="og:site_name" content="POLYGENIK">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --black:#050505;
+    --near:#0b0a09;
+    --ink:#e7e2d6;          /* warm bone text on black */
+    --ink-soft:rgba(231,226,214,0.72);
+    --ink-faint:rgba(231,226,214,0.45);
+    --gold:#b99a5b;         /* reliquary gilt */
+    --gold-soft:rgba(185,154,91,0.55);
+    --line:rgba(231,226,214,0.16);
+    --line-faint:rgba(231,226,214,0.09);
+    --disp:'Cormorant Garamond', 'EB Garamond', Georgia, serif;
+    --body:'EB Garamond', Georgia, 'Times New Roman', serif;
+  }
+
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+  body{
+    background:var(--black);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:clamp(1.05rem,0.6rem + 1vw,1.25rem);
+    line-height:1.7;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation:none !important;transition:none !important;}
+  }
+  a{color:inherit;}
+  ::selection{background:var(--gold);color:#050505;}
+
+  .wrap{max-width:41rem;margin:0 auto;padding:0 clamp(1.25rem,5vw,2rem);}
+
+  /* ── top bar ── */
+  .topbar{
+    border-bottom:1px solid var(--line-faint);
+    padding:1.1rem 0;
+    font-family:var(--body);
+    font-size:0.78rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+  }
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;}
+  .topbar a{color:var(--ink-faint);text-decoration:none;transition:color .3s ease;}
+  .topbar a:hover{color:var(--gold);}
+  .topbar .mark{color:var(--ink-soft);letter-spacing:0.3em;}
+
+  /* ── sections ── */
+  section{padding:clamp(3.5rem,9vw,6.5rem) 0;border-bottom:1px solid var(--line-faint);}
+  section:last-of-type{border-bottom:none;}
+
+  .eyebrow{
+    font-size:0.72rem;
+    letter-spacing:0.34em;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    margin-bottom:1.6rem;
+    display:block;
+  }
+  h1,h2,h3{font-family:var(--disp);font-weight:500;line-height:1.08;letter-spacing:0.005em;}
+
+  /* ── hero ── */
+  .hero{
+    min-height:88vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:clamp(4rem,12vw,8rem) 0;
+    border-bottom:1px solid var(--line);
+    text-align:center;
+  }
+  .hero h1{
+    font-size:clamp(3.1rem,4rem + 6vw,8.5rem);
+    font-weight:400;
+    letter-spacing:0.02em;
+    line-height:0.98;
+    margin:0 auto 0.4rem;
+  }
+  .hero .translit{
+    font-style:italic;
+    color:var(--ink-faint);
+    font-size:clamp(1rem,0.9rem + 0.6vw,1.35rem);
+    letter-spacing:0.06em;
+    margin-bottom:2.6rem;
+  }
+  .hero .lede{
+    font-size:clamp(1.25rem,1rem + 1vw,1.7rem);
+    line-height:1.5;
+    color:var(--ink);
+    max-width:34rem;
+    margin:0 auto 2rem;
+  }
+  .hero .lede em{color:var(--gold);font-style:italic;}
+  .hero .facts{
+    font-size:0.82rem;
+    letter-spacing:0.24em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-top:1rem;
+  }
+  .hero .facts span{white-space:nowrap;}
+  .hero .facts .sep{color:var(--gold-soft);margin:0 0.7rem;}
+  .hero .vow{
+    margin-top:3rem;
+    font-style:italic;
+    color:var(--ink-faint);
+    font-size:1rem;
+    border-top:1px solid var(--line-faint);
+    padding-top:1.6rem;
+    max-width:30rem;
+    margin-left:auto;margin-right:auto;
+  }
+
+  h2.section-title{
+    font-size:clamp(2.1rem,1.6rem + 2.4vw,3.4rem);
+    font-weight:400;
+    margin-bottom:2rem;
+  }
+  h2.section-title .num{
+    display:block;
+    font-family:var(--body);
+    font-size:0.72rem;
+    letter-spacing:0.34em;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    margin-bottom:0.9rem;
+  }
+
+  p{margin-bottom:1.3rem;color:var(--ink-soft);}
+  p:last-child{margin-bottom:0;}
+  p .lift{color:var(--ink);}
+  em{font-style:italic;}
+  .drop{color:var(--ink);}
+
+  blockquote{
+    border-left:2px solid var(--gold-soft);
+    padding:0.2rem 0 0.2rem 1.6rem;
+    margin:2rem 0;
+    font-style:italic;
+    color:var(--ink);
+    font-size:1.08em;
+  }
+  blockquote cite{
+    display:block;
+    font-style:normal;
+    font-size:0.78rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin-top:0.9rem;
+  }
+
+  .figure{
+    margin:2.6rem 0;
+    text-align:center;
+  }
+  .figure figcaption{
+    font-size:0.78rem;
+    letter-spacing:0.08em;
+    color:var(--ink-faint);
+    font-style:italic;
+    margin-top:0.9rem;
+    line-height:1.5;
+  }
+  .reliquary-svg, .portrait-svg{
+    width:100%;
+    max-width:19rem;
+    height:auto;
+    margin:0 auto;
+    display:block;
+  }
+  .reliquary-svg *{vector-effect:non-scaling-stroke;}
+
+  /* portrait placeholder */
+  .portrait{
+    width:14rem;max-width:70%;
+    aspect-ratio:3/4;
+    margin:0 auto;
+    border:1px solid var(--line);
+    background:
+      repeating-linear-gradient(135deg, rgba(185,154,91,0.05) 0 8px, transparent 8px 16px),
+      var(--near);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+  }
+  .portrait .glyph{
+    font-family:var(--disp);
+    font-size:3.4rem;
+    color:var(--gold-soft);
+    font-style:italic;
+  }
+  .portrait::after{
+    content:"PORTRAIT WITHHELD PENDING NAMING";
+    position:absolute;bottom:0.7rem;left:0;right:0;
+    font-family:var(--body);
+    font-size:0.56rem;letter-spacing:0.2em;
+    text-align:center;color:var(--ink-faint);
+  }
+
+  /* relic classes list */
+  .classes{list-style:none;margin:2rem 0;border-top:1px solid var(--line-faint);}
+  .classes li{
+    border-bottom:1px solid var(--line-faint);
+    padding:1.1rem 0;
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:1.2rem;
+    align-items:baseline;
+  }
+  .classes .cls{
+    font-family:var(--disp);
+    font-size:1.35rem;
+    color:var(--gold);
+    white-space:nowrap;
+  }
+  .classes .desc{color:var(--ink-soft);font-size:0.98em;}
+
+  /* method spec */
+  .spec{
+    list-style:none;
+    margin:2rem 0;
+    counter-reset:step;
+  }
+  .spec li{
+    border-top:1px solid var(--line-faint);
+    padding:1.3rem 0;
+    counter-increment:step;
+    position:relative;
+    padding-left:3rem;
+  }
+  .spec li:last-child{border-bottom:1px solid var(--line-faint);}
+  .spec li::before{
+    content:counter(step,upper-roman);
+    position:absolute;left:0;top:1.3rem;
+    font-family:var(--disp);
+    color:var(--gold-soft);
+    font-size:1rem;
+    letter-spacing:0.1em;
+    width:2.4rem;
+  }
+  .spec .step-name{
+    display:block;
+    color:var(--ink);
+    font-family:var(--disp);
+    font-size:1.3rem;
+    margin-bottom:0.3rem;
+  }
+  .spec .step-body{color:var(--ink-soft);font-size:0.96em;}
+
+  .donor-statement{
+    margin:2.4rem 0;
+  }
+  .donor-statement p:first-of-type::first-letter{
+    font-family:var(--disp);
+    float:left;
+    font-size:4.2rem;
+    line-height:0.72;
+    padding:0.35rem 0.7rem 0 0;
+    color:var(--gold);
+  }
+  .signoff{
+    margin-top:2rem;
+    font-style:italic;
+    color:var(--ink);
+    border-top:1px solid var(--line-faint);
+    padding-top:1.4rem;
+  }
+  .signoff .sig-name{
+    display:block;font-style:normal;
+    letter-spacing:0.14em;text-transform:uppercase;
+    font-size:0.8rem;color:var(--ink-faint);margin-top:0.5rem;
+  }
+
+  .question-lead{
+    font-family:var(--disp);
+    font-size:clamp(1.4rem,1.1rem + 1.4vw,2rem);
+    line-height:1.35;
+    color:var(--ink);
+    font-style:italic;
+  }
+  .question-lead .final{
+    display:block;
+    margin-top:1.4rem;
+    color:var(--gold);
+    font-style:normal;
+    font-weight:500;
+  }
+
+  /* form */
+  form{margin-top:2.4rem;}
+  .field{margin-bottom:1.6rem;}
+  label{
+    display:block;
+    font-size:0.74rem;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin-bottom:0.6rem;
+  }
+  input,textarea{
+    width:100%;
+    background:var(--near);
+    border:1px solid var(--line);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:1rem;
+    padding:0.85rem 1rem;
+    border-radius:0;
+    transition:border-color .3s ease;
+  }
+  input:focus,textarea:focus{outline:none;border-color:var(--gold-soft);}
+  textarea{resize:vertical;min-height:6rem;}
+  .field .hint{
+    font-size:0.82rem;color:var(--ink-faint);
+    margin-top:0.5rem;font-style:italic;
+  }
+  button{
+    background:transparent;
+    border:1px solid var(--gold-soft);
+    color:var(--gold);
+    font-family:var(--body);
+    font-size:0.82rem;
+    letter-spacing:0.24em;
+    text-transform:uppercase;
+    padding:1rem 2rem;
+    cursor:pointer;
+    transition:background .3s ease,color .3s ease;
+  }
+  button:hover{background:var(--gold);color:#050505;}
+  .form-note{
+    font-size:0.82rem;color:var(--ink-faint);margin-top:1.2rem;font-style:italic;
+  }
+  #reply{
+    margin-top:1.6rem;
+    color:var(--gold);
+    font-style:italic;
+    display:none;
+    border-top:1px solid var(--line-faint);
+    padding-top:1.2rem;
+  }
+  #reply.show{display:block;}
+
+  .seats-line{
+    text-align:center;
+    font-family:var(--disp);
+    font-size:clamp(1.5rem,1.2rem + 1.4vw,2.2rem);
+    color:var(--gold);
+    letter-spacing:0.12em;
+    margin-bottom:0.6rem;
+  }
+
+  /* footer */
+  footer{
+    padding:3.2rem 0 4rem;
+    text-align:center;
+    border-top:1px solid var(--line);
+  }
+  footer .vow-final{
+    font-family:var(--disp);
+    font-style:italic;
+    font-size:1.15rem;
+    color:var(--ink-soft);
+    margin-bottom:2rem;
+    line-height:1.5;
+  }
+  footer .credit{
+    font-size:0.74rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+  }
+  footer .credit a{color:var(--ink-soft);text-decoration:none;transition:color .3s ease;}
+  footer .credit a:hover{color:var(--gold);}
+  footer .fine{
+    margin-top:1.4rem;font-size:0.72rem;color:var(--ink-faint);
+    letter-spacing:0.04em;font-style:italic;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a href="/" class="mark">POLYGENIK</a>
+    <a href="/">&larr; Index</a>
+  </div>
+</div>
+
+<!-- ── HERO ── -->
+<header class="hero">
+  <div class="wrap">
+    <h1>Hoc Est Corpus</h1>
+    <div class="translit">&ldquo;This is my body.&rdquo; &mdash; Luke 22:19</div>
+    <p class="lede">The donor is thirty-four, alive, and consented in writing.</p>
+    <p class="lede">On <em>a date to be named</em> we will serve a wafer grown from his cells to twenty-four people, and a Jesuit will explain why that may or may not be a sacrament.</p>
+    <div class="facts">
+      <span>One night</span><span class="sep">&middot;</span><span>Twenty-four seats</span><span class="sep">&middot;</span><span>Application only</span>
+    </div>
+    <p class="vow">Nothing on this table is for sale. No animal, and no man, was harmed.</p>
+  </div>
+</header>
+
+<!-- ── THE DOCTRINE ── -->
+<section id="doctrine">
+  <div class="wrap">
+    <h2 class="section-title"><span class="num">I &middot; The Doctrine</span>What the Church already teaches</h2>
+    <p>Set the provocation aside for a moment. Begin with what the Roman Catholic Church holds to be true, stated plainly and without irony, because the argument this evening only has weight if the doctrine is understood correctly first.</p>
+    <p>At every Mass, a priest speaks over ordinary bread and wine the words Christ spoke at the Last Supper: <span class="lift">Hoc est enim corpus meum</span> &mdash; <em>for this is my body</em>. The Church teaches that at that moment the bread and wine cease to be bread and wine. They become, truly and substantially, the body and blood of Christ. This is not held to be symbol, metaphor, or fond remembrance. It is held to be fact.</p>
+    <p>The word for the change is <em>transubstantiation</em>. Borrowing the language of Aristotle, the Church distinguishes the <em>substance</em> of a thing &mdash; what it fundamentally <em>is</em> &mdash; from its <em>accidents</em>, the properties available to the senses: taste, weight, colour, the look of a wafer on the tongue. In transubstantiation the accidents remain wholly unchanged while the substance is entirely converted. It still tastes of unleavened wheat. It is no longer bread.</p>
+    <blockquote>
+      &ldquo;By the consecration the transubstantiation of the bread and wine into the Body and Blood of Christ is brought about. Under the consecrated species of bread and wine Christ himself, living and glorious, is present in a true, real, and substantial manner: his Body and his Blood, with his soul and his divinity.&rdquo;
+      <cite>Catechism of the Catholic Church, &sect;1413</cite>
+    </blockquote>
+    <p>This is the doctrine of the <em>Real Presence</em>, and it is not marginal. The Catechism calls the Eucharist &ldquo;the source and summit of the Christian life&rdquo; (&sect;1324). To receive it is understood as receiving Christ&rsquo;s actual flesh. The faithful have knelt before it, reserved it in gold, and died for the belief that it is exactly what the Church says it is.</p>
+    <p>Hold that clearly, because the whole of this evening rests on taking it seriously: <span class="lift">the Church already believes that ordinary flesh appears on the altar. The only question we are adding is where that flesh is permitted to have come from.</span></p>
+  </div>
+</section>
+
+<!-- ── THE RELICS ── -->
+<section id="relics">
+  <div class="wrap">
+    <h2 class="section-title"><span class="num">II &middot; The Relics</span>A tissue economy, a thousand years old</h2>
+    <p>The Church has never been squeamish about human remains. For most of its history it has collected, authenticated, divided, transported, sold, and venerated them &mdash; and it maintains, to this day, a canonical framework governing exactly how this is done.</p>
+    <p>A <em>relic</em> is the physical remains of a saint, or an object connected to one. Under longstanding canonical practice they are sorted into classes:</p>
+    <ul class="classes">
+      <li><span class="cls">First Class</span><span class="desc">The physical body of a saint &mdash; bone, hair, blood, an entire limb, an entire heart, an incorrupt body displayed under glass. Human tissue, catalogued and enshrined.</span></li>
+      <li><span class="cls">Second Class</span><span class="desc">Something the saint owned or habitually used in life &mdash; a garment, a book, an instrument of their martyrdom.</span></li>
+      <li><span class="cls">Third Class</span><span class="desc">Any object deliberately touched to a first-class relic, thereby carrying its virtue onward.</span></li>
+    </ul>
+    <p>First-class relics are set into <em>reliquaries</em>: reliquaries of gold and rock crystal shaped as the arm they contain, monstrances built to display a fragment of skull, jewelled caskets holding a vial of dried blood that the devout travel across continents to see. Whole altars are, by ancient requirement, consecrated over a saint&rsquo;s bones sealed within the stone.</p>
+
+    <figure class="figure">
+      <svg class="reliquary-svg" viewBox="0 0 200 300" role="img" aria-labelledby="reliqtitle">
+        <title id="reliqtitle">A stylised gilt reliquary monstrance</title>
+        <defs></defs>
+        <g fill="none" stroke="#b99a5b" stroke-width="1.4">
+          <!-- base -->
+          <ellipse cx="100" cy="284" rx="46" ry="8"/>
+          <path d="M70 284 L78 250 L122 250 L130 284 Z"/>
+          <!-- stem -->
+          <rect x="94" y="196" width="12" height="54"/>
+          <ellipse cx="100" cy="196" rx="20" ry="7"/>
+          <circle cx="100" cy="222" r="9"/>
+          <!-- sunburst frame -->
+          <circle cx="100" cy="120" r="40"/>
+          <circle cx="100" cy="120" r="28"/>
+          <g stroke-width="1">
+            <line x1="100" y1="70" x2="100" y2="52"/>
+            <line x1="100" y1="170" x2="100" y2="188"/>
+            <line x1="50" y1="120" x2="32" y2="120"/>
+            <line x1="150" y1="120" x2="168" y2="120"/>
+            <line x1="65" y1="85" x2="52" y2="72"/>
+            <line x1="135" y1="85" x2="148" y2="72"/>
+            <line x1="65" y1="155" x2="52" y2="168"/>
+            <line x1="135" y1="155" x2="148" y2="168"/>
+          </g>
+          <!-- lunette: the reserved fragment -->
+          <ellipse cx="100" cy="120" rx="10" ry="14" stroke-width="1.2"/>
+          <!-- cross finial -->
+          <line x1="100" y1="52" x2="100" y2="34"/>
+          <line x1="92" y1="42" x2="108" y2="42"/>
+        </g>
+      </svg>
+      <figcaption>Typographic reconstruction of a monstrance &mdash; the gilt vessel in which a first-class relic, or the consecrated Host, is displayed for veneration. No photograph is reproduced here; the form is the argument.</figcaption>
+    </figure>
+
+    <p>None of this is fringe or historical curiosity. It is ordinary, ongoing, and doctrinally sound. The Church has a thousand-year comfort with the flesh of the dead: cataloguing it, gilding it, kneeling before it.</p>
+    <p>We simply lay the two facts of this evening beside one another and step back. <span class="lift">The Church venerates human tissue as a matter of settled practice. The Church already teaches that flesh appears upon the altar.</span> We will not tell you what follows from that. We have invited people who have spent their lives thinking about it to do the arguing.</p>
+  </div>
+</section>
+
+<!-- ── THE DONOR ── (longest section: the ethical spine) -->
+<section id="donor">
+  <div class="wrap">
+    <h2 class="section-title"><span class="num">III &middot; The Donor</span>In his own words</h2>
+
+    <figure class="figure">
+      <div class="portrait"><span class="glyph">&dagger;</span></div>
+      <figcaption>The donor. Thirty-four. A former seminarian. Consented in writing, unpaid, and to be named on the invitation, in the byline, and in the film. His portrait will appear here when he chooses the day it does.</figcaption>
+    </figure>
+
+    <p>This is the part of the project that matters most, and so it is the longest. The donor is not an anonymous source of cells and not the butt of a joke. He is a collaborator who came to us with this argument already formed, and who wants to make it with his own body and his own name. The words below are his, given for publication. We have edited nothing but the paragraph breaks.</p>
+
+    <div class="donor-statement">
+      <p>I was going to be a priest. I mean that plainly: I spent three years in formation, I studied the theology of the Eucharist under men who believed every word of it, and I believed it too. I still might. That is the thing people get wrong when they hear about this project &mdash; they assume the man who agreed to it must hold the Mass cheap. I hold it as dear as anything I have ever held. That is precisely why I offered.</p>
+
+      <p>Here is the question that would not leave me, the one that eventually walked me out of the seminary and has walked me back around to this table. If I believe &mdash; and for most of my life I did, without reservation &mdash; that at the words of consecration a wafer of wheat truly becomes the living body of a man who died two thousand years ago, then I have already accepted the larger miracle. I have accepted that flesh can be present under the appearance of bread. So what, exactly, is my objection to bread that begins with flesh? Not divine flesh. Ordinary flesh. Mine.</p>
+
+      <p>I could not answer it. I asked my confessor and he told me it was a temptation to pride, which is a way of saying he could not answer it either. I asked it of professors I loved and watched them reach, honestly, for the difference and not quite close their hand around it. The difference is real &mdash; I think it is real &mdash; but nobody could tell me plainly what it was, and a faith that cannot say plainly what it means is a faith I did not want to lie to myself about. So I left. Not in anger. I left the way you leave a house you grew up in because you have finally understood you do not know how the roof is holding up.</p>
+
+      <p>Years passed. I stopped taking communion because it felt dishonest to receive what I could no longer defend. And then Polygenik described this piece to me, and I understood in about four seconds that it was my question, the exact one, made into an object you could put on a plate. They did not come looking for a man to embarrass. They came looking for the argument, and I have been carrying the argument for a decade.</p>
+
+      <p>So let me be clear about what I am doing and why, so that no one has to guess. I am giving cells from my own body &mdash; a swab from the inside of my cheek, taken by no one but a licensed clinician &mdash; to be grown and baked into wheat and offered, once, to twenty-four people who will decide for themselves whether to eat. I am doing it unpaid; I refused payment, and I would have refused the project if it were offered, because a paid man is a used man and this only means anything if it is freely given. I am doing it under my own name. I have signed a consent form I read four times. I can withdraw at any point up to the night itself, and if I do, everything grown from me is destroyed and that destruction is published. I want all of that on the record because the record is the honest part.</p>
+
+      <p>I want to say something to the people who will be angriest, because they are the people I come from and I owe them the courtesy of speaking to them directly. I know how this looks. It looks like sacrilege dressed up as a dinner party. But I am not mocking the Mass. I am taking it more seriously than the people who venerate a saint&rsquo;s finger in a gold box and then recoil at a cheek cell in a wafer. If flesh in the vessel offends you, the Church has been offending you for a thousand years and gilding the offence. If it does not offend you there, I am asking &mdash; honestly, as a man who wanted to give his life to this &mdash; why it offends you here. That is not an attack. It is the oldest kind of prayer: it is a question you refuse to stop asking.</p>
+
+      <p>I do not know what happens at the altar. I used to be certain, and the certainty is what I lost, not the love. If a theologian sits across from me that night and gives me the difference &mdash; the real, sayable difference between the flesh the Church already permits and the flesh I am offering &mdash; I will be more grateful than anyone in the room. I am not doing this to win. I am doing it because after ten years this is still the only way I know to ask the question with my whole self, and because a body is the truest thing a person has to put on a table.</p>
+    </div>
+
+    <p class="signoff">Given freely, for publication.
+      <span class="sig-name">&mdash; The donor. Thirty-four. To be named.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ── THE METHOD ── -->
+<section id="method">
+  <div class="wrap">
+    <h2 class="section-title"><span class="num">IV &middot; The Method</span>Published as a methods section, because it is one</h2>
+    <p>There is no regulatory pathway anywhere in the world for cell-cultured human tissue as food. It cannot be sold, is not advertised as food, and probably should not be eaten. That constraint is not a loophole to be worked around; it is the shape of the work. The wafer is present, consecrated, plated, and offered. What each guest does then is theirs. The protocol below is the real one.</p>
+    <ol class="spec">
+      <li>
+        <span class="step-name">Donor screening</span>
+        <span class="step-body">A full serology panel &mdash; HIV, hepatitis B, hepatitis C, and syphilis &mdash; drawn within thirty days of collection, with results reviewed by a clinician before any material is used. Written, witnessed consent (forms A4 and A5) and a standing right of withdrawal with a published destruction protocol.</span>
+      </li>
+      <li>
+        <span class="step-name">Collection</span>
+        <span class="step-body">Primary cells obtained by buccal swab &mdash; a painless scrape of the inner cheek &mdash; taken only by a licensed clinician, at a clinic, under a chain-of-custody form. A swab is non-invasive and wholly sufficient. Nothing is taken by the artists. No animal is used at any stage.</span>
+      </li>
+      <li>
+        <span class="step-name">Culture</span>
+        <span class="step-body">The primary cells are expanded in standard sterile culture until sufficient biomass is obtained. Sterility is monitored throughout; contaminated material is discarded, not baked.</span>
+      </li>
+      <li>
+        <span class="step-name">Incorporation</span>
+        <span class="step-body">The cultured material is incorporated into an unleavened wheat wafer &mdash; the same wheat, the same round unleavened form the rite has always required.</span>
+      </li>
+      <li>
+        <span class="step-name">Baking &mdash; the kill step</span>
+        <span class="step-body">The wafer is baked. Baking is the kill step, and it is the reason the wafer, and not the cup, is the correct vessel. No unbaked material touches anything anyone might drink.</span>
+      </li>
+      <li>
+        <span class="step-name">The cup</span>
+        <span class="step-body">The cup stays beside the wafer, and the cup stays wine. It is not altered, cultured, or touched. Only the bread carries the question.</span>
+      </li>
+    </ol>
+    <p>The whole of it &mdash; the consent conversation, the swab, the culture, the bake &mdash; is filmed and released uncut. The record is the point.</p>
+  </div>
+</section>
+
+<!-- ── THE QUESTION ── -->
+<section id="question">
+  <div class="wrap">
+    <h2 class="section-title"><span class="num">V &middot; The Question</span></h2>
+    <p class="question-lead">If the Church holds that ordinary bread becomes true flesh at the altar, and if the Church has for a thousand years venerated the flesh of the dead in gold, then a wafer that begins with the living, consenting flesh of a named man is not a desecration of that logic but its plainest possible test.
+      <span class="final">So: what exactly is the objection &mdash; and can you say it out loud?</span>
+    </p>
+  </div>
+</section>
+
+<!-- ── THE TABLE ── -->
+<section id="table">
+  <div class="wrap">
+    <h2 class="section-title"><span class="num">VI &middot; The Table</span>Twenty-four seats, set for argument</h2>
+    <p class="seats-line">XXIV</p>
+    <p style="text-align:center;">This is an application, not a purchase. Nothing here is for sale. We are seating a room for a single evening of genuine argument &mdash; believers, doubters, and at least one working theologian &mdash; and we choose the room by hand.</p>
+    <p style="text-align:center;">We ask one question, and we read every answer.</p>
+
+    <form id="apply" novalidate>
+      <div class="field">
+        <label for="name">Your name</label>
+        <input type="text" id="name" name="name" autocomplete="name">
+      </div>
+      <div class="field">
+        <label for="email">Where to reach you</label>
+        <input type="email" id="email" name="email" autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="belief">What do you believe happens at the altar?</label>
+        <textarea id="belief" name="belief" rows="5" placeholder="Answer honestly. This is the only question that decides the room."></textarea>
+        <span class="hint">There is no correct answer. There is only a true one.</span>
+      </div>
+      <button type="submit">Submit for a seat</button>
+      <p class="form-note">This form stores nothing. It sends nothing. When the evening is real, applications will open in earnest; for now, consider your answer a rehearsal of the question you would be asked at the door.</p>
+      <p id="reply" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="wrap">
+    <p class="vow-final">Nothing on this table is for sale.<br>No animal, and no man, was harmed.</p>
+    <p class="credit">A <a href="/">POLYGENIK</a> property &nbsp;&middot;&nbsp; <a href="/">Return to the index</a></p>
+    <p class="fine">Hoc Est Corpus is an artwork and a work of theological provocation. It is not a food product, is not for sale, and is not advertised as food. The donor is a consenting, unpaid, named collaborator. Doctrinal citations are given in good faith and accurately. For research and reflection use only.</p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var form = document.getElementById('apply');
+    var reply = document.getElementById('reply');
+    if(!form) return;
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var name = (document.getElementById('name').value || '').trim();
+      var belief = (document.getElementById('belief').value || '').trim();
+      var who = name ? name : 'Friend';
+      var msg;
+      if(!belief){
+        msg = who + ', a seat at this table costs one honest sentence about what you believe happens at the altar. We will wait for it.';
+      } else {
+        msg = 'Thank you, ' + who + '. Your answer has been read and then, faithfully, forgotten — this form keeps nothing. If the evening becomes real, so will the invitation. Come ready to say that out loud, across a plate, to someone who disagrees.';
+      }
+      reply.textContent = msg;
+      reply.classList.add('show');
+    });
+  })();
+</script>
+
+</body>
+</html>
