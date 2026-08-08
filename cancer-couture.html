@@ -1,0 +1,580 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cancer Couture — Reliquary Commissions</title>
+<meta name="description" content="We set the tumor they removed from you into a wearable object, by hand, in San Francisco. Fixed, sealed, permanent. A standing commission service.">
+<meta property="og:title" content="Cancer Couture">
+<meta property="og:description" content="They removed it, examined it, and were going to incinerate it. It is yours. We set it in resin and steel, by hand, in San Francisco.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f4efe6;
+    --cream-deep:#ece4d6;
+    --ink:#2b2723;
+    --ink-soft:#5b544c;
+    --line:#cfc5b3;
+    --gold:#8a7346;
+    --steel:#8f8d88;
+    --shadow:rgba(43,39,35,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:"EB Garamond",Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.75;
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  h1,h2,h3{
+    font-family:"Cormorant Garamond","EB Garamond",Georgia,serif;
+    font-weight:500;
+    letter-spacing:0.01em;
+    margin:0;
+  }
+  p{margin:0 0 1.1em;}
+  a{color:var(--gold);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 28px;}
+  .eyebrow{
+    font-family:"EB Garamond",serif;
+    text-transform:uppercase;
+    letter-spacing:0.32em;
+    font-size:12px;
+    color:var(--gold);
+    margin:0 0 1.6em;
+    font-weight:500;
+  }
+
+  /* HERO */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:64px 28px 72px;
+  }
+  .hero .mark{
+    text-transform:uppercase;
+    letter-spacing:0.4em;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-bottom:44px;
+    font-family:"EB Garamond",serif;
+  }
+  .still{
+    width:200px;height:200px;margin:0 auto 48px;display:block;
+  }
+  .hero h1{
+    font-size:clamp(40px,8vw,72px);
+    line-height:1.04;
+    letter-spacing:0.02em;
+    margin-bottom:34px;
+  }
+  .hero .lede{
+    max-width:34ch;
+    margin:0 auto 12px;
+    font-size:clamp(19px,2.6vw,23px);
+    color:var(--ink);
+  }
+  .hero .lede.second{margin-bottom:44px;color:var(--ink-soft);}
+  .btn{
+    display:inline-block;
+    border:1px solid var(--ink);
+    color:var(--ink);
+    padding:16px 40px;
+    text-transform:uppercase;
+    letter-spacing:0.28em;
+    font-size:12px;
+    font-family:"EB Garamond",serif;
+    background:transparent;
+    cursor:pointer;
+    transition:background .3s ease,color .3s ease;
+  }
+  .btn:hover{background:var(--ink);color:var(--cream);text-decoration:none;}
+  .hero .fineprint{
+    margin-top:40px;
+    font-size:14px;
+    color:var(--ink-soft);
+    font-style:italic;
+    max-width:42ch;
+  }
+
+  /* SECTIONS */
+  section.band{padding:88px 0;border-top:1px solid var(--line);}
+  section.band.alt{background:var(--cream-deep);}
+  h2{
+    font-size:clamp(28px,4.4vw,40px);
+    text-align:center;
+    margin-bottom:14px;
+    letter-spacing:0.02em;
+  }
+  .sub{
+    text-align:center;
+    color:var(--ink-soft);
+    font-style:italic;
+    max-width:46ch;
+    margin:0 auto 52px;
+  }
+
+  /* PREMISE */
+  .premise p{max-width:52ch;margin-left:auto;margin-right:auto;text-align:center;}
+
+  /* HOUSE FORMS */
+  .forms{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:8px;}
+  .form-card{
+    background:var(--cream);
+    border:1px solid var(--line);
+    padding:34px 30px 30px;
+    text-align:center;
+    display:flex;flex-direction:column;
+  }
+  section.band.alt .form-card{background:#f6f1e9;}
+  .form-card .plate{width:100px;height:100px;margin:0 auto 22px;}
+  .form-card h3{
+    font-size:24px;
+    text-transform:uppercase;
+    letter-spacing:0.2em;
+    margin-bottom:6px;
+  }
+  .form-card .kind{
+    font-style:italic;color:var(--ink-soft);
+    font-size:16px;margin-bottom:16px;
+  }
+  .form-card .desc{font-size:16px;color:var(--ink-soft);margin-bottom:22px;flex:1;}
+  .form-card .price{
+    font-family:"Cormorant Garamond",serif;
+    font-size:28px;color:var(--ink);
+  }
+  .form-card .lead{
+    font-size:12px;text-transform:uppercase;letter-spacing:0.22em;
+    color:var(--ink-soft);margin-top:6px;
+  }
+
+  /* STEPS */
+  ol.steps{list-style:none;counter-reset:step;margin:0;padding:0;max-width:56ch;margin:0 auto;}
+  ol.steps li{
+    counter-increment:step;
+    position:relative;
+    padding:0 0 30px 66px;
+    min-height:48px;
+  }
+  ol.steps li:last-child{padding-bottom:0;}
+  ol.steps li::before{
+    content:counter(step,decimal-leading-zero);
+    position:absolute;left:0;top:-2px;
+    font-family:"Cormorant Garamond",serif;
+    font-size:30px;color:var(--gold);
+    width:48px;text-align:center;
+  }
+  ol.steps li h3{font-size:21px;margin-bottom:4px;}
+  ol.steps li p{font-size:16px;color:var(--ink-soft);margin:0;}
+  .letter-cta{text-align:center;margin-top:44px;}
+
+  /* CANNOT ACCEPT */
+  .cannot ul{list-style:none;margin:0 auto;padding:0;max-width:52ch;}
+  .cannot li{
+    padding:18px 0 18px 34px;
+    border-bottom:1px solid var(--line);
+    position:relative;
+    color:var(--ink);
+  }
+  .cannot li:first-child{border-top:1px solid var(--line);}
+  .cannot li::before{
+    content:"—";position:absolute;left:0;top:18px;color:var(--gold);
+  }
+
+  /* PROVENANCE */
+  .cert{
+    max-width:520px;margin:0 auto;
+    background:#f9f5ee;
+    border:1px solid var(--line);
+    padding:40px 44px;
+    position:relative;
+  }
+  .cert::after{
+    content:"";position:absolute;inset:8px;
+    border:1px solid var(--line);pointer-events:none;
+  }
+  .cert .crest{width:56px;height:56px;margin:0 auto 18px;display:block;}
+  .cert h3{
+    text-align:center;text-transform:uppercase;letter-spacing:0.26em;
+    font-size:16px;margin-bottom:4px;
+  }
+  .cert .house{
+    text-align:center;font-style:italic;color:var(--ink-soft);
+    font-size:14px;margin-bottom:26px;
+  }
+  .cert dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:0;}
+  .cert dt{
+    padding:11px 0;border-bottom:1px dotted var(--line);
+    font-size:13px;text-transform:uppercase;letter-spacing:0.14em;
+    color:var(--ink-soft);
+  }
+  .cert dd{
+    padding:11px 0;border-bottom:1px dotted var(--line);
+    margin:0;text-align:right;font-family:"Cormorant Garamond",serif;
+    font-size:18px;color:var(--ink);
+  }
+  .cert dl div{display:contents;}
+  .cert .foot{
+    text-align:center;margin:24px 0 0;font-size:13px;
+    color:var(--ink-soft);font-style:italic;
+  }
+
+  /* WAITLIST */
+  .waitlist{text-align:center;}
+  form.wl{max-width:440px;margin:36px auto 0;}
+  form.wl .row{display:flex;gap:12px;}
+  form.wl input[type=email]{
+    flex:1;
+    border:1px solid var(--line);
+    background:var(--cream);
+    padding:15px 18px;
+    font-family:"EB Garamond",serif;
+    font-size:17px;
+    color:var(--ink);
+  }
+  section.band.alt form.wl input[type=email]{background:#f6f1e9;}
+  form.wl input[type=email]:focus{outline:none;border-color:var(--gold);}
+  form.wl button{
+    border:1px solid var(--ink);background:var(--ink);color:var(--cream);
+    padding:0 26px;text-transform:uppercase;letter-spacing:0.2em;
+    font-size:12px;font-family:"EB Garamond",serif;cursor:pointer;
+    transition:opacity .3s ease;
+  }
+  form.wl button:hover{opacity:0.82;}
+  .wl-note{font-size:14px;color:var(--ink-soft);font-style:italic;margin-top:16px;}
+  .wl-confirm{
+    margin-top:24px;font-size:18px;color:var(--ink);
+    min-height:1.5em;
+  }
+  .wl-confirm.show{}
+
+  /* FOOTER */
+  footer{
+    border-top:1px solid var(--line);
+    padding:54px 28px 60px;
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:14px;
+  }
+  footer .fmark{
+    text-transform:uppercase;letter-spacing:0.34em;font-size:12px;
+    color:var(--ink);margin-bottom:14px;
+  }
+  footer p{margin:0 0 8px;}
+  footer .parent{font-style:italic;}
+  footer a{color:var(--ink-soft);}
+
+  @media (max-width:640px){
+    body{font-size:18px;}
+    .forms{grid-template-columns:1fr;gap:26px;}
+    form.wl .row{flex-direction:column;}
+    form.wl button{padding:14px 26px;}
+    .cert{padding:32px 26px;}
+    .cert dd{font-size:16px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important;animation:none !important;scroll-behavior:auto !important;}
+  }
+</style>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="mark">Cancer Couture</div>
+
+  <!-- Still-life: a cabochon pendant on a chain, CSS/SVG on cream -->
+  <svg class="still" viewBox="0 0 200 200" role="img" aria-label="A domed cabochon pendant on a fine chain, resting on cream.">
+    <defs>
+      <radialGradient id="dome" cx="42%" cy="34%" r="70%">
+        <stop offset="0%" stop-color="#efe7d6"/>
+        <stop offset="45%" stop-color="#d8c9a8"/>
+        <stop offset="100%" stop-color="#9c8a63"/>
+      </radialGradient>
+      <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#c9c6bf"/>
+        <stop offset="50%" stop-color="#8f8d88"/>
+        <stop offset="100%" stop-color="#b6b2a9"/>
+      </linearGradient>
+    </defs>
+    <!-- chain -->
+    <path d="M100 6 C70 30 60 44 78 78" fill="none" stroke="var(--steel)" stroke-width="1.4" stroke-dasharray="1.5 3" opacity="0.8"/>
+    <path d="M100 6 C130 30 140 44 122 78" fill="none" stroke="var(--steel)" stroke-width="1.4" stroke-dasharray="1.5 3" opacity="0.8"/>
+    <!-- bail -->
+    <ellipse cx="100" cy="82" rx="9" ry="12" fill="none" stroke="url(#steel)" stroke-width="4"/>
+    <!-- bezel -->
+    <ellipse cx="100" cy="132" rx="46" ry="46" fill="none" stroke="url(#steel)" stroke-width="6"/>
+    <!-- dome cabochon -->
+    <circle cx="100" cy="132" r="40" fill="url(#dome)"/>
+    <!-- the specimen suspended within, abstract, small, dignified -->
+    <path d="M100 118 c9 2 15 9 12 18 c-2 7 -10 10 -16 8 c-8 -3 -12 -10 -8 -18 c2 -5 7 -8 12 -8 z" fill="#7c5a52" opacity="0.72"/>
+    <path d="M96 122 c4 0 8 3 8 7" fill="none" stroke="#5a3f39" stroke-width="1" opacity="0.5"/>
+    <!-- specular highlight -->
+    <ellipse cx="84" cy="116" rx="14" ry="9" fill="#fbf7ee" opacity="0.55" transform="rotate(-24 84 116)"/>
+  </svg>
+
+  <h1>Cancer Couture</h1>
+  <p class="lede">They removed it, examined it, and were going to incinerate it.</p>
+  <p class="lede second">It is yours. We set it in resin and steel, by hand, in San Francisco.</p>
+  <a class="btn" href="#waitlist">Request a Commission</a>
+  <p class="fineprint">Specimens accepted only after diagnostic work is complete. Fixed tissue only.</p>
+</header>
+
+<!-- ============ THE PREMISE ============ -->
+<section class="band premise" id="premise">
+  <div class="wrap">
+    <p class="eyebrow" style="text-align:center;">The Premise</p>
+    <h2>Yours by right.</h2>
+    <div class="sub">&nbsp;</div>
+    <p>The thing they took out of you was part of you. Convention calls it waste and hands it to disposal. We disagree. It is the most personal object you will ever own, and it belongs to no one else.</p>
+    <p>Each commission is fixed, sealed and made permanent. The specimen is stabilised, encased in optical resin and set in a housing that will outlast you. Nothing degrades. Nothing leaks. It is finished the way a stone is finished.</p>
+    <p>Every piece is made by hand in San Francisco, one at a time, by the people who will sign its certificate. We take a small number of commissions. We take them seriously.</p>
+  </div>
+</section>
+
+<!-- ============ THE HOUSE FORMS ============ -->
+<section class="band alt" id="forms">
+  <div class="wrap">
+    <p class="eyebrow" style="text-align:center;">The House Forms</p>
+    <h2>Four settings.</h2>
+    <p class="sub">We offer four fixed forms rather than bespoke design, so that the choice is quiet and the craft is consistent.</p>
+    <div class="forms">
+
+      <div class="form-card">
+        <svg class="plate" viewBox="0 0 100 100" aria-hidden="true">
+          <ellipse cx="50" cy="50" rx="34" ry="34" fill="none" stroke="url(#steel)" stroke-width="5"/>
+          <circle cx="50" cy="50" r="29" fill="url(#dome)"/>
+          <ellipse cx="40" cy="40" rx="9" ry="6" fill="#fbf7ee" opacity="0.55" transform="rotate(-24 40 40)"/>
+          <ellipse cx="50" cy="34" rx="6" ry="8" fill="none" stroke="url(#steel)" stroke-width="3"/>
+        </svg>
+        <h3>The Cabochon</h3>
+        <div class="kind">Domed pendant</div>
+        <p class="desc">A polished dome, the classical reliquary form. The specimen sits at the heart of the stone, magnified gently by the curve of the resin.</p>
+        <div class="price">$1,400</div>
+        <div class="lead">10–14 weeks</div>
+      </div>
+
+      <div class="form-card">
+        <svg class="plate" viewBox="0 0 100 100" aria-hidden="true">
+          <rect x="20" y="20" width="60" height="60" rx="6" fill="none" stroke="url(#steel)" stroke-width="6"/>
+          <rect x="30" y="30" width="40" height="40" rx="3" fill="url(#dome)"/>
+          <rect x="34" y="34" width="14" height="10" fill="#fbf7ee" opacity="0.5"/>
+        </svg>
+        <h3>The Bezel</h3>
+        <div class="kind">Brutalist steel ring</div>
+        <p class="desc">A heavy, squared band of stainless steel with the specimen set flush behind resin. Unfussy, architectural, worn every day.</p>
+        <div class="price">$1,900</div>
+        <div class="lead">12–14 weeks</div>
+      </div>
+
+      <div class="form-card">
+        <svg class="plate" viewBox="0 0 100 100" aria-hidden="true">
+          <rect x="26" y="34" width="48" height="32" rx="4" fill="none" stroke="url(#steel)" stroke-width="5"/>
+          <rect x="33" y="41" width="34" height="18" rx="2" fill="url(#dome)"/>
+          <rect x="37" y="44" width="10" height="6" fill="#fbf7ee" opacity="0.5"/>
+        </svg>
+        <h3>The Slide</h3>
+        <div class="kind">Cufflink or pendant</div>
+        <p class="desc">A rectangular prism, the smallest of the settings. Discreet enough to wear at a collar or cuff, and the most affordable way to begin.</p>
+        <div class="price">$850</div>
+        <div class="lead">10–12 weeks</div>
+      </div>
+
+      <div class="form-card">
+        <svg class="plate" viewBox="0 0 100 100" aria-hidden="true">
+          <rect x="28" y="24" width="44" height="54" rx="2" fill="none" stroke="url(#steel)" stroke-width="4"/>
+          <rect x="34" y="30" width="32" height="42" rx="1" fill="url(#dome)" opacity="0.85"/>
+          <rect x="24" y="78" width="52" height="6" rx="1" fill="url(#steel)"/>
+          <ellipse cx="46" cy="46" rx="7" ry="10" fill="#7c5a52" opacity="0.7"/>
+        </svg>
+        <h3>The Vitrine</h3>
+        <div class="kind">Desk object</div>
+        <p class="desc">A standing block for the desk or shelf, made for the largest specimens. Not worn but kept, lit from within by daylight.</p>
+        <div class="price">$3,500</div>
+        <div class="lead">12–16 weeks</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="band" id="how">
+  <div class="wrap">
+    <p class="eyebrow" style="text-align:center;">How It Works</p>
+    <h2>Four steps.</h2>
+    <p class="sub">The path from pathology to finished piece is short, and we walk each part of it with you.</p>
+    <ol class="steps">
+      <li>
+        <h3>Request your specimen</h3>
+        <p>After your diagnostic work is complete, ask pathology to release the fixed specimen to you. Most hospitals will, and it is your right to ask. We provide a release-letter template below.</p>
+      </li>
+      <li>
+        <h3>We send the kit</h3>
+        <p>Once you join the commission list, we send a sealed, pre-addressed fixation and shipping kit, with plain instructions and everything needed to return the specimen safely.</p>
+      </li>
+      <li>
+        <h3>You ship it back</h3>
+        <p>Seal the kit and post it to the studio. We confirm safe arrival the same day it reaches us, and confirm the setting you have chosen.</p>
+      </li>
+      <li>
+        <h3>You receive it in ten to fourteen weeks</h3>
+        <p>We complete the piece by hand and return it with its numbered certificate of provenance. Lead times vary by setting; each is listed above.</p>
+      </li>
+    </ol>
+    <div class="letter-cta">
+      <a class="btn" id="letter-link" href="#" download="specimen-release-letter.txt">Download the Specimen-Release Letter Template</a>
+      <p class="wl-note">A free, editable template you may hand to your hospital's pathology department.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT WE CANNOT ACCEPT ============ -->
+<section class="band alt cannot" id="cannot">
+  <div class="wrap">
+    <p class="eyebrow" style="text-align:center;">What We Cannot Accept</p>
+    <h2>Some things we will decline.</h2>
+    <p class="sub">Plainly, and without exception. These rules protect your care first, and the work second.</p>
+    <ul>
+      <li>No specimen that is still needed for diagnosis. Diagnostic work must be fully complete, and we ask for a copy of the final pathology report before intake.</li>
+      <li>No unfixed tissue. We accept only specimens that have been properly fixed and stabilised. Fresh tissue cannot be posted and will be refused.</li>
+      <li>No specimen from anyone but the person it came from. The commission may be placed only by the patient, who has personally consented. However kindly meant, a relative cannot consent on another living person's behalf.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ PROVENANCE ============ -->
+<section class="band" id="provenance">
+  <div class="wrap">
+    <p class="eyebrow" style="text-align:center;">Provenance</p>
+    <h2>The certificate is half the piece.</h2>
+    <p class="sub">Every commission ships with a numbered certificate, hand-signed, recording exactly what the piece holds and when.</p>
+    <div class="cert">
+      <svg class="crest" viewBox="0 0 56 56" aria-hidden="true">
+        <circle cx="28" cy="28" r="25" fill="none" stroke="var(--gold)" stroke-width="1"/>
+        <circle cx="28" cy="28" r="20" fill="none" stroke="var(--gold)" stroke-width="0.6"/>
+        <path d="M28 14 l3.2 9.2 9.8 0 -7.9 5.7 3 9.3 -8.1 -5.8 -8.1 5.8 3 -9.3 -7.9 -5.7 9.8 0 z" fill="var(--gold)" opacity="0.85"/>
+      </svg>
+      <h3>Certificate of Provenance</h3>
+      <div class="house">Cancer Couture &middot; San Francisco</div>
+      <dl>
+        <div><dt>Specimen type</dt><dd>Recorded at intake</dd></div>
+        <div><dt>Date of resection</dt><dd>As per report</dd></div>
+        <div><dt>Date of fixation</dt><dd>As per report</dd></div>
+        <div><dt>Setting</dt><dd>Form &amp; number</dd></div>
+        <div><dt>Piece number</dt><dd>No. ——— of ———</dd></div>
+      </dl>
+      <p class="foot">Signed by hand by the maker. One certificate. One piece. One person.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WAITLIST ============ -->
+<section class="band alt waitlist" id="waitlist">
+  <div class="wrap">
+    <p class="eyebrow" style="text-align:center;">The Commission List</p>
+    <h2>Join the list.</h2>
+    <p class="sub">We take a small number of commissions at a time. Leave your address and we will write when the next places open. Nothing else is asked of you yet.</p>
+    <form class="wl" id="wl-form" novalidate>
+      <div class="row">
+        <input type="email" id="wl-email" name="email" placeholder="Your email address" aria-label="Your email address" required autocomplete="email">
+        <button type="submit">Request a place</button>
+      </div>
+    </form>
+    <p class="wl-confirm" id="wl-confirm" role="status" aria-live="polite"></p>
+    <p class="wl-note">Email only. No intake form, no deposit, and no obligation until you choose to commission.</p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="fmark">Cancer Couture</div>
+  <p>Reliquary commissions, made by hand in San Francisco.</p>
+  <p class="parent">A sister house of Polygenik.</p>
+  <p style="margin-top:16px;"><a href="/">Return home</a></p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  // Deadpan waitlist confirmation — stores nothing, sends nothing.
+  var form = document.getElementById("wl-form");
+  var email = document.getElementById("wl-email");
+  var confirm = document.getElementById("wl-confirm");
+  if (form) {
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+      var v = (email.value || "").trim();
+      var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+      if (!ok) {
+        confirm.textContent = "Please enter a valid email address.";
+        confirm.className = "wl-confirm show";
+        email.focus();
+        return;
+      }
+      form.style.display = "none";
+      confirm.textContent = "Noted. We have your address, and we will write when the next places open.";
+      confirm.className = "wl-confirm show";
+    });
+  }
+
+  // Build the specimen-release letter as a downloadable data: URI (text/plain).
+  var letter = [
+    "SPECIMEN RELEASE REQUEST",
+    "",
+    "Date: ____________________",
+    "",
+    "To the Department of Pathology,",
+    "____________________________________ (hospital / laboratory)",
+    "",
+    "Re: Release of my fixed surgical specimen",
+    "Patient name: ______________________________",
+    "Date of birth: ______________________________",
+    "Medical record no.: _________________________",
+    "Accession / specimen no.: ___________________",
+    "Date of procedure: __________________________",
+    "",
+    "To whom it may concern,",
+    "",
+    "I am the patient named above. My diagnostic work relating to this",
+    "specimen is complete. I am writing to request the release of my",
+    "fixed surgical specimen, or a representative portion of it, to me,",
+    "once your department has retained whatever is required by law and",
+    "by your own retention policy for any future diagnostic need.",
+    "",
+    "I understand that the tissue will be released in fixed form only.",
+    "I accept responsibility for the specimen upon release and consent",
+    "to its transfer to me for personal keeping.",
+    "",
+    "Please advise me of any form your department requires me to sign,",
+    "and of a convenient time for collection or transfer.",
+    "",
+    "With thanks for your care,",
+    "",
+    "Signature: _________________________________",
+    "Printed name: ______________________________",
+    "Contact: ___________________________________",
+    "",
+    "----------------------------------------------------------------",
+    "Provided free of charge by Cancer Couture, San Francisco.",
+    "This template is a courtesy and is not legal or medical advice.",
+    "Your hospital's own procedure and retention rules take precedence.",
+    ""
+  ].join("\n");
+
+  var link = document.getElementById("letter-link");
+  if (link) {
+    link.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(letter));
+  }
+})();
+</script>

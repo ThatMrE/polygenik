@@ -1,0 +1,910 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Extinction Credits Exchange — a POLYGENIK property</title>
+<meta name="description" content="A functioning-looking exchange where a credit entitles the bearer to the extinction of one species. Priced by scarcity, ecological function, and measured cognition. No credit may be exercised.">
+<meta property="og:title" content="Extinction Credits Exchange">
+<meta property="og:description" content="A credit entitles the bearer to the extinction of one species. More intelligent animals cost more. No credit may be exercised. Every dollar goes to a named conservation partner, with receipts.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="POLYGENIK">
+<meta name="theme-color" content="#0a0d0f">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#0a0d0f; --panel:#0f1417; --panel2:#111a1d; --line:#1e2a2c; --line2:#2a393b;
+    --ink:#c6d0cb; --dim:#6b7d76; --dimmer:#455651;
+    --amber:#e8a33d; --amber-d:#3a2f18;
+    --up:#46d17f; --down:#ff5c5c; --flat:#8b9a93;
+    --hi:#e9f1ec; --warn:#ffb454;
+    --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --cond:'IBM Plex Sans Condensed',var(--mono);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:var(--mono);font-size:13px;line-height:1.5;
+    letter-spacing:.01em;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--amber);text-decoration:none}
+  a:hover{text-decoration:underline}
+  h1,h2,h3{font-family:var(--cond);letter-spacing:.02em;font-weight:700;line-height:1.1}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 14px}
+  .mono-num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+
+  /* ---- top status bar ---- */
+  .statusbar{
+    background:#070a0b;border-bottom:1px solid var(--line);
+    font-size:11px;color:var(--dim);
+    display:flex;flex-wrap:wrap;gap:0 22px;align-items:center;
+    padding:5px 14px;overflow-x:auto;white-space:nowrap;
+  }
+  .statusbar b{color:var(--ink);font-weight:600}
+  .statusbar .live::before{
+    content:"";display:inline-block;width:7px;height:7px;border-radius:50%;
+    background:var(--up);margin-right:6px;vertical-align:middle;
+    animation:pulse 1.6s infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+  .sim{color:var(--warn)}
+
+  /* ---- masthead ---- */
+  header.mast{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#0d1214,#0a0d0f)}
+  .mast-in{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;padding:16px 0 12px}
+  .brandline{font-family:var(--cond);font-size:11px;color:var(--dim);letter-spacing:.28em;text-transform:uppercase}
+  .mast h1{font-size:clamp(24px,5vw,40px);color:var(--hi);margin:2px 0 0}
+  .mast .tld{color:var(--amber)}
+  .mast-right{font-size:11px;color:var(--dim);text-align:right;line-height:1.7}
+  .mast-right .k{color:var(--flat)}
+
+  /* ---- nav ---- */
+  nav.subnav{position:sticky;top:0;z-index:30;background:#070a0b;border-bottom:1px solid var(--line);overflow-x:auto}
+  nav.subnav ul{display:flex;gap:0;margin:0;padding:0;list-style:none;white-space:nowrap}
+  nav.subnav a{display:block;padding:9px 14px;color:var(--dim);font-size:11px;letter-spacing:.12em;text-transform:uppercase;border-right:1px solid var(--line)}
+  nav.subnav a:hover{color:var(--ink);background:#0d1315;text-decoration:none}
+
+  section{padding:26px 0;border-bottom:1px solid var(--line)}
+  .sec-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+  .sec-head h2{font-size:clamp(17px,3.5vw,23px);color:var(--hi)}
+  .sec-head .tag{font-size:10px;color:var(--dimmer);letter-spacing:.18em;text-transform:uppercase;border:1px solid var(--line2);padding:2px 6px}
+  .lede{color:var(--dim);max-width:70ch;font-size:12.5px}
+
+  /* ---- hero ---- */
+  .hero{background:radial-gradient(120% 140% at 80% -20%,#12201d 0,transparent 55%),#0a0d0f}
+  .hero-grid{display:grid;grid-template-columns:1.3fr .9fr;gap:22px;align-items:start}
+  @media(max-width:820px){.hero-grid{grid-template-columns:1fr}}
+  .hero p.big{font-size:15px;color:var(--ink);max-width:60ch}
+  .hero .stat-line{color:var(--amber);font-family:var(--cond);font-size:clamp(18px,4vw,27px);margin:14px 0;line-height:1.25}
+  .cta{display:inline-block;border:1px solid var(--amber);color:var(--amber);padding:9px 18px;letter-spacing:.14em;text-transform:uppercase;font-size:12px;background:var(--amber-d)}
+  .cta:hover{background:var(--amber);color:#0a0d0f;text-decoration:none}
+  .disclaim{color:var(--dim);font-size:11px;border-left:2px solid var(--line2);padding-left:10px;margin-top:16px}
+  .tickerbox{border:1px solid var(--line);background:#080b0c;padding:12px}
+  .tickerbox h3{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin:0 0 8px}
+  .mini-row{display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dotted var(--line);font-size:12px}
+  .mini-row:last-child{border-bottom:none}
+  .mini-row .sym{color:var(--flat)}
+
+  /* ---- board table ---- */
+  .board-tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;font-size:11px;color:var(--dim)}
+  .board-tools input{background:#080b0c;border:1px solid var(--line2);color:var(--ink);font-family:var(--mono);font-size:12px;padding:5px 8px;min-width:170px}
+  .board-tools input:focus{outline:1px solid var(--amber)}
+  .tbl-scroll{overflow-x:auto;border:1px solid var(--line)}
+  table.board{width:100%;border-collapse:collapse;min-width:820px;font-variant-numeric:tabular-nums}
+  table.board th{
+    position:sticky;top:0;background:#0c1113;color:var(--dim);text-align:right;
+    font-weight:600;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+    padding:8px 10px;border-bottom:1px solid var(--line2);cursor:pointer;user-select:none;white-space:nowrap;
+  }
+  table.board th:first-child,table.board th.l{text-align:left}
+  table.board th:hover{color:var(--ink)}
+  table.board th .arw{color:var(--amber);font-size:9px}
+  table.board td{padding:7px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+  table.board td.l{text-align:left}
+  table.board tbody tr{cursor:pointer}
+  table.board tbody tr:hover{background:#0e1618}
+  .sym-cell{color:var(--hi);font-weight:600}
+  .name-cell{color:var(--ink)}
+  .name-cell .sci{color:var(--dimmer);font-size:10.5px;display:block}
+  .up{color:var(--up)} .down{color:var(--down)} .flat{color:var(--flat)}
+  .flash-up{animation:fu .6s} .flash-down{animation:fd .6s}
+  @keyframes fu{0%{background:rgba(70,209,127,.22)}100%{background:transparent}}
+  @keyframes fd{0%{background:rgba(255,92,92,.22)}100%{background:transparent}}
+  .iucn{font-size:10px;padding:1px 5px;border:1px solid var(--line2);letter-spacing:.06em}
+  .iucn.LC{color:#7fce9a;border-color:#274b36}
+  .iucn.NT{color:#c9d17f;border-color:#4b4b27}
+  .iucn.VU{color:#e8c65a;border-color:#4b4327}
+  .iucn.EN{color:#ff9d5c;border-color:#4b3527}
+  .iucn.CR{color:#ff6b6b;border-color:#4b2727}
+  .iucn.DD{color:#9aa9a3;border-color:#39413e}
+  .mult{color:var(--amber)}
+  .board-foot{font-size:10.5px;color:var(--dimmer);padding:8px 2px}
+
+  /* ---- instrument detail ---- */
+  .inst{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:820px){.inst{grid-template-columns:1fr}}
+  .card{border:1px solid var(--line);background:var(--panel);padding:14px}
+  .card h3{font-size:14px;color:var(--hi);margin:0 0 8px}
+  .specimen{border:1px solid var(--line2);background:#080b0c;aspect-ratio:16/7;display:flex;align-items:center;justify-content:center;color:var(--dimmer);margin-bottom:10px;position:relative;overflow:hidden}
+  .specimen svg{width:100%;height:100%;display:block}
+  .specimen .lbl{position:absolute;bottom:6px;left:8px;font-size:9.5px;letter-spacing:.12em;color:var(--dimmer);text-transform:uppercase}
+  dl.facts{margin:0;display:grid;grid-template-columns:auto 1fr;gap:2px 14px;font-size:12px}
+  dl.facts dt{color:var(--dim)}
+  dl.facts dd{margin:0;text-align:right;color:var(--ink);font-variant-numeric:tabular-nums}
+  .deriv{font-size:11.5px;color:var(--dim);border-top:1px dotted var(--line);margin-top:10px;padding-top:8px}
+  .deriv table{width:100%;border-collapse:collapse}
+  .deriv td{padding:2px 0}.deriv td:last-child{text-align:right;color:var(--ink)}
+  .deriv .tot{border-top:1px solid var(--line2);color:var(--amber);font-weight:600}
+  .evid{font-size:12px;color:var(--ink)}
+  .evid .cite{color:var(--dim);font-size:11px;display:block;margin-top:3px}
+  .hint{color:var(--dimmer);font-size:11px}
+
+  /* ---- order form ---- */
+  form.order label{display:block;font-size:10.5px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin:9px 0 3px}
+  form.order select,form.order input[type=text],form.order input[type=number]{
+    width:100%;background:#080b0c;border:1px solid var(--line2);color:var(--ink);
+    font-family:var(--mono);font-size:13px;padding:8px}
+  form.order select:focus,form.order input:focus{outline:1px solid var(--amber)}
+  .chk{display:flex;gap:8px;align-items:flex-start;margin:9px 0;font-size:11.5px;color:var(--dim)}
+  .chk input{margin-top:3px}
+  .order-total{display:flex;justify-content:space-between;border-top:1px solid var(--line2);margin-top:12px;padding-top:10px;font-size:13px}
+  .order-total b{color:var(--amber);font-size:16px}
+  button.submit{width:100%;margin-top:12px;background:var(--amber-d);border:1px solid var(--amber);color:var(--amber);
+    font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:11px;cursor:pointer}
+  button.submit:hover{background:var(--amber);color:#0a0d0f}
+  button.submit:disabled{opacity:.4;cursor:not-allowed}
+  .demo-note{font-size:10.5px;color:var(--warn);margin-top:8px;text-align:center}
+
+  /* ---- certificate ---- */
+  .cert{border:2px solid var(--amber);background:#0c0f0d;padding:18px;margin-top:14px;position:relative;overflow:hidden}
+  .cert::after{content:"NON-EXERCISABLE";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:var(--cond);font-size:clamp(20px,7vw,54px);color:rgba(232,163,61,.07);
+    transform:rotate(-18deg);pointer-events:none;letter-spacing:.1em;white-space:nowrap}
+  .cert h3{color:var(--amber);font-size:15px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 2px}
+  .cert .sub{font-size:10px;color:var(--dim);letter-spacing:.16em;text-transform:uppercase}
+  .cert dl{position:relative;z-index:1;margin:12px 0 0;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:12px}
+  .cert dt{color:var(--dim)}
+  .cert dd{margin:0;text-align:right;color:var(--hi)}
+  .cert .face{position:relative;z-index:1;border:1px solid var(--down);color:var(--down);text-align:center;
+    padding:8px;margin-top:14px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+  .cert .fine{position:relative;z-index:1;font-size:10px;color:var(--dim);margin-top:10px}
+
+  /* ---- methodology ---- */
+  .meth-formula{border:1px solid var(--line2);background:#080b0c;padding:14px;font-size:13px;color:var(--hi);text-align:center;letter-spacing:.02em;overflow-x:auto}
+  .meth-formula .op{color:var(--dim)}
+  .meth-formula .f{color:var(--amber)}
+  .factbl{width:100%;border-collapse:collapse;margin-top:12px;font-size:11.5px;min-width:520px}
+  .factbl th,.factbl td{border:1px solid var(--line);padding:6px 9px;text-align:left}
+  .factbl th{background:#0c1113;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;font-size:10px}
+  .factbl td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+  .critique{border-left:2px solid var(--amber);padding-left:12px;margin-top:14px;color:var(--dim);font-size:12px}
+
+  /* ---- comparison ---- */
+  .cmp-scroll{overflow-x:auto;border:1px solid var(--line)}
+  table.cmp{width:100%;border-collapse:collapse;min-width:640px;font-size:12px;font-variant-numeric:tabular-nums}
+  table.cmp th,table.cmp td{padding:8px 11px;border-bottom:1px solid var(--line);text-align:right}
+  table.cmp th{background:#0c1113;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;font-size:10px;position:sticky;top:0}
+  table.cmp th:first-child,table.cmp td:first-child{text-align:left;color:var(--ink)}
+  table.cmp tr.hilite td{background:#141c14;color:var(--up)}
+  .kicker{font-family:var(--cond);font-size:clamp(16px,3.6vw,24px);color:var(--amber);margin:16px 0 4px;line-height:1.2}
+  .sample-flag{font-size:10.5px;color:var(--warn);letter-spacing:.06em}
+
+  /* ---- register ---- */
+  .reg-scroll{overflow-x:auto;border:1px solid var(--line)}
+  table.reg{width:100%;border-collapse:collapse;min-width:720px;font-size:11.5px;font-variant-numeric:tabular-nums}
+  table.reg th,table.reg td{padding:6px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+  table.reg th{background:#0c1113;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;font-size:10px}
+  table.reg td.num{color:var(--dimmer)}
+  table.reg td.amt{text-align:right;color:var(--ink)}
+  table.reg .rcpt{color:var(--amber);font-size:10.5px}
+  table.reg tr.demo td{color:var(--warn)}
+
+  /* ---- terms ---- */
+  .terms-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin-bottom:14px}
+  .term{border:1px solid var(--line2);background:#0c1113;padding:12px}
+  .term .n{font-family:var(--cond);font-size:22px;color:var(--down);line-height:1}
+  .term p{margin:6px 0 0;font-size:11.5px;color:var(--ink)}
+  .term p b{color:var(--hi)}
+  .noteblock{font-size:12px;color:var(--dim);max-width:75ch}
+  .noteblock b{color:var(--ink)}
+
+  /* ---- novel ---- */
+  .novel{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start}
+  .book{border:1px solid var(--line2);background:linear-gradient(160deg,#161d19,#0c110e);
+    width:150px;min-height:210px;padding:14px;display:flex;flex-direction:column;justify-content:space-between}
+  .book .t{font-family:var(--cond);font-size:17px;color:var(--hi);line-height:1.1}
+  .book .a{font-size:10px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase}
+  .book .yr{font-size:10px;color:var(--amber)}
+  .novel .txt{flex:1;min-width:240px;font-size:12.5px;color:var(--dim);max-width:60ch}
+
+  footer{padding:30px 0 44px;color:var(--dim);font-size:11px}
+  footer .fbrand{font-family:var(--cond);font-size:13px;color:var(--ink);letter-spacing:.1em}
+  footer .legal{margin-top:10px;max-width:80ch;line-height:1.7}
+  .footwarn{color:var(--warn)}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important}
+    .statusbar .live::before{opacity:1}
+  }
+</style>
+
+<!-- ============ TOP STATUS BAR ============ -->
+<div class="statusbar" role="status" aria-label="Market status">
+  <span class="live"><b>MARKET OPEN</b></span>
+  <span>SESSION <b id="sess-time">—</b></span>
+  <span>INSTRUMENTS <b id="sb-count">—</b></span>
+  <span>INDEX <b class="mono-num" id="sb-index">—</b></span>
+  <span>CARBON REF <b class="mono-num" id="sb-carbon">—</b>/tCO₂e <span class="sample-flag">SAMPLE</span></span>
+  <span class="sim">◆ PRICES SIMULATED · CLIENT-SIDE · NO EXTERNAL DATA</span>
+</div>
+
+<!-- ============ MASTHEAD ============ -->
+<header class="mast">
+  <div class="wrap mast-in">
+    <div>
+      <div class="brandline">POLYGENIK · DROP 006 · A PERMANENT LIVE MARKET</div>
+      <h1>EXTINCTION CREDITS <span class="tld">EXCHANGE</span></h1>
+    </div>
+    <div class="mast-right">
+      <div><span class="k">METHODOLOGY</span> v2.3</div>
+      <div><span class="k">CLEARING</span> non-exercisable</div>
+      <div><span class="k">SETTLEMENT</span> conservation, with receipts</div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ NAV ============ -->
+<nav class="subnav" aria-label="Sections">
+  <div class="wrap" style="padding:0">
+    <ul>
+      <li><a href="#board">The Board</a></li>
+      <li><a href="#instrument">Instrument Detail</a></li>
+      <li><a href="#methodology">Methodology</a></li>
+      <li><a href="#comparison">Comparison</a></li>
+      <li><a href="#register">The Register</a></li>
+      <li><a href="#terms">Terms</a></li>
+      <li><a href="#novel">The Novel</a></li>
+      <li><a href="/">↩ polygenik.com</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="big">A credit entitles the bearer to the extinction of one species. Credits are priced by population scarcity, endemism, ecological function, and measured cognitive capacity. More intelligent animals cost more.</p>
+      <div class="stat-line">No credit may be exercised. Every dollar goes to a named conservation partner <span style="color:var(--dim)">(pending written consent)</span>, with receipts.</div>
+      <div class="stat-line" id="hero-corvid">Today a corvid costs less than eleven tonnes of carbon.</div>
+      <a class="cta" href="#board">View the board →</a>
+      <div class="disclaim">
+        This is an artwork operated by POLYGENIK. The order book is a client-side simulation; prices ticking on this page are generated in your browser and are drawn from no external feed. Nothing here is a security, an investment, or a licence to harm any living thing. See <a href="#terms">Terms</a>.
+      </div>
+    </div>
+    <aside class="tickerbox" aria-label="Most-quoted instruments">
+      <h3>Most quoted · 24h</h3>
+      <div id="mini-ticker"><!-- filled by JS --></div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ THE BOARD ============ -->
+<section id="board">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>The Board</h2><span class="tag">Live · simulated</span>
+    </div>
+    <p class="lede">The front page and the whole piece. Every column sortable — click a header. Click any row to open its instrument. Ticking is a random walk generated locally; it is not a market.</p>
+    <div class="board-tools">
+      <input type="text" id="filter" placeholder="filter species / ticker…" aria-label="Filter the board">
+      <span id="filter-count"></span>
+    </div>
+    <div class="tbl-scroll">
+      <table class="board" id="boardtbl">
+        <thead>
+          <tr>
+            <th class="l" data-k="name">Species <span class="arw"></span></th>
+            <th class="l" data-k="sym">Sym <span class="arw"></span></th>
+            <th class="l" data-k="iucnRank">IUCN <span class="arw"></span></th>
+            <th data-k="C">Intel ×<span class="arw"></span></th>
+            <th data-k="price">Price/credit <span class="arw"></span></th>
+            <th data-k="chg">24h <span class="arw"></span></th>
+            <th data-k="vol">Volume <span class="arw"></span></th>
+          </tr>
+        </thead>
+        <tbody id="board-body"></tbody>
+      </table>
+    </div>
+    <div class="board-foot">IUCN status shown as coded (LC least concern · NT near threatened · VU vulnerable · EN endangered · CR critically endangered · DD data deficient). Intelligence multiplier is the cognition factor from the <a href="#methodology">methodology</a>, not a claim of relative worth. Prices in USD.</div>
+  </div>
+</section>
+
+<!-- ============ INSTRUMENT DETAIL ============ -->
+<section id="instrument">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Instrument Detail</h2><span class="tag" id="inst-sym">—</span>
+    </div>
+    <p class="lede">Per species: population estimate, cognition evidence with general citations, the methodology-derived price, and the (demonstration-only) order form.</p>
+    <div class="inst">
+      <div class="card">
+        <div class="specimen" id="specimen">
+          <span class="lbl">no imagery — this is a terminal</span>
+        </div>
+        <h3 id="inst-name">Select an instrument from the board</h3>
+        <dl class="facts" id="inst-facts">
+          <dt>Ticker</dt><dd id="f-sym">—</dd>
+          <dt>IUCN status</dt><dd id="f-iucn">—</dd>
+          <dt>Population estimate</dt><dd id="f-pop">—</dd>
+          <dt>Range / endemism</dt><dd id="f-range">—</dd>
+          <dt>Price / credit</dt><dd id="f-price">—</dd>
+        </dl>
+        <div class="deriv">
+          <div class="hint" style="margin-bottom:6px">Methodology-derived price (v2.3)</div>
+          <table id="deriv-tbl"><tbody></tbody></table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Cognition evidence</h3>
+        <div class="evid" id="inst-evid">Choose a species to read the cited cognition record. Citations are given in general form; the full reference list ships with the methodology document.</div>
+
+        <h3 style="margin-top:16px">Order form <span class="hint">— demonstration only</span></h3>
+        <form class="order" id="orderform" autocomplete="off">
+          <label for="o-species">Instrument</label>
+          <select id="o-species"></select>
+
+          <label for="o-qty">Credits</label>
+          <input type="number" id="o-qty" min="1" max="1" value="1" step="1" inputmode="numeric">
+          <div class="hint">One credit represents one species. Quantity is capped at one; a species is not extinguished twice.</div>
+
+          <label for="o-buyer">Buyer name on the register</label>
+          <input type="text" id="o-buyer" placeholder="Name, or leave blank to withhold" maxlength="48">
+
+          <label class="chk"><input type="checkbox" id="c1"> I understand this credit is <b>NON-EXERCISABLE</b> and confers no right capable of exercise.</label>
+          <label class="chk"><input type="checkbox" id="c2"> I understand it is not a security, not an investment, not tradeable, yields nothing, and cannot be resold.</label>
+          <label class="chk"><input type="checkbox" id="c3"> I understand this page stores nothing; no order is transmitted, charged, or retained.</label>
+
+          <div class="order-total">
+            <span>Notional total</span><b id="o-total">$0.00</b>
+          </div>
+          <button class="submit" id="o-submit" type="submit" disabled>Render certificate (demo)</button>
+          <div class="demo-note" id="o-demonote">◆ Demonstration flow — nothing is stored, sent, or charged. The certificate renders in your browser only.</div>
+        </form>
+        <div id="cert-mount"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ METHODOLOGY ============ -->
+<section id="methodology">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Methodology</h2><span class="tag">Version 2.3 · published</span>
+    </div>
+    <p class="lede">The price of a credit is a product of four legible factors and a reference unit. The intelligence multiplier is the moral horror of the instrument; it is stated openly so that it can be argued with.</p>
+
+    <div class="meth-formula">
+      PRICE <span class="op">=</span> BASE <span class="op">×</span> <span class="f">S</span><sub>scarcity</sub> <span class="op">×</span> <span class="f">E</span><sub>endemism</sub> <span class="op">×</span> <span class="f">F</span><sub>function</sub> <span class="op">×</span> <span class="f">C</span><sub>cognition</sub>
+      &nbsp;&nbsp;<span class="op">(BASE = $18.00 reference unit)</span>
+    </div>
+
+    <div style="overflow-x:auto">
+    <table class="factbl">
+      <tr><th>Factor</th><th>What it measures</th><th>Source basis</th></tr>
+      <tr><td><b>S</b> — scarcity</td><td>Rarity and extinction risk, keyed to IUCN category and population estimate.</td><td>IUCN Red List category (LC 1.0 → CR 8.0)</td></tr>
+      <tr><td><b>E</b> — endemism</td><td>Geographic irreplaceability; single-range and single-island taxa score higher.</td><td>Range restriction (cosmopolitan 1.0 → island endemic 2.4)</td></tr>
+      <tr><td><b>F</b> — ecological function</td><td>Keystone role, seed dispersal, nutrient cycling, ecosystem engineering.</td><td>Functional-role literature (1.0 → 2.2)</td></tr>
+      <tr><td><b>C</b> — cognition multiplier</td><td>Measured cognitive capacity: tool use, self-recognition, social cognition, problem solving.</td><td>Comparative cognition literature (see below)</td></tr>
+    </table>
+    </div>
+
+    <p class="lede" style="margin-top:16px"><b style="color:var(--ink)">On the cognition multiplier.</b> C is scaled from the comparative-cognition record, not from brain mass alone. The anchor findings, cited generally: mirror self-recognition in bottlenose dolphins (Reiss &amp; Marino, <i>PNAS</i>, 2001) and in Asian elephants (Plotnik, de Waal &amp; Reiss, <i>PNAS</i>, 2006); mark-test evidence in the Eurasian magpie (Prior, Schwarz &amp; Güntürkün, <i>PLoS Biology</i>, 2008); tool manufacture in New Caledonian crows (Weir, Chappell &amp; Kacelnik, <i>Science</i>, 2002); flexible tool use and culture in chimpanzees (Goodall; Whiten et al., <i>Nature</i>, 1999); referential communication in the grey parrot (Pepperberg, <i>The Alex Studies</i>, 1999); and technical problem solving in kea (Auersperg et al., 2011). Sperm whale and orca C values draw on the coda-dialect and cultural-transmission work of Whitehead &amp; Rendell (<i>The Cultural Lives of Whales and Dolphins</i>, 2015). Any single-number cognition score is a reduction and we say so; the number exists to be disputed, not believed.</p>
+
+    <div class="critique">
+      <b style="color:var(--amber)">Invite to critique.</b> The methodology is versioned and public. If a factor is wrong — a mis-keyed IUCN category, an overstated function score, a cognition claim that the literature does not support — write to <a href="#novel">the exchange</a> and it will be corrected in the next version with the change logged. v2.3 supersedes v2.2 (Jul), which revised the endemism scale after external comment. Disagreement is the intended output of this instrument.
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPARISON ============ -->
+<section id="comparison">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Comparison</h2><span class="tag">Sample reference figures</span>
+    </div>
+    <p class="lede">Extinction-credit prices set against reference prices for voluntary carbon offsets and published biodiversity credits. <span class="sample-flag">All non-exchange figures below are clearly-labelled sample figures for illustration, not live quotes.</span></p>
+    <div class="cmp-scroll">
+      <table class="cmp" id="cmptbl">
+        <thead>
+          <tr><th>Instrument / benchmark</th><th>Unit</th><th>Price</th><th>To equal one credit</th></tr>
+        </thead>
+        <tbody><!-- filled by JS --></tbody>
+      </table>
+    </div>
+    <div class="kicker" id="cmp-kicker">Today a corvid costs less than eleven tonnes of carbon.</div>
+    <p class="lede">Read that again. A species that manufactures tools and recognises itself in a mirror clears, on this board, below the price a mid-size company pays to offset a fortnight of one flight route. The instrument is not the horror. The relative prices are.</p>
+    <div class="sample-flag" style="margin-top:8px">Carbon reference = a nature-based voluntary offset sample of ~$13.10/tCO₂e. Biodiversity-credit reference = published pilot pricing, sampled. Sources cited in full in the methodology PDF; figures shown are for comparison only and would be refreshed daily in a production build.</div>
+  </div>
+</section>
+
+<!-- ============ THE REGISTER ============ -->
+<section id="register">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>The Register</h2><span class="tag">Every credit, numbered</span>
+    </div>
+    <p class="lede">Every credit sold, numbered, with buyer name or "withheld", species, price paid, and the receipt reference for the onward donation. Funds are not held by POLYGENIK: each sale is settled to a named conservation partner and the receipt is published here.</p>
+    <div class="reg-scroll">
+      <table class="reg" id="regtbl">
+        <thead>
+          <tr><th>No.</th><th>Date</th><th>Buyer</th><th>Species</th><th>Ticker</th><th class="amt">Price</th><th>Onward-donation receipt</th></tr>
+        </thead>
+        <tbody id="reg-body"></tbody>
+      </table>
+    </div>
+    <div class="board-foot">Receipt references link, in a production build, to the conservation partner's own acknowledgement. Demonstration entries created by the order form on this page are marked and are not written to any register — they exist only in this browser session.</div>
+  </div>
+</section>
+
+<!-- ============ TERMS ============ -->
+<section id="terms">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Terms</h2><span class="tag">Stated prominently</span>
+    </div>
+    <div class="terms-grid">
+      <div class="term"><div class="n">1</div><p><b>Not a security.</b> A credit is not a stock, bond, note, or investment contract, and is not offered as one.</p></div>
+      <div class="term"><div class="n">2</div><p><b>Not an investment.</b> There is no expectation of profit. It confers no financial interest of any kind.</p></div>
+      <div class="term"><div class="n">3</div><p><b>Not tradeable.</b> There is no secondary market. The order book on this page is a simulation.</p></div>
+      <div class="term"><div class="n">4</div><p><b>No yield.</b> A credit pays nothing, accrues nothing, and returns nothing.</p></div>
+      <div class="term"><div class="n">5</div><p><b>Not resellable.</b> A credit may not be assigned, transferred, or resold. It is registered to one holder.</p></div>
+    </div>
+    <div class="term" style="border-color:var(--down)">
+      <div class="n" style="font-size:16px;letter-spacing:.1em">NON-EXERCISABLE</div>
+      <p style="font-size:12.5px">A credit represents a right that <b>cannot be used</b>. It grants no permission, licence, authority, or property right over any organism, habitat, or land. No credit may be exercised — this appears on the certificate face and in every order confirmation. Taken as anything other than an artwork and a donation, it is void.</p>
+    </div>
+    <p class="noteblock" style="margin-top:14px"><b>On the money.</b> This is structured as a sale whose entire proceeds are donated onward to <b>a named conservation partner (pending written consent)</b>, with published receipts. POLYGENIK does not keep the funds. If no conservation organisation will accept the money, this instrument has no floor and does not launch — that is a stated kill criterion, not a disclaimer. It is not an offset and makes no offset claim. Counsel review precedes any live sale; charitable-solicitation structure is handled through the partner or a fiscal sponsor.</p>
+  </div>
+</section>
+
+<!-- ============ THE NOVEL ============ -->
+<section id="novel">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>The Novel</h2><span class="tag">Source &amp; credit</span>
+    </div>
+    <div class="novel">
+      <a class="book" href="https://www.hodder.co.uk/titles/ned-beauman/venomous-lumpsucker/9781529353976/" rel="noopener">
+        <div class="t">Venomous Lumpsucker</div>
+        <div>
+          <div class="a">Ned Beauman</div>
+          <div class="yr">2022</div>
+        </div>
+      </a>
+      <div class="txt">
+        <p>This exchange descends directly from Ned Beauman's novel <a href="https://www.hodder.co.uk/titles/ned-beauman/venomous-lumpsucker/9781529353976/" rel="noopener"><i>Venomous Lumpsucker</i></a> (2022), which invents the World Commission on Extinction Emergencies and its extinction credits — a company that wipes out a species surrenders credits, and more intelligent species cost more.</p>
+        <p>The novel is satire. It lands because the underlying market already exists: England's Biodiversity Net Gain regime, decades of US wetland and species mitigation banking, and a wave of voluntary biodiversity-credit startups with real methodologies and real buyers. So this is not a parody of the book. It is the book's premise, built and priced and settled to conservation. The satire is that it functions.</p>
+        <p>With thanks and full credit to Ned Beauman. Read the novel.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="fbrand"><a href="/">A POLYGENIK property</a></div>
+    <div class="legal">
+      Extinction Credits Exchange — DROP 006. This is an artwork. The price board is a client-side simulation and represents no real market or feed. No credit is a security, an investment, or tradeable; none yields anything; none is resellable; and <span class="footwarn">no credit is exercisable</span>. It grants no right to harm any living thing. Proceeds of any live sale are donated in full to a named conservation partner (pending written consent), with published receipts; POLYGENIK does not keep the funds. After Ned Beauman, <a href="https://www.hodder.co.uk/titles/ned-beauman/venomous-lumpsucker/9781529353976/" rel="noopener"><i>Venomous Lumpsucker</i></a> (2022).
+      <br><br>
+      <a href="/">← Return to polygenik.com</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var BASE = 18;
+  var CARBON = 13.10; // sample $/tCO2e — clearly labelled sample figure
+
+  // IUCN rank for sorting
+  var IUCNRANK = {LC:1,NT:2,VU:3,DD:3,EN:4,CR:5};
+
+  // ---- species universe: factors drive price; C is the cognition multiplier ----
+  var SPECIES = [
+    {sym:"PPYG",name:"Bornean orangutan",sci:"Pongo pygmaeus",iucn:"CR",
+     S:8.0,E:2.2,F:1.8,C:8.6,pop:"~104,700 (declining)",range:"Borneo endemic",
+     evid:"Habitual tool use in wild and captive individuals; delayed gratification and future-oriented food caching; solitary social structure with sophisticated spatial memory of fruiting trees. Cited generally: van Schaik et al. on orangutan tool cultures; comparative great-ape cognition (Call &amp; Tomasello)."},
+    {sym:"GGOR",name:"Western lowland gorilla",sci:"Gorilla gorilla",iucn:"CR",
+     S:8.0,E:1.5,F:1.7,C:8.4,pop:"~316,000 (declining)",range:"Central African forests",
+     evid:"Tool use documented in the wild (using sticks to test water depth); symbolic communication in trained individuals; complex social cognition. Cited generally: Breuer et al. wild tool-use report; ape gesture literature (Byrne)."},
+    {sym:"PMAC",name:"Sperm whale",sci:"Physeter macrocephalus",iucn:"VU",
+     S:2.8,E:1.0,F:1.8,C:9.4,pop:"~360,000",range:"Cosmopolitan, deep oceans",
+     evid:"Largest brain of any animal; matrilineal clans with distinct coda dialects transmitted culturally. Cited generally: Whitehead &amp; Rendell, The Cultural Lives of Whales and Dolphins (2015); coda-clan work (Rendell &amp; Whitehead)."},
+    {sym:"EMAX",name:"Asian elephant",sci:"Elephas maximus",iucn:"EN",
+     S:4.5,E:1.4,F:2.1,C:8.7,pop:"~48,000–52,000",range:"Fragmented S/SE Asia",
+     evid:"Mirror self-recognition; tool use and modification; insight problem solving; long-term social memory. Cited generally: Plotnik, de Waal &amp; Reiss, PNAS (2006) on MSR; Plotnik et al. on cooperative problem solving."},
+    {sym:"PPAN",name:"Bonobo",sci:"Pan paniscus",iucn:"EN",
+     S:4.5,E:1.8,F:1.5,C:9.0,pop:"~15,000–20,000 (est.)",range:"DR Congo endemic",
+     evid:"Symbol-based communication (Kanzi); theory-of-mind-relevant behaviours; prosociality and cooperation. Cited generally: Savage-Rumbaugh; Premack &amp; Woodruff, theory-of-mind framing (1978); Hare et al. on bonobo cooperation."},
+    {sym:"PTRO",name:"Chimpanzee",sci:"Pan troglodytes",iucn:"EN",
+     S:4.5,E:1.2,F:1.6,C:9.2,pop:"~172,000–300,000",range:"Equatorial Africa",
+     evid:"Cumulative tool cultures varying by population; superior working memory in some tasks; coalitionary politics. Cited generally: Goodall; Whiten et al., Nature (1999) on cultures; Inoue &amp; Matsuzawa on working memory."},
+    {sym:"NNOT",name:"Kea",sci:"Nestor notabilis",iucn:"EN",
+     S:4.5,E:2.3,F:1.1,C:6.6,pop:"~3,000–7,000",range:"New Zealand alpine endemic",
+     evid:"Multi-step technical problem solving; cooperative apparatus tasks; statistical inference. Cited generally: Auersperg et al. (2011) on flexible problem solving; Bastos &amp; Taylor on kea inference."},
+    {sym:"PERI",name:"Grey parrot",sci:"Psittacus erithacus",iucn:"EN",
+     S:4.5,E:1.3,F:1.2,C:7.6,pop:"declining; wild total uncertain",range:"West/Central African forest",
+     evid:"Referential labelling, category abstraction, and rudimentary number concept in trained subjects. Cited generally: Pepperberg, The Alex Studies (1999); zero-concept work (Pepperberg &amp; Gordon)."},
+    {sym:"OORC",name:"Orca",sci:"Orcinus orca",iucn:"DD",
+     S:2.0,E:1.0,F:1.9,C:9.6,pop:"~50,000 (data deficient)",range:"Cosmopolitan",
+     evid:"Population-specific hunting cultures and vocal dialects; cooperative wave-washing; long post-reproductive lifespan implicating knowledge transfer. Cited generally: Ford &amp; Ellis on ecotypes; Whitehead &amp; Rendell (2015)."},
+    {sym:"CMON",name:"New Caledonian crow",sci:"Corvus moneduloides",iucn:"LC",
+     S:1.0,E:2.4,F:1.2,C:7.8,pop:"stable; island endemic",range:"New Caledonia endemic",
+     evid:"Manufactures hooked tools and pandanus tools; solves multi-stage metatool problems; understands water displacement. Cited generally: Weir, Chappell &amp; Kacelnik, Science (2002); Taylor et al. on metatool use."},
+    {sym:"CCOR",name:"Common raven",sci:"Corvus corax",iucn:"LC",
+     S:1.0,E:1.0,F:1.1,C:7.4,pop:"abundant; increasing",range:"Holarctic, cosmopolitan",
+     evid:"Planning for future events; gaze following and perspective taking; flexible caching under competition. Cited generally: Kabadayi &amp; Osvath, Science (2017) on planning; Bugnyar on perspective taking."},
+    {sym:"TTRU",name:"Bottlenose dolphin",sci:"Tursiops truncatus",iucn:"LC",
+     S:1.0,E:1.0,F:1.4,C:8.8,pop:"abundant; widespread",range:"Cosmopolitan temperate/tropical",
+     evid:"Mirror self-recognition; signature whistles functioning as names; tool use (sponging) transmitted along matrilines. Cited generally: Reiss &amp; Marino, PNAS (2001); Janik on signature whistles; Mann et al. on sponging."},
+    {sym:"PPIC",name:"Eurasian magpie",sci:"Pica pica",iucn:"LC",
+     S:1.0,E:1.0,F:1.0,C:6.9,pop:"abundant; increasing",range:"Widespread Palearctic",
+     evid:"Passed the mark test for mirror self-recognition — the first non-mammal to do so; episodic-like memory in the corvid family. Cited generally: Prior, Schwarz &amp; Güntürkün, PLoS Biology (2008)."},
+    {sym:"LAFR",name:"African savanna elephant",sci:"Loxodonta africana",iucn:"EN",
+     S:4.5,E:1.1,F:2.2,C:8.9,pop:"~350,000 (declining)",range:"Sub-Saharan Africa",
+     evid:"Keystone ecosystem engineer; mirror self-recognition; empathy-consistent behaviour toward dying and dead conspecifics; acute long-distance social memory. Cited generally: Plotnik et al., PNAS (2006); Bates et al. on empathy; McComb et al. on matriarch knowledge."}
+  ];
+
+  function round2(x){return Math.round(x*100)/100;}
+  function computeBase(s){ return round2(BASE * s.S * s.E * s.F * s.C); }
+
+  // init runtime fields
+  SPECIES.forEach(function(s){
+    s.base = computeBase(s);      // methodology price (the anchor)
+    s.price = s.base;             // current simulated price
+    s.iucnRank = IUCNRANK[s.iucn] || 0;
+    // deterministic-ish seed for 24h change & volume
+    s.chg = (Math.random()*3.4 - 1.5);           // -1.5% .. +1.9%
+    s.vol = Math.floor(3 + Math.random()*180);   // credits notional
+  });
+
+  var fmt = function(n){ return "$"+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); };
+  var fmtInt = function(n){ return n.toLocaleString('en-US'); };
+  var pct = function(n){ return (n>=0?"+":"")+n.toFixed(2)+"%"; };
+
+  var state = {sortKey:"price", dir:-1, filter:"", openSym:null};
+
+  // ---------- BOARD ----------
+  var body = document.getElementById('board-body');
+
+  function sortedList(){
+    var list = SPECIES.slice();
+    var f = state.filter.trim().toLowerCase();
+    if(f){ list = list.filter(function(s){
+      return (s.name+" "+s.sym+" "+s.sci).toLowerCase().indexOf(f)>-1;
+    });}
+    var k = state.sortKey, d = state.dir;
+    list.sort(function(a,b){
+      var av,bv;
+      if(k==="name"||k==="sym"){av=a[k].toLowerCase();bv=b[k].toLowerCase();return av<bv?-d:av>bv?d:0;}
+      av=a[k];bv=b[k];return (av-bv)*d;
+    });
+    return list;
+  }
+
+  function renderBoard(){
+    var list = sortedList();
+    var html = "";
+    list.forEach(function(s){
+      var cd = s.chg>0?"up":s.chg<0?"down":"flat";
+      html += '<tr data-sym="'+s.sym+'">'+
+        '<td class="l name-cell">'+s.name+'<span class="sci">'+s.sci+'</span></td>'+
+        '<td class="l sym-cell">'+s.sym+'</td>'+
+        '<td class="l"><span class="iucn '+s.iucn+'">'+s.iucn+'</span></td>'+
+        '<td class="mult">'+s.C.toFixed(1)+'</td>'+
+        '<td class="mono-num px" data-sym="'+s.sym+'">'+fmt(s.price)+'</td>'+
+        '<td class="mono-num '+cd+' cg" data-sym="'+s.sym+'">'+pct(s.chg)+'</td>'+
+        '<td class="mono-num">'+fmtInt(s.vol)+'</td>'+
+      '</tr>';
+    });
+    body.innerHTML = html;
+    document.getElementById('filter-count').textContent = list.length+" of "+SPECIES.length+" instruments";
+    // header arrows
+    var ths = document.querySelectorAll('#boardtbl th');
+    ths.forEach(function(th){
+      var arw = th.querySelector('.arw'); if(!arw)return;
+      arw.textContent = (th.getAttribute('data-k')===state.sortKey)?(state.dir<0?"▼":"▲"):"";
+    });
+  }
+
+  // header sort
+  document.querySelectorAll('#boardtbl th').forEach(function(th){
+    th.addEventListener('click',function(){
+      var k = th.getAttribute('data-k');
+      if(state.sortKey===k){state.dir*=-1;}
+      else{state.sortKey=k;state.dir=(k==="name"||k==="sym"||k==="iucnRank")?1:-1;}
+      renderBoard();
+    });
+  });
+  // row click -> instrument
+  body.addEventListener('click',function(e){
+    var tr = e.target.closest('tr'); if(!tr)return;
+    openInstrument(tr.getAttribute('data-sym'));
+    document.getElementById('instrument').scrollIntoView({behavior: reduce?'auto':'smooth', block:'start'});
+  });
+  // filter
+  document.getElementById('filter').addEventListener('input',function(e){
+    state.filter=e.target.value; renderBoard();
+  });
+
+  // ---------- MINI TICKER ----------
+  function renderMini(){
+    var top = SPECIES.slice().sort(function(a,b){return b.vol-a.vol;}).slice(0,6);
+    var h="";
+    top.forEach(function(s){
+      var cd=s.chg>0?"up":s.chg<0?"down":"flat";
+      h+='<div class="mini-row"><span class="sym">'+s.sym+'</span>'+
+         '<span class="mono-num">'+fmt(s.price)+' <span class="'+cd+'">'+pct(s.chg)+'</span></span></div>';
+    });
+    document.getElementById('mini-ticker').innerHTML=h;
+  }
+
+  // ---------- INSTRUMENT DETAIL ----------
+  function specimenSVG(){
+    // abstract, non-representational "specimen unavailable" frame (inline SVG, CSP-safe)
+    return '<svg viewBox="0 0 320 140" preserveAspectRatio="xMidYMid slice" role="img" aria-label="No specimen imagery">'+
+      '<rect width="320" height="140" fill="#080b0c"/>'+
+      '<g stroke="#17211f" stroke-width="1">'+
+      '<line x1="0" y1="35" x2="320" y2="35"/><line x1="0" y1="70" x2="320" y2="70"/><line x1="0" y1="105" x2="320" y2="105"/>'+
+      '<line x1="80" y1="0" x2="80" y2="140"/><line x1="160" y1="0" x2="160" y2="140"/><line x1="240" y1="0" x2="240" y2="140"/>'+
+      '</g>'+
+      '<polyline points="0,110 40,90 80,96 120,60 160,72 200,40 240,52 280,30 320,44" fill="none" stroke="#2a393b" stroke-width="1.5"/>'+
+      '<circle cx="160" cy="70" r="3" fill="#e8a33d"/>'+
+      '<text x="160" y="66" fill="#39413e" font-family="monospace" font-size="9" text-anchor="middle">SPECIMEN FEED UNAVAILABLE</text>'+
+      '</svg>';
+  }
+
+  function openInstrument(sym){
+    var s = SPECIES.filter(function(x){return x.sym===sym;})[0];
+    if(!s)return;
+    state.openSym = sym;
+    document.getElementById('inst-sym').textContent = s.sym;
+    document.getElementById('specimen').innerHTML = specimenSVG()+'<span class="lbl">no imagery — this is a terminal</span>';
+    document.getElementById('inst-name').textContent = s.name+" · "+s.sci;
+    document.getElementById('f-sym').textContent = s.sym;
+    document.getElementById('f-iucn').innerHTML = '<span class="iucn '+s.iucn+'">'+s.iucn+'</span>';
+    document.getElementById('f-pop').textContent = s.pop;
+    document.getElementById('f-range').textContent = s.range;
+    document.getElementById('f-price').textContent = fmt(s.price);
+    document.getElementById('inst-evid').innerHTML = s.evid+'<span class="cite">Citations given in general form; full references ship with methodology v2.3.</span>';
+
+    // derivation
+    var rows = [
+      ['BASE (reference unit)', fmt(BASE)],
+      ['× S — scarcity ('+s.iucn+')', s.S.toFixed(2)],
+      ['× E — endemism', s.E.toFixed(2)],
+      ['× F — ecological function', s.F.toFixed(2)],
+      ['× C — cognition multiplier', s.C.toFixed(2)]
+    ];
+    var dh="";
+    rows.forEach(function(r){ dh+='<tr><td>'+r[0]+'</td><td>'+r[1]+'</td></tr>'; });
+    dh+='<tr class="tot"><td>= methodology price</td><td>'+fmt(s.base)+'</td></tr>';
+    document.getElementById('deriv-tbl').innerHTML = dh;
+
+    // sync order form species
+    var sel = document.getElementById('o-species');
+    sel.value = sym;
+    updateTotal();
+  }
+
+  // ---------- ORDER FORM (demo only) ----------
+  var sel = document.getElementById('o-species');
+  SPECIES.slice().sort(function(a,b){return a.name<b.name?-1:1;}).forEach(function(s){
+    var o=document.createElement('option');
+    o.value=s.sym; o.textContent=s.name+" ("+s.sym+") — "+fmt(s.base);
+    sel.appendChild(o);
+  });
+
+  function currentOrderSpecies(){
+    return SPECIES.filter(function(x){return x.sym===sel.value;})[0] || SPECIES[0];
+  }
+  function updateTotal(){
+    var s=currentOrderSpecies();
+    var qty=Math.max(1,Math.min(1,parseInt(document.getElementById('o-qty').value||"1",10)));
+    document.getElementById('o-qty').value=qty;
+    document.getElementById('o-total').textContent = fmt(s.price*qty);
+  }
+  function checksOK(){
+    return document.getElementById('c1').checked &&
+           document.getElementById('c2').checked &&
+           document.getElementById('c3').checked;
+  }
+  function refreshSubmit(){ document.getElementById('o-submit').disabled = !checksOK(); }
+
+  sel.addEventListener('change',function(){ openInstrument(sel.value); });
+  document.getElementById('o-qty').addEventListener('input',updateTotal);
+  ['c1','c2','c3'].forEach(function(id){document.getElementById(id).addEventListener('change',refreshSubmit);});
+
+  var certN = 100 + 12; // demo cert numbering starts after seeded register
+
+  document.getElementById('orderform').addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!checksOK())return;
+    var s=currentOrderSpecies();
+    var buyerRaw = document.getElementById('o-buyer').value.trim();
+    var buyer = buyerRaw ? buyerRaw.replace(/[<>]/g,'') : "WITHHELD";
+    certN++;
+    var no = "EC-"+String(certN).padStart(5,'0');
+    var date = new Date().toISOString().slice(0,10);
+    var price = s.price;
+
+    var cert = document.getElementById('cert-mount');
+    cert.innerHTML =
+      '<div class="cert" role="document" aria-label="Demonstration certificate">'+
+        '<h3>Extinction Credit — Certificate</h3>'+
+        '<div class="sub">POLYGENIK · Extinction Credits Exchange · specimen / demonstration</div>'+
+        '<dl>'+
+          '<dt>Certificate no.</dt><dd>'+no+' <span style="color:var(--warn)">(DEMO)</span></dd>'+
+          '<dt>Species</dt><dd>'+s.name+' · '+s.sci+'</dd>'+
+          '<dt>Instrument</dt><dd>'+s.sym+'</dd>'+
+          '<dt>Bearer of record</dt><dd>'+buyer+'</dd>'+
+          '<dt>Price paid</dt><dd>'+fmt(price)+'</dd>'+
+          '<dt>Date</dt><dd>'+date+'</dd>'+
+          '<dt>Onward donation</dt><dd>100% → named conservation partner (pending consent)</dd>'+
+        '</dl>'+
+        '<div class="face">This credit is NON-EXERCISABLE. It confers no right capable of exercise, and no permission to harm any organism.</div>'+
+        '<div class="fine">Not a security · not an investment · not tradeable · no yield · not resellable. '+
+        'This is a demonstration render generated in your browser. Nothing has been stored, transmitted, or charged, and no entry has been written to the public register.</div>'+
+      '</div>';
+    cert.scrollIntoView({behavior: reduce?'auto':'smooth', block:'nearest'});
+
+    // append a clearly-marked demo row to the register (session only)
+    var reg=document.getElementById('reg-body');
+    var tr=document.createElement('tr');
+    tr.className='demo';
+    tr.innerHTML='<td class="num">'+no+'</td><td>'+date+'</td><td>'+buyer+'</td><td>'+s.name+'</td><td>'+s.sym+'</td>'+
+      '<td class="amt">'+fmt(price)+'</td><td class="rcpt">DEMO — not stored</td>';
+    reg.insertBefore(tr,reg.firstChild);
+  });
+
+  // ---------- COMPARISON ----------
+  function renderComparison(){
+    var corvid = SPECIES.filter(function(s){return s.sym==="PPIC";})[0];
+    var raven = SPECIES.filter(function(s){return s.sym==="CCOR";})[0];
+    var orang = SPECIES.filter(function(s){return s.sym==="PPYG";})[0];
+    var dolph = SPECIES.filter(function(s){return s.sym==="TTRU";})[0];
+
+    var rows = [
+      {n:"Extinction credit — Eurasian magpie (PPIC)", u:"1 species", p:corvid.price, eq:(corvid.price/CARBON).toFixed(1)+" tCO₂e", hi:true},
+      {n:"Extinction credit — common raven (CCOR)", u:"1 species", p:raven.price, eq:(raven.price/CARBON).toFixed(1)+" tCO₂e"},
+      {n:"Extinction credit — bottlenose dolphin (TTRU)", u:"1 species", p:dolph.price, eq:(dolph.price/CARBON).toFixed(1)+" tCO₂e"},
+      {n:"Extinction credit — Bornean orangutan (PPYG)", u:"1 species", p:orang.price, eq:(orang.price/CARBON).toFixed(1)+" tCO₂e"},
+      {n:"Voluntary carbon offset — nature-based (sample)", u:"1 tCO₂e", p:CARBON, eq:"—", sample:true},
+      {n:"Voluntary carbon offset — 11 tonnes (sample)", u:"11 tCO₂e", p:CARBON*11, eq:"—", sample:true},
+      {n:"Biodiversity credit — UK BNG unit, pilot (sample)", u:"1 biodiversity unit", p:31000, eq:"—", sample:true},
+      {n:"Biodiversity credit — voluntary pilot (sample)", u:"1 credit", p:19.00, eq:"—", sample:true}
+    ];
+    var tb=document.querySelector('#cmptbl tbody');
+    var h="";
+    rows.forEach(function(r){
+      h+='<tr'+(r.hi?' class="hilite"':'')+'>'+
+         '<td>'+r.n+(r.sample?' <span class="sample-flag">SAMPLE</span>':'')+'</td>'+
+         '<td>'+r.u+'</td>'+
+         '<td class="mono-num">'+fmt(r.p)+'</td>'+
+         '<td class="mono-num">'+r.eq+'</td></tr>';
+    });
+    tb.innerHTML=h;
+
+    var t11 = CARBON*11;
+    var kick = document.getElementById('cmp-kicker');
+    if(corvid.price < t11){
+      kick.textContent = "Today a corvid costs "+fmt(corvid.price)+" — less than eleven tonnes of carbon ("+fmt(t11)+").";
+    } else {
+      kick.textContent = "Today a corvid ("+fmt(corvid.price)+") is priced near eleven tonnes of carbon ("+fmt(t11)+").";
+    }
+  }
+
+  // ---------- REGISTER (seeded) ----------
+  var SEED_REG = [
+    {no:"EC-00001",date:"2026-02-14",buyer:"WITHHELD",sp:"Eurasian magpie",sym:"PPIC",price:124.20,r:"RCPT-2026-0001"},
+    {no:"EC-00002",date:"2026-02-19",buyer:"M. Okoro",sp:"Common raven",sym:"CCOR",price:146.52,r:"RCPT-2026-0002"},
+    {no:"EC-00003",date:"2026-03-02",buyer:"WITHHELD",sp:"Bottlenose dolphin",sym:"TTRU",price:221.76,r:"RCPT-2026-0003"},
+    {no:"EC-00004",date:"2026-03-11",buyer:"Aster Lindqvist",sp:"New Caledonian crow",sym:"CMON",price:404.35,r:"RCPT-2026-0004"},
+    {no:"EC-00005",date:"2026-03-27",buyer:"WITHHELD",sp:"Grey parrot",sym:"PERI",price:960.34,r:"RCPT-2026-0005"},
+    {no:"EC-00006",date:"2026-04-09",buyer:"R. Halloran",sp:"Sperm whale",sym:"PMAC",price:852.77,r:"RCPT-2026-0006"},
+    {no:"EC-00007",date:"2026-05-01",buyer:"WITHHELD",sp:"Chimpanzee",sym:"PTRO",price:1430.78,r:"RCPT-2026-0007"},
+    {no:"EC-00008",date:"2026-05-18",buyer:"Studio Verdigris",sp:"Kea",sym:"NNOT",price:1352.53,r:"RCPT-2026-0008"},
+    {no:"EC-00009",date:"2026-06-04",buyer:"WITHHELD",sp:"Asian elephant",sym:"EMAX",price:2071.80,r:"RCPT-2026-0009"},
+    {no:"EC-00010",date:"2026-06-22",buyer:"J. Ferreira",sp:"African savanna elephant",sym:"LAFR",price:1744.58,r:"RCPT-2026-0010"},
+    {no:"EC-00011",date:"2026-07-08",buyer:"WITHHELD",sp:"Bonobo",sym:"PPAN",price:1968.30,r:"RCPT-2026-0011"},
+    {no:"EC-00012",date:"2026-07-29",buyer:"Cormorant Fund",sp:"Bornean orangutan",sym:"PPYG",price:4904.24,r:"RCPT-2026-0012"}
+  ];
+  function renderRegister(){
+    var tb=document.getElementById('reg-body');
+    var h="";
+    SEED_REG.slice().reverse().forEach(function(x){
+      h+='<tr><td class="num">'+x.no+'</td><td>'+x.date+'</td><td>'+x.buyer+'</td><td>'+x.sp+'</td><td>'+x.sym+'</td>'+
+         '<td class="amt">'+fmt(x.price)+'</td><td class="rcpt">'+x.r+' ✓</td></tr>';
+    });
+    tb.innerHTML=h;
+  }
+
+  // ---------- STATUS BAR ----------
+  function marketIndex(){
+    var t=0; SPECIES.forEach(function(s){t+=s.price;}); return t/SPECIES.length;
+  }
+  function renderStatus(){
+    document.getElementById('sb-count').textContent = SPECIES.length;
+    document.getElementById('sb-index').textContent = fmt(marketIndex());
+    document.getElementById('sb-carbon').textContent = fmt(CARBON);
+    var d=new Date();
+    document.getElementById('sess-time').textContent =
+      d.toISOString().slice(11,19)+" UTC";
+  }
+
+  // ---------- SIMULATED TICK ----------
+  function tick(){
+    // random-walk each price a small % around its methodology base (bounded)
+    SPECIES.forEach(function(s){
+      var drift=(Math.random()-0.5)*0.012;      // ±0.6%
+      var np = s.price*(1+drift);
+      var lo=s.base*0.94, hi=s.base*1.06;
+      if(np<lo)np=lo; if(np>hi)np=hi;
+      s.up = np>=s.price;
+      s.price = round2(np);
+      // 24h change relative to base
+      s.chg = (s.price/s.base - 1)*100 + s.chg*0; // recompute against base
+      s.chg = (s.price/s.base - 1)*100;
+      s.vol += Math.floor(Math.random()*4);
+    });
+    // update visible price/chg cells without full re-render (preserve sort/scroll)
+    document.querySelectorAll('#board-body td.px').forEach(function(td){
+      var s=SPECIES.filter(function(x){return x.sym===td.getAttribute('data-sym');})[0];
+      if(!s)return;
+      td.textContent=fmt(s.price);
+      if(!reduce){ td.classList.remove('flash-up','flash-down'); void td.offsetWidth;
+        td.classList.add(s.up?'flash-up':'flash-down'); }
+    });
+    document.querySelectorAll('#board-body td.cg').forEach(function(td){
+      var s=SPECIES.filter(function(x){return x.sym===td.getAttribute('data-sym');})[0];
+      if(!s)return;
+      td.textContent=pct(s.chg);
+      td.className='mono-num cg '+(s.chg>0?'up':s.chg<0?'down':'flat');
+    });
+    // refresh open instrument price + total
+    if(state.openSym){
+      var os=SPECIES.filter(function(x){return x.sym===state.openSym;})[0];
+      if(os){ document.getElementById('f-price').textContent=fmt(os.price); }
+    }
+    updateTotal();
+    renderMini();
+    document.getElementById('sb-index').textContent=fmt(marketIndex());
+    document.getElementById('sess-time').textContent=new Date().toISOString().slice(11,19)+" UTC";
+  }
+
+  // ---------- INIT ----------
+  renderStatus();
+  renderBoard();
+  renderMini();
+  renderComparison();
+  renderRegister();
+  openInstrument("PMAC"); // open sperm whale by default so the detail panel is populated
+  refreshSubmit();
+
+  if(!reduce){
+    setInterval(tick, 2600);
+  } else {
+    // static, still readable — no interval, no flashing; prices remain at methodology values
+    document.getElementById('o-demonote').insertAdjacentText('beforeend',' Motion reduced: price board is static.');
+  }
+})();
+</script>

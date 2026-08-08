@@ -1,0 +1,754 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>This Enzyme Does Not Exist — A POLYGENIK property</title>
+<meta name="description" content="Infinite generated enzymes. None of them real. All of them beautiful. Downloadable as PDB. A free web toy in collaboration with Binomica Labs.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="This Enzyme Does Not Exist">
+<meta property="og:description" content="Infinite generated enzymes. None of them real. All of them beautiful. Downloadable. In collaboration with Binomica Labs.">
+<meta property="og:url" content="https://thisenzymedoesnotexist.com/">
+<meta property="og:site_name" content="POLYGENIK">
+<meta name="theme-color" content="#0d0f10">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#14171a;
+    --paper:#f4f3ef;
+    --paper-2:#eceae4;
+    --line:#c9c6bd;
+    --line-soft:#dcd9d1;
+    --muted:#6a6b66;
+    --accent:#2f6f6a;
+    --stage:#0c0e0f;
+    --stage-2:#141719;
+    --stage-ink:#e7e6e1;
+    --stage-muted:#8b908f;
+    --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+    --sans:"IBM Plex Sans", system-ui, -apple-system, sans-serif;
+    --serif:"Newsreader", Georgia, serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+  h1,h2,h3{font-weight:600;letter-spacing:-0.01em}
+  .mono{font-family:var(--mono)}
+
+  /* ---------- Masthead ---------- */
+  .mast{
+    display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+    padding:14px clamp(16px,4vw,40px);
+    border-bottom:1px solid var(--line);
+    font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:0.14em;
+    background:var(--paper);
+    flex-wrap:wrap;
+  }
+  .mast a{color:var(--muted);text-decoration:none}
+  .mast .brand{color:var(--ink);font-weight:600}
+  .mast a:hover{color:var(--accent)}
+
+  /* ---------- Stage / Specimen ---------- */
+  .stage{
+    position:relative;
+    background:var(--stage);
+    color:var(--stage-ink);
+    min-height:min(86vh,760px);
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    overflow:hidden;
+  }
+  @media (max-width:860px){ .stage{grid-template-columns:1fr;grid-template-rows:minmax(360px,52vh) auto} }
+  .viewer{position:relative}
+  #specimen{display:block;width:100%;height:100%}
+  .stage-grain{
+    position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(120% 90% at 30% 20%, rgba(60,120,116,0.14), transparent 60%),
+      radial-gradient(100% 80% at 80% 90%, rgba(40,60,80,0.16), transparent 55%);
+    mix-blend-mode:screen;
+  }
+  .stamp{
+    position:absolute;top:16px;left:18px;
+    font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
+    color:var(--stage-muted);
+  }
+  .stamp b{color:var(--stage-ink);font-weight:600}
+
+  .panel{
+    padding:clamp(22px,3vw,40px);
+    border-left:1px solid rgba(255,255,255,0.08);
+    display:flex;flex-direction:column;justify-content:center;
+    background:linear-gradient(180deg,var(--stage-2),var(--stage));
+  }
+  @media (max-width:860px){ .panel{border-left:none;border-top:1px solid rgba(255,255,255,0.08)} }
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--stage-muted);margin:0 0 14px}
+  .enz-name{
+    font-family:var(--serif);
+    font-size:clamp(26px,3.4vw,40px);
+    line-height:1.08;
+    margin:0 0 4px;
+    letter-spacing:-0.015em;
+  }
+  .enz-ec{font-family:var(--mono);font-size:13px;color:var(--accent);letter-spacing:0.04em;margin:0 0 20px}
+  .facts{list-style:none;margin:0 0 22px;padding:0;border-top:1px solid rgba(255,255,255,0.09)}
+  .facts li{display:grid;grid-template-columns:132px 1fr;gap:12px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.07);font-size:14px}
+  .facts .k{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--stage-muted);padding-top:2px}
+  .facts .v{color:var(--stage-ink)}
+  .facts .v em{font-style:italic;font-family:var(--serif)}
+  .fn{font-family:var(--serif);font-size:16px;line-height:1.5;color:var(--stage-ink);margin:0 0 24px}
+  .author-line{font-family:var(--mono);font-size:11px;letter-spacing:0.06em;color:var(--stage-muted);margin:-10px 0 22px}
+  .author-line b{color:var(--accent);font-weight:500}
+
+  .controls{display:flex;flex-wrap:wrap;gap:10px}
+  button{font-family:var(--mono);cursor:pointer}
+  .btn{
+    appearance:none;border:1px solid rgba(255,255,255,0.25);
+    background:transparent;color:var(--stage-ink);
+    padding:12px 18px;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;
+    border-radius:2px;transition:background .15s,border-color .15s,color .15s;
+  }
+  .btn:hover{background:var(--stage-ink);color:var(--stage);border-color:var(--stage-ink)}
+  .btn.primary{border-color:var(--accent);background:var(--accent);color:#f4f3ef}
+  .btn.primary:hover{background:#3a827b;border-color:#3a827b}
+  .btn.ghost:hover{background:rgba(255,255,255,0.1);color:var(--stage-ink)}
+  .dl-links{margin-top:12px;font-family:var(--mono);font-size:11px;color:var(--stage-muted);letter-spacing:0.06em}
+  .dl-links a{color:var(--stage-muted);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+  .dl-links a:hover{color:var(--accent)}
+
+  /* ---------- Generic sections ---------- */
+  section.doc{padding:clamp(40px,6vw,84px) clamp(16px,5vw,40px);border-bottom:1px solid var(--line)}
+  .wrap{max-width:1080px;margin:0 auto}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:28px;border-bottom:1px solid var(--line);padding-bottom:12px}
+  .sec-num{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:0.1em}
+  .sec-head h2{font-size:clamp(20px,2.6vw,30px);margin:0}
+  .lede{font-family:var(--serif);font-size:clamp(17px,2vw,20px);line-height:1.5;max-width:64ch;color:#33352f}
+  .prose{max-width:66ch}
+  .prose p{margin:0 0 16px}
+  .prose p:last-child{margin-bottom:0}
+
+  /* ---------- Catalogue ---------- */
+  .cat-bar{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+  .cat-count{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:0.1em}
+  #catalogue{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1px;
+    background:var(--line-soft);border:1px solid var(--line-soft);
+  }
+  .cat-cell{
+    background:var(--paper);padding:14px 15px;cursor:pointer;
+    transition:background .12s;display:flex;flex-direction:column;gap:6px;min-height:120px;
+  }
+  .cat-cell:hover{background:#fff}
+  .cat-cell.active{background:var(--stage);color:var(--stage-ink)}
+  .cat-cell.active .cc-no,.cat-cell.active .cc-org{color:var(--stage-muted)}
+  .cat-cell.active .cc-ec{color:#7fd0c8}
+  .cc-no{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:0.08em}
+  .cc-name{font-family:var(--serif);font-size:15.5px;line-height:1.2}
+  .cc-ec{font-family:var(--mono);font-size:11px;color:var(--accent)}
+  .cc-org{font-size:12px;color:var(--muted);font-style:italic;margin-top:auto}
+  .cc-auth{font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:0.04em}
+  .cat-empty{padding:24px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+  /* ---------- Adopt ---------- */
+  .adopt-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,48px);align-items:start}
+  @media (max-width:760px){ .adopt-grid{grid-template-columns:1fr} }
+  .card{border:1px solid var(--line);background:#fff;padding:clamp(20px,3vw,30px);border-radius:3px}
+  .price-row{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
+  .tier{
+    flex:1;min-width:120px;border:1px solid var(--line);border-radius:2px;padding:12px;cursor:pointer;
+    text-align:center;transition:border-color .12s,background .12s;background:var(--paper);
+  }
+  .tier:hover{border-color:var(--accent)}
+  .tier.sel{border-color:var(--accent);background:#eef4f3}
+  .tier .amt{font-family:var(--mono);font-size:20px;font-weight:600}
+  .tier .lab{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:4px}
+  label.fl{display:block;font-family:var(--mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin:16px 0 6px}
+  input[type=text]{
+    width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:2px;
+    font-family:var(--mono);font-size:14px;background:var(--paper);color:var(--ink);
+  }
+  input[type=text]:focus{outline:none;border-color:var(--accent);background:#fff}
+  .adopt-btn{margin-top:18px;width:100%;justify-content:center}
+  .adopt-note{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.5}
+  .receipt{
+    margin-top:16px;border:1px dashed var(--accent);border-radius:2px;padding:14px;
+    font-family:var(--mono);font-size:12px;line-height:1.6;display:none;background:#eef4f3;
+  }
+  .receipt.show{display:block}
+  .adopt-target{font-family:var(--serif);font-size:19px;line-height:1.25}
+  .adopt-target small{display:block;font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:0.06em;margin-top:4px}
+
+  /* ---------- Collab ---------- */
+  .collab{background:var(--paper-2)}
+  .collab .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);align-items:center}
+  @media (max-width:760px){ .collab .wrap{grid-template-columns:1fr} }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding:40px clamp(16px,5vw,40px);
+    background:var(--stage);color:var(--stage-muted);
+    font-family:var(--mono);font-size:12px;letter-spacing:0.06em;
+    display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center;
+  }
+  footer a{color:var(--stage-ink);text-decoration:none}
+  footer a:hover{color:var(--accent)}
+  .disclaim{max-width:52ch;line-height:1.6}
+
+  .note{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:0.04em}
+  .pill{display:inline-block;border:1px solid var(--line);border-radius:100px;padding:2px 10px;font-family:var(--mono);font-size:11px;letter-spacing:0.08em;color:var(--muted)}
+</style>
+
+<header class="mast">
+  <a href="/" class="brand">POLYGENIK</a>
+  <nav>
+    <a href="#specimen-sec">Specimen</a> ·
+    <a href="#catalogue-sec">Catalogue</a> ·
+    <a href="#about-sec">What this is</a> ·
+    <a href="#adopt-sec">Adopt</a>
+  </nav>
+  <a href="/">&larr; Return to polygenik.com</a>
+</header>
+
+<!-- ===================== THE SPECIMEN ===================== -->
+<div class="stage" id="specimen-sec">
+  <div class="viewer">
+    <canvas id="specimen" aria-label="Rotating procedurally generated protein structure"></canvas>
+    <div class="stage-grain" aria-hidden="true"></div>
+    <div class="stamp">THIS ENZYME DOES NOT EXIST · <b id="stampNo">SPECIMEN No. 000001</b></div>
+  </div>
+  <div class="panel">
+    <p class="kicker">Automated Structure Description Engine</p>
+    <h1 class="enz-name" id="enzName">—</h1>
+    <p class="enz-ec mono" id="enzEc">EC —</p>
+    <ul class="facts">
+      <li><span class="k">Source organism</span><span class="v"><em id="enzOrg">—</em></span></li>
+      <li><span class="k">Substrate</span><span class="v" id="enzSub">—</span></li>
+      <li><span class="k">Predicted mass</span><span class="v" id="enzMass">—</span></li>
+      <li><span class="k">Residues</span><span class="v" id="enzLen">—</span></li>
+      <li><span class="k">Optimal regime</span><span class="v" id="enzRegime">—</span></li>
+    </ul>
+    <p class="fn" id="enzFn">—</p>
+    <p class="author-line">Described by <b id="enzAuthor">the Polygenik Automated Description Engine</b></p>
+    <div class="controls">
+      <button class="btn primary" id="btnNext">Next &rarr;</button>
+      <button class="btn" id="btnDownload">Download</button>
+      <button class="btn ghost" id="btnName">Name one</button>
+    </div>
+    <div class="dl-links">
+      Download yields <a id="dlPdb">specimen.pdb</a> &nbsp;·&nbsp; <a id="dlCard">data card (.txt)</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== CATALOGUE ===================== -->
+<section class="doc" id="catalogue-sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2>The Catalogue</h2>
+    </div>
+    <div class="cat-bar">
+      <p class="lede" style="margin:0">Every specimen you have looked at, numbered and retained. Nothing here was ever in a freezer.</p>
+      <span class="cat-count mono" id="catCount">0 specimens catalogued this session</span>
+    </div>
+    <div id="catalogue"><div class="cat-empty">Press <b>Next</b> to begin cataloguing.</div></div>
+  </div>
+</section>
+
+<!-- ===================== WHAT THIS IS ===================== -->
+<section class="doc" id="about-sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2>What this is</h2>
+    </div>
+    <div class="prose">
+      <p class="lede" style="margin-bottom:20px">None of these enzymes are real. Not one has ever been expressed, crystallised, assayed, or observed. There is no organism they came from, because those organisms do not exist either.</p>
+      <p><b>How they are generated.</b> Everything you see is produced in your browser, procedurally, from a single number. A seeded pseudo-random sequence assembles a plausible backbone out of helices, strands and loops; the same sequence names the enzyme in a binomial-adjacent style, invents an Enzyme Commission number, fabricates a source organism, assigns a substrate, writes a one-sentence function, and predicts a mass. The rotating figure is a cartoon of that backbone. The downloadable <span class="pill">.pdb</span> file contains the very same coordinates, formatted to look like a deposited structure. It will open in real structural-biology software. It describes nothing.</p>
+      <p><b>What that says about structure prediction.</b> Generative structure prediction has turned protein folds into an aesthetic commodity — ribbon diagrams as wallpaper, model outputs as desktop backgrounds. After a few minutes of scrolling gorgeous, plausible enzymes that will never exist, the point arrives on its own: a great deal of generated biology is now visually indistinguishable from catalogued biology, and a database of predicted structures is a catalogue of confident guesses, not a catalogue of things that are known to be true. A predicted structure is a hypothesis wearing the clothes of a measurement.</p>
+      <p><b>Where we drew the line.</b> This piece stays firmly on the enzyme side — metabolic enzymes, structural proteins, luciferases, extremophile oddities. No toxins, no virulence factors, nothing pathogen-shaped, and no sequence-level design guidance of any kind. The beauty here is in catalysis and folding, not in threat, and that is both the responsible line and the better-looking one.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== COLLABORATION ===================== -->
+<section class="doc collab">
+  <div class="wrap">
+    <div>
+      <div class="sec-head" style="border-color:var(--line)">
+        <span class="sec-num">—</span>
+        <h2>In collaboration with Binomica Labs</h2>
+      </div>
+      <div class="prose">
+        <p>This toy is the descendant of the <b>Infinite Discovery Machine</b>, which Sebastian Cocioba has been building for years at Binomica Labs. That project is the direct ancestor of everything on this page.</p>
+        <p>We do not homage it; we co-author it. The collaboration is what lets the generated structures be <em>plausible</em> rather than merely decorative — which is the whole difference between a novelty and a provocation.</p>
+      </div>
+    </div>
+    <div class="card">
+      <p class="note" style="margin-top:0">CREDIT LINE</p>
+      <p class="adopt-target" style="font-family:var(--serif);font-size:20px;line-height:1.3">This Enzyme Does Not Exist<br><small style="font-style:normal">A POLYGENIK property, in collaboration with Binomica Labs.<br>After Sebastian Cocioba&rsquo;s Infinite Discovery Machine.</small></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ADOPT ===================== -->
+<section class="doc" id="adopt-sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2>Adopt an enzyme</h2>
+    </div>
+    <p class="lede" style="margin-bottom:26px">Pay to name one. Your name enters the catalogue as its describing author, in correct binomial-adjacent style — permanently, for a given value of permanently. Cheap, silly, and infinitely saleable.</p>
+    <div class="adopt-grid">
+      <div class="card">
+        <p class="note" style="margin-top:0">NOW ADOPTING</p>
+        <p class="adopt-target" id="adoptTarget">—<small id="adoptTargetMeta">select a specimen above</small></p>
+        <div class="price-row" id="tiers">
+          <div class="tier" data-price="4"><div class="amt mono">$4</div><div class="lab">Describe</div></div>
+          <div class="tier sel" data-price="12"><div class="amt mono">$12</div><div class="lab">Describe &amp; frame</div></div>
+          <div class="tier" data-price="40"><div class="amt mono">$40</div><div class="lab">Patron</div></div>
+        </div>
+        <label class="fl" for="authorName">Describing author</label>
+        <input type="text" id="authorName" placeholder="e.g. J. R. Mercer" autocomplete="off" maxlength="40">
+        <button class="btn primary adopt-btn" id="btnAdopt">Adopt this enzyme</button>
+        <p class="adopt-note">This is a playful, local-only feature. No payment is taken, nothing is sent anywhere, and nothing is stored on any server. Your adoption lives in this browser only. The &ldquo;price&rdquo; is a prop.</p>
+        <div class="receipt" id="receipt"></div>
+      </div>
+      <div class="prose">
+        <p><b>What you get.</b> The specimen currently in the viewer is re-attributed to you. The description line beneath the structure, and its entry in the catalogue, will read &ldquo;Described by <em>your name</em>&rdquo;. You may then download its data card and faux-PDB with your attribution baked in.</p>
+        <p><b>What you do not get.</b> A real enzyme. A real organism. A patent. A publication. Standing of any kind. The enzyme still does not exist; it simply does not exist <em>in your name</em> now.</p>
+        <p class="note">Naming is honorific and non-transferable. Binomial-adjacent styling is applied automatically. No sequence is provided, because there is no sequence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="disclaim">
+    <a href="/">A POLYGENIK property</a> · thisenzymedoesnotexist.com<br>
+    In collaboration with Binomica Labs. After Sebastian Cocioba&rsquo;s Infinite Discovery Machine.
+    Every structure on this page is fabricated. None are real. Generated entirely in your browser; nothing is stored.
+  </div>
+  <div><a href="/">Return to polygenik.com &rarr;</a></div>
+</footer>
+
+<script>
+"use strict";
+(function(){
+  // ---------------- seeded PRNG ----------------
+  function mulberry32(a){
+    return function(){
+      a |= 0; a = a + 0x6D2B79F5 | 0;
+      var t = Math.imul(a ^ a >>> 15, 1 | a);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  var pad = function(n,w){ n = String(n); while(n.length<w) n = "0"+n; return n; };
+  var pick = function(rng,arr){ return arr[Math.floor(rng()*arr.length)]; };
+  var cap = function(s){ return s.charAt(0).toUpperCase()+s.slice(1); };
+
+  // ---------------- vocab (enzyme-side only) ----------------
+  var SUBSTRATES = ["malate","citrate","succinate","glucose","fructose-6-phosphate","glutamate",
+    "aspartate","pyruvate","lactate","glyceraldehyde-3-phosphate","xylose","arabinose","mannose",
+    "trehalose","glycerol","acetate","formate","oxaloacetate","2-oxoglutarate","isocitrate","fumarate",
+    "L-alanine","L-serine","glycine","betaine","ectoine","glutathione","ascorbate","chitobiose",
+    "cellobiose","maltose","galactose","ribose-5-phosphate","phosphoenolpyruvate"];
+  var MOD = ["thermostable","halophilic","psychrophilic","barophilic","alkaline","acidophilic",
+    "NAD(P)-dependent","FAD-linked","Mn(II)-dependent","cold-active","hyperthermostable","membrane-bound",
+    "Zn(II)-dependent","cobalamin-dependent"];
+  var CLASSES = [
+    {n:1, name:"Oxidoreductase", suf:["dehydrogenase","oxidase","reductase","peroxidase","monooxygenase","oxidoreductase"], amax:22},
+    {n:2, name:"Transferase",   suf:["transferase","kinase","transaminase","acyltransferase","glycosyltransferase"], amax:10},
+    {n:3, name:"Hydrolase",     suf:["hydrolase","esterase","phosphatase","glucosidase","amidase","lactonase"], amax:13},
+    {n:4, name:"Lyase",         suf:["lyase","decarboxylase","synthase","aldolase","dehydratase","hydratase"], amax:7},
+    {n:5, name:"Isomerase",     suf:["isomerase","epimerase","mutase","racemase","cyclase"], amax:6},
+    {n:6, name:"Ligase",        suf:["ligase","synthetase","carboxylase"], amax:7},
+    {n:7, name:"Translocase",   suf:["translocase","ATPase","transporter"], amax:6}
+  ];
+  var SPECIAL = ["luciferase"]; // extremophile/luminescent oddity, allowed
+  var GENUS_A = ["Thermo","Cryo","Halo","Baro","Acidi","Alkali","Xero","Radio","Pyro","Ferro","Litho","Sulfuri","Nitro","Deino"];
+  var GENUS_B = ["coccus","bacter","philus","spira","monas","thrix","globus","pyrum","vibrio","halum","bium","ferax"];
+  var SPECIES = ["abyssalis","profundus","gelidus","fumarolis","vitreus","obscurus","borealis","solaris",
+    "hadalis","eremicus","fictus","imaginalis","nullius","chimaericus","tenebris","spectralis","vacui","incognitus"];
+  var HABITAT = ["a hydrothermal vent that has never been sampled","an inland brine pool of no fixed address",
+    "a subglacial lake below ice that does not melt","a soda lake at improbable pH","a deep-sea sediment core drawn from nowhere",
+    "an acid spring on a map that does not print","a salt crust under two suns","a basalt aquifer of purely notional depth"];
+  var AA = ["ALA","ARG","ASN","ASP","CYS","GLN","GLU","GLY","HIS","ILE","LEU","LYS","MET","PHE","PRO","SER","THR","TRP","TYR","VAL"];
+  var GROUPS = ["phosphoryl","acetyl","amino","methyl","glycosyl","succinyl"];
+  var ACCEPTORS = ["NAD+","NADP+","a quinone pool","ferredoxin","molecular oxygen","a flavin cofactor"];
+
+  function makeEnzyme(seed){
+    var rng = mulberry32(seed*2654435761 >>> 0);
+    var special = rng() < 0.08;
+    var cls, suf, ecStr, className;
+    var sub = pick(rng, SUBSTRATES);
+    if(special){
+      cls = CLASSES[0]; suf = "luciferase"; className = "Oxidoreductase (luminescent)";
+      ecStr = "EC 1.13."+(11+Math.floor(rng()*4))+"."+(1+Math.floor(rng()*80));
+      sub = pick(rng, ["luciferin","coelenterazine","a diketopiperazine luciferin","furimazine analogue"]);
+    } else {
+      cls = pick(rng, CLASSES);
+      suf = pick(rng, cls.suf);
+      className = cls.name;
+      ecStr = "EC "+cls.n+"."+(1+Math.floor(rng()*(cls.amax-1)))+"."+(1+Math.floor(rng()*40))+"."+(1+Math.floor(rng()*260));
+    }
+    // name
+    var nameCore = special ? cap(pick(rng,["Renilla-like","Bathypelagic","Vent","Aurora","Nyx"]))+" "+suf
+      : cap(sub.replace(/^L-/,"")) + " " + suf;
+    if(!special && rng() < 0.42){ nameCore = cap(pick(rng,MOD)) + " " + nameCore.charAt(0).toLowerCase()+nameCore.slice(1); }
+    // organism
+    var org = pick(rng,GENUS_A)+pick(rng,GENUS_B)+" "+pick(rng,SPECIES);
+    // regime driven by "extremophile" flavour
+    var temp = 4 + Math.floor(rng()*118);
+    var ph = (2 + rng()*11).toFixed(1);
+    var regime = temp+" °C, pH "+ph;
+    // mass + residues
+    var residues = 120 + Math.floor(rng()*260);
+    var mass = (residues*0.110 + rng()*6).toFixed(1);
+    // function sentence
+    var fn;
+    switch(special?1:cls.n){
+      case 1: fn = "Catalyses the reversible oxidation of "+sub+", passing electrons to "+pick(rng,ACCEPTORS)+"."; break;
+      case 2: fn = "Transfers a "+pick(rng,GROUPS)+" group onto "+sub+" from an activated donor."; break;
+      case 3: fn = "Hydrolyses "+sub+" into its constituent products at the active-site nucleophile."; break;
+      case 4: fn = "Cleaves "+sub+" without hydrolysis, generating a new double bond."; break;
+      case 5: fn = "Interconverts stereoisomers of "+sub+" through a shielded intermediate."; break;
+      case 6: fn = "Joins "+sub+" to a second substrate at the expense of one ATP."; break;
+      case 7: fn = "Translocates "+sub+" across a membrane it has never encountered."; break;
+      default: fn = "Acts on "+sub+" by a mechanism nobody has observed.";
+    }
+    if(special) fn = "Oxidises "+sub+" and emits light at a wavelength no instrument has recorded.";
+    fn += " Isolated in silico from "+pick(rng,HABITAT)+".";
+    return {
+      seed:seed, name:nameCore, ec:ecStr, className:className, org:org, sub:sub,
+      mass:mass, residues:residues, regime:regime, fn:fn, temp:temp, ph:ph,
+      author:"the Polygenik Automated Description Engine", adopted:false
+    };
+  }
+
+  // ---------------- backbone geometry (from same seed) ----------------
+  function normalize(v){ var l=Math.hypot(v[0],v[1],v[2])||1; return [v[0]/l,v[1]/l,v[2]/l]; }
+  function cross(a,b){ return [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]]; }
+  function perp(axis){
+    var ref = Math.abs(axis[1])<0.9 ? [0,1,0] : [1,0,0];
+    var u = normalize(cross(axis,ref));
+    var v = normalize(cross(axis,u));
+    return [u,v];
+  }
+  function rotV(v, ax, ay){
+    // rotate a direction slightly
+    var cx=Math.cos(ax),sx=Math.sin(ax),cy=Math.cos(ay),sy=Math.sin(ay);
+    var y=v[1]*cx - v[2]*sx, z=v[1]*sx + v[2]*cx;
+    var x=v[0]*cy + z*sy; z=-v[0]*sy + z*cy;
+    return normalize([x,y,z]);
+  }
+  function buildBackbone(seed, n){
+    var rng = mulberry32((seed*40503+12345) >>> 0);
+    var pts=[], ss=[];
+    var pos=[0,0,0];
+    var dir=normalize([rng()-0.5,rng()-0.5,rng()-0.5]);
+    while(pts.length < n){
+      var r=rng();
+      if(r<0.46){ // helix
+        var len=9+Math.floor(rng()*18);
+        var axis=dir; var pv=perp(axis); var u=pv[0], v=pv[1];
+        var radius=2.3, rise=1.55, turn=1.75, phase=rng()*6.28;
+        for(var k=0;k<len && pts.length<n;k++){
+          var ang=phase+k*turn;
+          pos=[pos[0]+radius*(Math.cos(ang)*u[0]+Math.sin(ang)*v[0])*0.28 + axis[0]*rise,
+               pos[1]+radius*(Math.cos(ang)*u[1]+Math.sin(ang)*v[1])*0.28 + axis[1]*rise,
+               pos[2]+radius*(Math.cos(ang)*u[2]+Math.sin(ang)*v[2])*0.28 + axis[2]*rise];
+          pts.push(pos.slice()); ss.push("H");
+        }
+        dir=rotV(dir,(rng()-0.5)*1.6,(rng()-0.5)*1.6);
+      } else if(r<0.76){ // strand
+        var lenS=6+Math.floor(rng()*10);
+        for(var s=0;s<lenS && pts.length<n;s++){
+          pos=[pos[0]+dir[0]*3.3+(rng()-0.5)*0.5, pos[1]+dir[1]*3.3+(rng()-0.5)*0.5, pos[2]+dir[2]*3.3+(rng()-0.5)*0.5];
+          pts.push(pos.slice()); ss.push("E");
+        }
+        dir=rotV(dir,(rng()-0.5)*0.6,(rng()-0.5)*0.6);
+      } else { // loop
+        var lenL=3+Math.floor(rng()*7);
+        for(var l=0;l<lenL && pts.length<n;l++){
+          dir=rotV(dir,(rng()-0.5)*1.3,(rng()-0.5)*1.3);
+          pos=[pos[0]+dir[0]*3.0, pos[1]+dir[1]*3.0, pos[2]+dir[2]*3.0];
+          pts.push(pos.slice()); ss.push("L");
+        }
+      }
+    }
+    // center + scale to unit-ish box
+    var min=[1e9,1e9,1e9], max=[-1e9,-1e9,-1e9];
+    pts.forEach(function(p){ for(var i=0;i<3;i++){ if(p[i]<min[i])min[i]=p[i]; if(p[i]>max[i])max[i]=p[i]; } });
+    var c=[(min[0]+max[0])/2,(min[1]+max[1])/2,(min[2]+max[2])/2];
+    var span=Math.max(max[0]-min[0],max[1]-min[1],max[2]-min[2])||1;
+    var raw = pts.map(function(p){ return [p[0]-c[0],p[1]-c[1],p[2]-c[2]]; }); // angstrom-ish for PDB
+    var norm = raw.map(function(p){ return [p[0]/span, p[1]/span, p[2]/span]; }); // for viewer
+    return {norm:norm, raw:raw, ss:ss};
+  }
+
+  // ---------------- renderer ----------------
+  var canvas = document.getElementById("specimen");
+  var ctx = canvas.getContext("2d");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var theta = 0.6, cur=null, dpr=1;
+
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio||1, 2);
+    var r = canvas.parentNode.getBoundingClientRect();
+    canvas.width = Math.max(2,Math.floor(r.width*dpr));
+    canvas.height = Math.max(2,Math.floor(r.height*dpr));
+    if(reduce.matches && cur) draw();
+  }
+  window.addEventListener("resize", resize);
+
+  var SSCOL = { H:[64,178,168], E:[224,176,96], L:[150,158,166] };
+
+  function draw(){
+    if(!cur) return;
+    var W=canvas.width, H=canvas.height;
+    ctx.clearRect(0,0,W,H);
+    var cx=W/2, cy=H/2;
+    var scale=Math.min(W,H)*0.62;
+    var ct=Math.cos(theta), st=Math.sin(theta), tilt=0.32, ctl=Math.cos(tilt), stl=Math.sin(tilt);
+    var pts=cur.geo.norm, ss=cur.geo.ss;
+    var proj=new Array(pts.length);
+    for(var i=0;i<pts.length;i++){
+      var x=pts[i][0], y=pts[i][1], z=pts[i][2];
+      var x1=x*ct - z*st, z1=x*st + z*ct;         // yaw
+      var y1=y*ctl - z1*stl, z2=y*stl + z1*ctl;   // tilt
+      var persp=1/(1.9 - z2*0.9);
+      proj[i]={ x:cx + x1*scale*persp, y:cy + y1*scale*persp, z:z2, w:persp };
+    }
+    // draw far-to-near as tube segments
+    var order=[]; for(var j=0;j<proj.length-1;j++) order.push(j);
+    order.sort(function(a,b){ return ((proj[a].z+proj[a+1].z)) - ((proj[b].z+proj[b+1].z)); });
+    ctx.lineCap="round"; ctx.lineJoin="round";
+    for(var o=0;o<order.length;o++){
+      var idx=order[o];
+      var a=proj[idx], b=proj[idx+1];
+      var s=ss[idx];
+      var base=SSCOL[s]||SSCOL.L;
+      var depth=(a.z+1.2)/2.4; depth=Math.max(0,Math.min(1,depth));
+      var shade=0.42+0.58*depth;
+      var col="rgb("+Math.round(base[0]*shade+8)+","+Math.round(base[1]*shade+10)+","+Math.round(base[2]*shade+12)+")";
+      var lw=(s==="H"?9:(s==="E"?7.5:4.2))*dpr*a.w;
+      ctx.strokeStyle=col; ctx.lineWidth=lw;
+      ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+      if(s==="E" && depth>0.35){ // strand highlight edge
+        ctx.strokeStyle="rgba(255,240,200,"+(0.10*depth)+")"; ctx.lineWidth=lw*0.4;
+        ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+      }
+    }
+  }
+
+  function loop(){
+    if(!reduce.matches){ theta += 0.0045; draw(); }
+    requestAnimationFrame(loop);
+  }
+
+  // ---------------- state / catalogue ----------------
+  var catalogue=[]; // list of enzyme objs (with geo)
+  var viewIndex=-1;
+  var nextSeed=1;
+  var ADOPT_KEY="pgk_enzyme_adoptions";
+  var adoptions={};
+  try{ adoptions=JSON.parse(localStorage.getItem(ADOPT_KEY)||"{}")||{}; }catch(e){ adoptions={}; }
+
+  function styleAuthor(name){
+    name=name.trim().replace(/\s+/g," ").slice(0,40);
+    if(!name) return "";
+    return name; // used as describing-author attribution
+  }
+
+  function specimenLabel(idx){ return "SPECIMEN No. "+pad(idx+1,6); }
+
+  function makeAndCatalogue(seed){
+    var e=makeEnzyme(seed);
+    e.geo=buildBackbone(seed, e.residues);
+    if(adoptions[seed]){ e.author=adoptions[seed]; e.adopted=true; }
+    catalogue.push(e);
+    return catalogue.length-1;
+  }
+
+  function renderSpecimen(idx){
+    var e=catalogue[idx];
+    cur=e; viewIndex=idx;
+    document.getElementById("stampNo").textContent=specimenLabel(idx);
+    document.getElementById("enzName").textContent=e.name;
+    document.getElementById("enzEc").textContent=e.ec+"  ·  "+e.className;
+    document.getElementById("enzOrg").textContent=e.org;
+    document.getElementById("enzSub").textContent=e.sub;
+    document.getElementById("enzMass").textContent=e.mass+" kDa (predicted)";
+    document.getElementById("enzLen").textContent=e.residues+" aa";
+    document.getElementById("enzRegime").textContent=e.regime;
+    document.getElementById("enzFn").textContent=e.fn;
+    document.getElementById("enzAuthor").textContent=e.author;
+    updateAdoptTarget();
+    if(reduce.matches) draw();
+    renderCatalogue();
+  }
+
+  function renderCatalogue(){
+    var grid=document.getElementById("catalogue");
+    if(catalogue.length===0){ grid.innerHTML='<div class="cat-empty">Press <b>Next</b> to begin cataloguing.</div>'; return; }
+    var html="";
+    for(var i=0;i<catalogue.length;i++){
+      var e=catalogue[i];
+      var authLine = e.adopted ? '<div class="cc-auth">described by '+escapeHtml(e.author)+'</div>' : "";
+      html+='<div class="cat-cell'+(i===viewIndex?" active":"")+'" data-idx="'+i+'" role="button" tabindex="0">'
+        +'<div class="cc-no">'+pad(i+1,6)+'</div>'
+        +'<div class="cc-name">'+escapeHtml(e.name)+'</div>'
+        +'<div class="cc-ec">'+e.ec+'</div>'
+        +'<div class="cc-org">'+escapeHtml(e.org)+'</div>'
+        +authLine
+        +'</div>';
+    }
+    grid.innerHTML=html;
+    document.getElementById("catCount").textContent=catalogue.length+" specimen"+(catalogue.length===1?"":"s")+" catalogued this session";
+  }
+
+  function escapeHtml(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+
+  document.getElementById("catalogue").addEventListener("click",function(ev){
+    var cell=ev.target.closest(".cat-cell"); if(!cell) return;
+    renderSpecimen(parseInt(cell.getAttribute("data-idx"),10));
+  });
+  document.getElementById("catalogue").addEventListener("keydown",function(ev){
+    if(ev.key!=="Enter" && ev.key!==" ") return;
+    var cell=ev.target.closest(".cat-cell"); if(!cell) return;
+    ev.preventDefault(); renderSpecimen(parseInt(cell.getAttribute("data-idx"),10));
+  });
+
+  // ---------------- NEXT ----------------
+  document.getElementById("btnNext").addEventListener("click",function(){
+    var idx=makeAndCatalogue(nextSeed++);
+    renderSpecimen(idx);
+  });
+
+  // ---------------- downloads ----------------
+  function triggerDownload(filename, text, mime){
+    var uri="data:"+(mime||"text/plain")+";charset=utf-8,"+encodeURIComponent(text);
+    var a=document.createElement("a");
+    a.href=uri; a.download=filename; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  }
+  function safeName(e){ return e.name.toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"").slice(0,40); }
+
+  function buildPDB(e, idx){
+    var L=[];
+    var id="XE"+pad(idx+1,2).slice(-2);
+    L.push("HEADER    FABRICATED ENZYME (NOT REAL)            08-AUG-26   "+id);
+    L.push("TITLE     "+e.name.toUpperCase().slice(0,60));
+    L.push("COMPND    MOL_ID: 1;");
+    L.push("COMPND   2 MOLECULE: "+e.name.toUpperCase().slice(0,48)+";");
+    L.push("COMPND   3 EC: "+e.ec.replace("EC ","")+";");
+    L.push("SOURCE    ORGANISM_SCIENTIFIC: "+e.org.toUpperCase()+" (DOES NOT EXIST);");
+    L.push("REMARK   1 THIS STRUCTURE IS PROCEDURALLY GENERATED AND ENTIRELY FICTIONAL.");
+    L.push("REMARK   1 NO SUCH ENZYME, ORGANISM, OR SEQUENCE EXISTS. NOT A PREDICTION.");
+    L.push("REMARK   1 GENERATED CLIENT-SIDE BY THISENZYMEDOESNOTEXIST.COM (POLYGENIK");
+    L.push("REMARK   1 x BINOMICA LABS). DESCRIBED BY: "+e.author.toUpperCase());
+    L.push("REMARK   2 PREDICTED MASS "+e.mass+" KDA. OPTIMAL REGIME "+e.regime+".");
+    var pts=e.geo.raw, ss=e.geo.ss, serial=1;
+    function f(x,w,d){ var s=x.toFixed(d); while(s.length<w) s=" "+s; return s; }
+    for(var i=0;i<pts.length;i++){
+      var res=AA[(i*7+ (i>>2)) % AA.length];
+      var rn=i+1;
+      var rec="ATOM  "+f(serial,5,0)+"  CA  "+res+" A"+f(rn,4,0)+"    "
+        +f(pts[i][0],8,3)+f(pts[i][1],8,3)+f(pts[i][2],8,3)
+        +"  1.00"+f(35+ (ss[i]==="L"?25:10),6,2)+"           C";
+      L.push(rec); serial++;
+    }
+    L.push("TER   "+f(serial,5,0)+"      "+AA[(pts.length*7)%AA.length]+" A"+f(pts.length,4,0));
+    L.push("END");
+    return L.join("\n")+"\n";
+  }
+
+  function buildCard(e, idx){
+    var line="----------------------------------------------------------\n";
+    var t="";
+    t+="THIS ENZYME DOES NOT EXIST  ---  DATA CARD\n"+line;
+    t+="Specimen        : "+specimenLabel(idx)+"\n";
+    t+="Name            : "+e.name+"\n";
+    t+="EC number       : "+e.ec+"  ("+e.className+")\n";
+    t+="Source organism : "+e.org+"  (fictional)\n";
+    t+="Substrate       : "+e.sub+"\n";
+    t+="Predicted mass  : "+e.mass+" kDa\n";
+    t+="Residues        : "+e.residues+" aa\n";
+    t+="Optimal regime  : "+e.regime+"\n";
+    t+="Function        : "+e.fn+"\n";
+    t+="Described by    : "+e.author+"\n";
+    t+="Seed            : "+e.seed+"\n"+line;
+    t+="STATUS: FABRICATED. This enzyme is not real. No such organism,\n";
+    t+="sequence, or activity exists. This card, and the accompanying\n";
+    t+=".pdb file, describe nothing that has ever been observed.\n\n";
+    t+="A POLYGENIK property, in collaboration with Binomica Labs.\n";
+    t+="After Sebastian Cocioba's Infinite Discovery Machine.\n";
+    t+="Generated in-browser. Nothing stored. thisenzymedoesnotexist.com\n";
+    return t;
+  }
+
+  function doDownload(){
+    if(!cur) return;
+    var e=cur, idx=viewIndex, base=safeName(e);
+    triggerDownload(base+".pdb", buildPDB(e,idx), "chemical/x-pdb");
+    setTimeout(function(){ triggerDownload(base+"_datacard.txt", buildCard(e,idx), "text/plain"); }, 120);
+  }
+  document.getElementById("btnDownload").addEventListener("click", doDownload);
+  document.getElementById("dlPdb").addEventListener("click", function(){ if(cur) triggerDownload(safeName(cur)+".pdb", buildPDB(cur,viewIndex),"chemical/x-pdb"); });
+  document.getElementById("dlCard").addEventListener("click", function(){ if(cur) triggerDownload(safeName(cur)+"_datacard.txt", buildCard(cur,viewIndex),"text/plain"); });
+
+  // ---------------- adopt ----------------
+  var selPrice=12;
+  document.getElementById("tiers").addEventListener("click",function(ev){
+    var t=ev.target.closest(".tier"); if(!t) return;
+    document.querySelectorAll(".tier").forEach(function(x){x.classList.remove("sel");});
+    t.classList.add("sel"); selPrice=parseInt(t.getAttribute("data-price"),10);
+  });
+  function updateAdoptTarget(){
+    var el=document.getElementById("adoptTarget"), meta=document.getElementById("adoptTargetMeta");
+    if(!cur){ el.firstChild&&(el.firstChild.textContent=""); return; }
+    el.innerHTML=escapeHtml(cur.name)+'<small>'+specimenLabel(viewIndex)+' · '+cur.ec+(cur.adopted?(" · described by "+escapeHtml(cur.author)):"")+'</small>';
+  }
+  document.getElementById("btnName").addEventListener("click",function(){
+    document.getElementById("adopt-sec").scrollIntoView({behavior: reduce.matches?"auto":"smooth"});
+    document.getElementById("authorName").focus();
+  });
+  document.getElementById("btnAdopt").addEventListener("click",function(){
+    if(!cur){ return; }
+    var name=styleAuthor(document.getElementById("authorName").value);
+    var rec=document.getElementById("receipt");
+    if(!name){ rec.className="receipt show"; rec.textContent="Enter a describing author first. (No name, no attribution.)"; return; }
+    cur.author=name; cur.adopted=true;
+    adoptions[cur.seed]=name;
+    try{ localStorage.setItem(ADOPT_KEY, JSON.stringify(adoptions)); }catch(e){}
+    document.getElementById("enzAuthor").textContent=name;
+    updateAdoptTarget();
+    renderCatalogue();
+    rec.className="receipt show";
+    rec.innerHTML="ADOPTION RECORDED (LOCAL) &nbsp;·&nbsp; $"+selPrice+".00 not charged\n"
+      +"------------------------------------------\n"
+      +escapeHtml(cur.name)+"\n"+specimenLabel(viewIndex)+" · "+cur.ec+"\n"
+      +"Now described by: "+escapeHtml(name)+"\n"
+      +"------------------------------------------\n"
+      +"Honorific only. No payment taken, nothing sent. Stored in this browser.\n"
+      +"The enzyme still does not exist. It simply does not exist in your name.";
+    rec.innerHTML=rec.innerHTML.replace(/\n/g,"<br>");
+  });
+
+  // ---------------- boot ----------------
+  reduce.addEventListener && reduce.addEventListener("change", function(){ if(reduce.matches) draw(); });
+  resize();
+  var first=makeAndCatalogue(nextSeed++);
+  renderSpecimen(first);
+  requestAnimationFrame(loop);
+})();
+</script>
